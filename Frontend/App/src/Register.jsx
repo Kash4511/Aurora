@@ -20,6 +20,7 @@ function Register() {
 
   return (
     <div>
+        <h1>Register</h1>
         <input
         type="text"
         placeholder="Username"
@@ -41,6 +42,9 @@ function Register() {
         onChange={(e) => setFirstName(e.target.value)}
         
       />
+      <DeviceMotionEvent.div>
+        
+      </DeviceMotionEvent.div>
       <button onClick={post}>Register</button>
 
     </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { motion } from 'motion/react';
+
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -18,23 +20,88 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={post}>Login</button>
+    <>
+    <div className='Background'>
+      <div id='Padding'>
+
+        <h1 
+        id="name"
+        
+        >Login</h1>
+        <div
+          id="photo"
+          
+        >
+
+        </div>
+    
+        <motion.div>
+          <motion.input
+            id="user"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            initial={{ scale: 1 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.1, color: '#ffff', backgroundColor: '#222121' }}
+            whileTap={{ scale: 1 }}
+            style={{
+              fontFamily: "'Poppins', sans-serif", // Apply Poppins font
+              fontSize: "1.4rem", // Adjust placeholder size (e.g., 1.2rem = ~19px)
+              padding: "10px 15px", // Optional: Add padding for better appearance
+            }}
+          />
+        </motion.div>
+    
+        <motion.div>
+            <motion.input
+                  id="pass"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  initial={{ scale: 1 }}
+                  animate={{ scale: 1 }}
+                  whileHover={{  scale: 1.05}}
+                  whileTap={{ scale: 1 }}
+                  style={{
+                    fontFamily: "'Poppins', sans-serif", 
+                    fontSize: "1.4rem", 
+                    padding: "10px 15px", 
+
+                  }}
+                />
+        </motion.div>
+    
+        <motion.button
+          id="button"
+          onClick={post}
+          initial={{ scale: 1 }}
+          animate={{ scale: 1 }}
+          whileHover={{ 
+            scale: 1.05, 
+            backgroundColor: 242424,  
+          
+            
+          }}
+          whileTap={{ scale: 0.98 }}
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontSize: "1.4rem",
+            padding: "10px 15px",
+          
+            borderRadius: "50px", // Match border radius
+            cursor: "pointer", // Add pointer cursor
+          }}
+        >
+          Login
+        </motion.button>
+        </div>
     </div>
+    </>
   );
+  
 }
 
 export default Login;
