@@ -4,12 +4,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 99vw;
     height: 1626px;
     background: #F9F9F9;
     margin: 0;
     padding: 0;
     z-index: -1;
+    position: absolute; 
 }
 
 #Aurora {
@@ -89,7 +90,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
-margin-top: 170px;
+margin-top: 120px;
 margin-left: 50px;
 position:absolute;
 }
@@ -101,7 +102,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
-margin-top: 170px;
+margin-top: 120px;
 margin-left: 350px;
 position: absolute;
 }
@@ -112,7 +113,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
-margin-top: 240px;
+margin-top: 190px;
 margin-left: 50px;
 position:absolute;
 }
@@ -124,7 +125,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
-margin-top: 240px;
+margin-top: 190px;
 margin-left: 350px;
 position: absolute;
 }
@@ -138,12 +139,12 @@ font-size: 25px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
-margin-top: 320px;
+margin-top: 280px;
 margin-left: 50px;
 position:absolute;
 }
 #Singup {
-    width: 150px;
+    width: 190px;
     height: 60px;
     flex-shrink: 0;
     border-radius: 18px;
@@ -154,11 +155,210 @@ position:absolute;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin-left: 1330px;
-    margin-top: 15px;
     position: absolute;
-    margin-top: 320px;
-    margin-left: 50px;
+    margin-top: 410px;
+    margin-left: 46px;
 
 
+}
+
+#Learn {
+    width: 190px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: #F3E1C0;
+    /* color: #1F1F1F; */
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+        
+    border: none;             
+    outline: none;  
+
+    position: absolute;
+    margin-top: 410px;
+    margin-left: 260px;
+
+
+
+}
+
+.fea {
+    background-image: url('../assets/Ellipse 1.svg');
+  
+
+
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 670px;
+  }
+
+  #stop {
+    background-image: url('../assets/stop.png');
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 15px;
+
+  }
+#stop2 {
+    width: 241px;
+height: 106px;
+flex-shrink: 0;
+color: #000;
+text-align: center;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+position: absolute;
+margin-left: -90px;
+margin-top: 100px;
+}
+#stop3 {
+    width: 275px;
+    height: 122px;
+    flex-shrink: 0;
+    color: #1C1C1C;
+text-align: center;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+position: absolute;
+margin-left: -100px;
+margin-top: 200px;
+}
+.fea1 {
+    background-image: url('../assets/Ellipse 1.svg');
+  
+
+
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 0px;
+  }
+#loc {
+    background-image: url('../assets/loc.png');
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 15px;
+
+  }
+#loc2 {
+    width: 241px;
+height: 106px;
+flex-shrink: 0;
+color: #000;
+text-align: center;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+position: absolute;
+margin-left: -90px;
+margin-top: 100px;
+}
+#loc3 {
+    width: 275px;
+    height: 122px;
+    flex-shrink: 0;
+    color: #1C1C1C;
+text-align: center;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+position: absolute;
+margin-left: -100px;
+margin-top: 200px;
+}
+
+.fea2 {
+    background-image: url('../assets/Ellipse 1.svg');
+  
+
+
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 1200px;
+    margin-top: 670px;
+  }
+#bell {
+    background-image: url('../assets/bell.png');
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 15px;
+
+  }
+#bell2 {
+    width: 241px;
+height: 106px;
+flex-shrink: 0;
+color: #000;
+text-align: center;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+position: absolute;
+margin-left: -90px;
+margin-top: 100px;
+}
+#bell3 {
+    width: 275px;
+    height: 122px;
+    flex-shrink: 0;
+    color: #1C1C1C;
+text-align: center;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+position: absolute;
+margin-left: -100px;
+margin-top: 200px;
 }

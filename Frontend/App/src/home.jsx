@@ -168,7 +168,137 @@ function Home() {
     >
       Sign Up
     </motion.button>
+    <motion.button
+      id="Learn"
+      initial={{ opacity: 0, y: 50 }}  // Starts invisible and 50px down
+        animate={{ opacity: 1, y: 0 }}   // Ends visible and at normal position
+        transition={{ 
+        duration: 0.9, 
+        ease: 'easeOut',
+        delay: 0.3     // Optional: Add slight delay for staggered animations
+        }}
+      onClick={post}
+      whileHover={{
+        scale: 1.1,
+        color: '#1F1F1F',
+        backgroundColor: '#F3E1C0',
+        transition: { duration: 0.1 }
+      }}
+      whileTap={{
+        scale: 0.9,
+        transition: { duration: 0.1 }
+      }}
+    >
+      Learn More
+    </motion.button>
     </motion.div>
+    <motion.div
+  className="fea"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.9, ease: 'easeOut' }}
+  viewport={{ once: true, amount: 0.3 }} // Optional config
+>
+  <motion.div
+    id="stop"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <motion.h1
+      id="stop2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.4 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      List an Item in Seconds
+    </motion.h1>
+
+    <motion.h1
+      id="stop3"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      Snap a photo, Set your price and you’re live
+    </motion.h1>
+  </motion.div>
+  <motion.div
+  className="fea1"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.9, ease: 'easeOut' }}
+  viewport={{ once: true, amount: 0.3 }} // Optional config
+>
+  <motion.div
+    id="loc"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <motion.h1
+      id="loc2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.4 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      Discover 
+      Local finds
+    </motion.h1>
+
+    <motion.h1
+      id="loc3"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      Explore Unique Items near you today
+    </motion.h1>
+  </motion.div>
+</motion.div>
+</motion.div>
+<motion.div
+  className="fea2"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.9, ease: 'easeOut' }}
+  viewport={{ once: true, amount: 0.3 }} // Optional config
+>
+  <motion.div
+    id="bell"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <motion.h1
+      id="bell2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.4 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      Stay Updated
+    </motion.h1>
+
+    <motion.h1
+      id="bell3"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      Get alerts when someone saves, likes, or views your listing.
+    </motion.h1>
+  </motion.div>
+</motion.div>
+
 </div>
 
 
