@@ -225,6 +225,27 @@ function Home() {
     >
       Snap a photo, Set your price and you’re live
     </motion.h1>
+    <motion.button
+    id='stop4'
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+    viewport={{ once: true, amount: 0.3 }}
+    whileHover={{
+      scale: 1.1,
+      color: '#fff',
+      backgroundColor: '#222121',
+      transition: { duration: 0.1 }
+    }}
+    whileTap={{
+      scale: 0.9,
+      transition: { duration: 0.1 }
+    }}
+
+    
+    >Start Selling
+
+    </motion.button>
   </motion.div>
   <motion.div
   className="fea1"
@@ -260,6 +281,27 @@ function Home() {
     >
       Explore Unique Items near you today
     </motion.h1>
+    <motion.button
+    id='loc4'
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+    viewport={{ once: true, amount: 0.3 }}
+    whileHover={{
+      scale: 1.1,
+      color: '#1F1F1F',
+      backgroundColor: '#F3E1C0',
+      transition: { duration: 0.1 }
+    }}
+    whileTap={{
+      scale: 0.9,
+      transition: { duration: 0.1 }
+    }}
+
+    
+    >Browse Listing
+
+    </motion.button>
   </motion.div>
 </motion.div>
 </motion.div>
@@ -284,7 +326,8 @@ function Home() {
       transition={{ duration: 0.9, ease: 'easeOut', delay: 0.4 }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      Stay Updated
+      Stay 
+      Updated
     </motion.h1>
 
     <motion.h1
@@ -296,8 +339,110 @@ function Home() {
     >
       Get alerts when someone saves, likes, or views your listing.
     </motion.h1>
+    <motion.button
+    id='bell4'
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+    viewport={{ once: true, amount: 0.3 }}
+    whileHover={{
+      scale: 1.1,
+      color: '#1F1F1F',
+      backgroundColor: '#F3E1C0',
+      transition: { duration: 0.1 }
+    }}
+    whileTap={{
+      scale: 0.9,
+      transition: { duration: 0.1 }
+    }}
+
+    
+    >Get Updates
+
+    </motion.button>
   </motion.div>
 </motion.div>
+  <motion.div className='line'
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+
+  
+  >
+    <motion.h1
+      id="footer"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >Aurora
+
+    </motion.h1>
+    <motion.h1
+      id="footer1"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >discover, list, connect 
+
+    </motion.h1>
+    <motion.h1
+      id="footer2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >Home     
+
+    </motion.h1>
+    <motion.h1
+      id="footer3"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >About  
+
+    </motion.h1>
+    <motion.h1
+      id="footer4"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >Contact 
+
+    </motion.h1>
+    <motion.h1
+      id="footer5"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >@2025 Aurora 
+
+    </motion.h1>
+    <motion.h1
+      id="footer6"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
+      viewport={{ once: true, amount: 0.3 }}
+    
+    >Made by Kaashif Ameen
+
+    </motion.h1>
+
+
+  </motion.div>
 
 </div>
 
