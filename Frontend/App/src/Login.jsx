@@ -21,8 +21,7 @@ function Login() {
 
   return (
     <>
-    <div className='Background'>
-      <div id='Padding'>
+    
 
         <h1 
         id="name"
@@ -81,9 +80,7 @@ function Login() {
           animate={{ scale: 1 }}
           whileHover={{ 
             scale: 1.05, 
-            backgroundColor: 242424,  
-          
-            
+           
           }}
           whileTap={{ scale: 0.98 }}
           style={{
@@ -97,8 +94,7 @@ function Login() {
         >
           Login
         </motion.button>
-        </div>
-    </div>
+
     </>
   );
   

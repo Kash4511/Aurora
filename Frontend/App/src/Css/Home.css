@@ -1,0 +1,164 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+.Background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 1626px;
+    background: #F9F9F9;
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+}
+
+#Aurora {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+position: absolute;
+margin-left: 50px;
+}
+#Home {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 25px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+position: absolute;
+margin-left: 500px;
+margin-top: 27px;
+}
+#About {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 25px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+position: absolute;
+margin-left: 750px;
+margin-top: 27px;
+}
+#Contact {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 25px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+position: absolute;
+margin-left: 1000px;
+margin-top: 27px;
+}
+#Login {
+    width: 150px;
+height: 60px;
+flex-shrink: 0;
+border-radius: 18px;
+background: #1F1F1F;
+color: #FFF;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-left: 1330px;
+margin-top: 15px;
+}
+
+.photo {
+    background-image: url('../assets/Group 11.svg');
+    width: 670px;
+height: 484px;
+flex-shrink: 0;
+position: absolute;
+    margin-left: 840px;
+margin-top: 60px;
+    
+}
+
+#simple {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 45px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+margin-top: 170px;
+margin-left: 50px;
+position:absolute;
+}
+
+#simple2 {
+    color: #3F6F52;
+font-family: Poppins;
+font-size: 45px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+margin-top: 170px;
+margin-left: 350px;
+position: absolute;
+}
+#Better {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 45px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+margin-top: 240px;
+margin-left: 50px;
+position:absolute;
+}
+
+#Better2 {
+    color: #3F6F52;
+font-family: Poppins;
+font-size: 45px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+margin-top: 240px;
+margin-left: 350px;
+position: absolute;
+}
+#dis {
+    width: 598px;
+height: 122px;
+flex-shrink: 0;
+color: #1C1C1C;
+font-family: Poppins;
+font-size: 25px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 320px;
+margin-left: 50px;
+position:absolute;
+}
+#Singup {
+    width: 150px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: #1F1F1F;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 1330px;
+    margin-top: 15px;
+    position: absolute;
+    margin-top: 320px;
+    margin-left: 50px;
+
+
+}
