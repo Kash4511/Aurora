@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import './Css/Home.css';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 function Home() {
+    const navigator = useNavigate();
 
     const post = async () => {
         try {
@@ -60,7 +62,7 @@ function Home() {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      onClick={post}
+      onClick={() => navigator ('/login')}
       whileHover={{
         scale: 1.1,
         color: '#fff',

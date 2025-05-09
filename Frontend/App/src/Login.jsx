@@ -21,79 +21,121 @@ function Login() {
 
   return (
     <>
-    
+    <motion.div className='login-box'>
+      <motion.div
+       id='login-form'
+      > 
+       <motion.h1 
+       id='login-title'
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
 
-        <h1 
-        id="name"
+       >Buy & Sell Furniture Easily
+
+
+       </motion.h1>
+       <motion.h1 
+       id='login-title1'
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+
+       >Login
+
+
+       </motion.h1>
+       <motion.div>
+       <motion.input id='username'
+               initial={{ opacity: 0, y: 50 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.8, ease: 'easeInOut' }}
+               whileHover={{ scale: 1.1, duration:0.9 }}
+               
+                onChange={(e) => setUsername(e.target.value)}
+                type='text'
+
+
+               
+               
+               >
+                
+               </motion.input>
+        <motion.h1 id='user'
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
         
-        >Login</h1>
-        <div
-          id="photo"
-          
-        >
+        >Username
 
-        </div>
-    
-        <motion.div>
-          <motion.input
-            id="user"
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            initial={{ scale: 1 }}
-            animate={{ scale: 1 }}
-            whileHover={{ scale: 1.1, color: '#ffff', backgroundColor: '#222121' }}
-            whileTap={{ scale: 1 }}
-            style={{
-              fontFamily: "'Poppins', sans-serif", // Apply Poppins font
-              fontSize: "1.4rem", // Adjust placeholder size (e.g., 1.2rem = ~19px)
-              padding: "10px 15px", // Optional: Add padding for better appearance
-            }}
-          />
+        </motion.h1>
         </motion.div>
-    
-        <motion.div>
-            <motion.input
-                  id="pass"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  initial={{ scale: 1 }}
-                  animate={{ scale: 1 }}
-                  whileHover={{  scale: 1.05}}
-                  whileTap={{ scale: 1 }}
-                  style={{
-                    fontFamily: "'Poppins', sans-serif", 
-                    fontSize: "1.4rem", 
-                    padding: "10px 15px", 
 
-                  }}
-                />
-        </motion.div>
-    
-        <motion.button
-          id="button"
-          onClick={post}
-          initial={{ scale: 1 }}
-          animate={{ scale: 1 }}
-          whileHover={{ 
-            scale: 1.05, 
-           
-          }}
-          whileTap={{ scale: 0.98 }}
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "1.4rem",
-            padding: "10px 15px",
-          
-            borderRadius: "50px", // Match border radius
-            cursor: "pointer", // Add pointer cursor
-          }}
-        >
-          Login
+
+       
+       <motion.input id='password'
+               initial={{ opacity: 0, y: 50 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.8, ease: 'easeInOut' }}
+               whileHover={{ scale: 1.1, duration:0.9 }}
+               
+                onChange={(e) => setPassword(e.target.value)}
+                type='password'
+
+               
+               
+               >
+
+               </motion.input>
+
+        <motion.h1 id='pass'
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: 'easeInOut' }}
+        
+        >Password
+
+        </motion.h1>
+        <motion.button id='login-button'
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.1, duration: 0.9 }}
+        onClick={post}
+        >Login
         </motion.button>
+        </motion.div>
+        <motion.div id='photo'
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}>
+              <motion.h1 id='or'
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+              >
+                Dont have an account?
+
+              </motion.h1>
+              <motion.h1 id='or1'
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+              >
+                Register
+
+              </motion.h1>
+
+
+        </motion.div>
+
+
+
+       </motion.div>
+
+
+    
+
 
     </>
   );

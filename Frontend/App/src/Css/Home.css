@@ -26,35 +26,35 @@ margin-left: 50px;
 #Home {
     color: #2B463C;
 font-family: Poppins;
-font-size: 25px;
+font-size: 20px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
 position: absolute;
 margin-left: 500px;
-margin-top: 27px;
+margin-top: 30px;
 }
 #About {
     color: #2B463C;
 font-family: Poppins;
-font-size: 25px;
+font-size: 20px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
 position: absolute;
 margin-left: 750px;
-margin-top: 27px;
+margin-top: 30px;
 }
 #Contact {
     color: #2B463C;
 font-family: Poppins;
-font-size: 25px;
+font-size: 20px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
 position: absolute;
 margin-left: 1000px;
-margin-top: 27px;
+margin-top: 30px;
 }
 #Login {
     width: 150px;
@@ -90,7 +90,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
-margin-top: 120px;
+margin-top: 157px;
 margin-left: 50px;
 position:absolute;
 }
@@ -102,7 +102,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
-margin-top: 120px;
+margin-top: 157px;
 margin-left: 350px;
 position: absolute;
 }
@@ -113,7 +113,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 300;
 line-height: normal;
-margin-top: 190px;
+margin-top: 210px;
 margin-left: 50px;
 position:absolute;
 }
@@ -125,17 +125,17 @@ font-size: 45px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
-margin-top: 190px;
+margin-top: 210px;
 margin-left: 350px;
 position: absolute;
 }
 #dis {
-    width: 598px;
+    width: 480px;
 height: 122px;
 flex-shrink: 0;
 color: #1C1C1C;
 font-family: Poppins;
-font-size: 25px;
+font-size: 20px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
@@ -156,7 +156,7 @@ position:absolute;
     font-weight: 400;
     line-height: normal;
     position: absolute;
-    margin-top: 410px;
+    margin-top: 400px;
     margin-left: 46px;
 
 
@@ -179,7 +179,7 @@ position:absolute;
     outline: none;  
 
     position: absolute;
-    margin-top: 410px;
+    margin-top: 400px;
     margin-left: 260px;
 
 

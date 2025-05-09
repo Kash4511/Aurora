@@ -1,166 +1,149 @@
-/* Fixed background container */
-/* In your CSS file (e.g., App.css) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
-.Background {  /* Match JSX className */
-  position: fixed;
+.login-box {
+  background: #EFE7DA;
+  width: 100vw; 
+  height: 100vh; 
+  position: fixed; 
   top: 0;
-  left: 0;
-  width: 100vw;  /* Changed from 1440vw */
-  height: 100vh;
-  background: radial-gradient(50% 50% at 50% 50%, #3A3F3F 0%, #1E1E1E 100%);
-  margin: 0;
-  padding: 0;
-  z-index: -1;  /* Ensure it stays behind content */
+  left: 0; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
 }
-#name{
-  
-    color: #CECCCC;               
-    font-family: 'Poppins', sans-serif;  
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;            
-    text-align: left;             
-    margin: 40px 0 20px 30px;    
-    padding: 0;                  
-    user-select: none;
-    margin-left: 195px;  
-    margin-top: 170px; 
-    position: absolute;              
-  
+#login-form {
+  width: 600px;
+  height: 900px;
+  background: #FAFAF8;
+  margin-left: -1000px;
+  position: relative;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
-/* Shared styles for all interactive elements */
-#user {
-  width: 270px;          /* Match layout width */
-  height: 30px;          /* Match layout height */
-  flex-shrink: 0;
-  border-radius: 50px;
-  border: 1px solid #7E7E7E; /* Unified border color */
-  background: #242424;    /* Flat background */
-  color: #7E7E7E;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
-  padding: 0 20px;       /* Horizontal padding only */
-  outline: none;         /* Remove default focus outline */
-  margin: 10px 0; 
-  margin-left: 100px;  /* Adjust as needed */
-  margin-top: 290px; 
-  position: absolute;       /* Spacing between elements */
-}
-#pass {
-  width: 270px;          /* Match layout width */
-  height: 30px;          /* Match layout height */
-  flex-shrink: 0;
-  border-radius: 50px;
-  border: 1px solid #7E7E7E; /* Unified border color */
-  background: #242424;    /* Flat background */
-  color: #7E7E7E;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
-  padding: 0 20px;       /* Horizontal padding only */
-  outline: none;         /* Remove default focus outline */
-  margin: 10px 0; 
-  margin-left: 100px;  /* Adjust as needed */
-  margin-top: 370px; 
-  position: absolute;       /* Spacing between elements */
-}
-/* Button-specific adjustments */
-#button {
-  cursor: pointer;
-  display: flex;          /* Enables flexbox */
-  justify-content: center; /* Centers horizontally */
-  align-items: center;     /* Centers vertically */
+#login-title {
+  color: #1C4C3A;
+  font-family: Poppins;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  position: absolute;
   width: 300px;
-  height: 47px;
+  top: 130px;
+  left: 100px;
+}
+#login-title1 {
+  color: #1C4C3A;
+  font-family: Poppins;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  position: absolute;
+  width: 300px;
+  top: 300px;
+  left: 100px;
+}
+#username {
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+margin-left: -40px;
+margin-top: 0px;
+
+}
+
+#user {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: -85px;
+margin-left: -18px;
+position: absolute;
+}
+#password {
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+border-radius: 18px;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+border: 1px solid #D0D0D0;
+background: #FFF;
+margin-left: -40px;
+margin-top: 200px;
+position: absolute;
+}
+
+#pass {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 120px;
+left: 110px;
+position: absolute;
+}
+#login-button {
+  width: 370px;
+  height: 50px;
   flex-shrink: 0;
-  border-radius: 50px;
-  border: 1px solid #7E7E7E;
-  background: #242424;
-  color: #7E7E7E;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
-  padding: 0 20px;
-  margin: 20px 0;
-  margin-left: 100px;
-  margin-top: 450px;
-  /* Remove conflicting 'text-align' since we're using flexbox */
-  /* Remove 'top' property as it's not needed with margin-top */
-}
-
-/* Optional: Hover effects */
-#user:hover, #pass:hover, #button:hover {
-  border-color: #CECCCC; /* Lighten border on hover */
-}
-#Padding {
-  width: 1100px;
-  height: 680px;
-  border-radius: 50px;
-  border: 1px solid #545353;
-  background:  linear-gradient(180deg, rgba(58, 63, 63, 0.25) 0%, rgba(30, 30, 30, 0.25) 100%);
-
-
-  box-shadow: 15px 20px 10px 10px rgba(0, 0, 0, 0.25);
-  
-  /* Center the container */
+  border-radius: 18px;
+  font-size: 20px;
+  font-family: Poppins;
+  font-style: normal;
+  border: 1px solid #1C4C3A;
+  background: #1C4C3A;
+  margin-left: -40px;
+  margin-top: 400px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  color: #FFF;
 }
-
-#photo {
+#photo{
+background-image: url('../assets/Group 12.svg');
+width: 770px;
+height: 584px;
+flex-shrink: 0;
+position: absolute;
+margin-left: 540px;
+margin-top: 60px;
+display: flex;
+align-items: center;
+}
+#or{
+  color: #858585;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   position: absolute;
-  right: -200px; /* Adjust this to move left/right */
-  top: 50%;
-  left: 45%;
-  
-  transform: translateY(-50%);
-  width: 580px; /* Image width */
-  height: 660px; /* Slightly less than form height */
-  border-radius: 30px;
-  overflow: hidden;
-  border: 1px solid #545353;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-  margin-left: 0px;
-  margin-top: 0px;
-  background-image: url('./assets/Phot.svg'); /* Path to your SVG */
-  background-size: cover; /* Ensure the image covers the entire area */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; 
+  margin-left: -590px;
+  margin-top: 470px;
 }
-
-
-/* a {
+#or1{
+  color: #1C4C3A;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  line-height: normal;
+  position: absolute;
+  margin-left: -590px;
+  margin-top: 550px;
 }
-a:hover {
-  color: #535bf2;
-}
 
-
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-} */
-
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-} */
-/* button:hover {
-  border-color: #646cff;
-} */
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
