@@ -127,7 +127,7 @@ align-items: center;
 #or{
   color: #858585;
   font-family: Poppins;
-  font-size: 20px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -135,15 +135,20 @@ align-items: center;
   margin-left: -590px;
   margin-top: 470px;
 }
-#or1{
-  color: #1C4C3A;
-  font-family: Poppins;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  position: absolute;
-  margin-left: -590px;
-  margin-top: 550px;
+#or1 {
+  color:  #1C4C3A;
+font-family: Poppins;
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-left: -300px;
+margin-top: 460px;
+position: absolute;
+background-color: #FAFAF8;
+border: none;
+outline: none;
+border-radius: 10px;
+
 }
 

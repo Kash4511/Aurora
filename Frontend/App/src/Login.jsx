@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
+  const navigator = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -117,14 +119,17 @@ function Login() {
                 Dont have an account?
 
               </motion.h1>
-              <motion.h1 id='or1'
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, ease: 'easeInOut' }}
-              >
-                Register
+                            <motion.button id='or1'
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                                    onClick={() => navigator('/register')}
 
-              </motion.h1>
+                                    whileHover={{ scale: 1.1, duration:0.9, backgroundColor:' #1C4C3A' , color: 'white'}}
+                            >
+                              Register
+              
+                            </motion.button>
 
 
         </motion.div>

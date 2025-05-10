@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+.reg-box {
+  background: #EFE7DA;
+  width: 100vw; 
+  height: 100vh; 
+  position: fixed; 
+  top: 0;
+  left: 0; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+#reg-form {
+  width: 600px;
+  height: 900px;
+  background: #FAFAF8;
+  margin-left: 1000px;
+  position: relative;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.5);
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+}
+#reg-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #1C4C3A;
+  margin-bottom: 20px;
+  top: 120px;
+  left: 60px;
+  position: absolute;
+}
+#reg-username {
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+top:270px;
+left: 50px;
+position: absolute;
+
+}
+
+#reg-user {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+top: 220px;
+left:  60px;
+position: absolute;
+}
+#reg-password {
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+top:370px;
+left: 50px;
+position: absolute;
+
+}
+
+#reg-pass {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+top: 320px;
+left:  60px;
+position: absolute;
+}
+#reg-Email {
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+top:470px;
+left: 50px;
+position: absolute;
+
+}
+
+#reg-email {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+top: 420px;
+left:  60px;
+position: absolute;
+}
+#reg-Phone{
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+top:570px;
+left: 50px;
+position: absolute;
+
+}
+
+#reg-phone {
+  color: #000;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+top: 520px;
+left:  60px;
+position: absolute;
+}
+#reg-button{
+  width: 370px;
+height: 50px;
+flex-shrink: 0;
+font-size: 20px;
+font-family: Poppins;
+font-style: normal;
+
+border-radius: 18px;
+color: #fff;
+background: #1C4C3A;
+top:570px;
+left: 50px;
+position: absolute;
+
+}
+#reg-or1 {
+  color:  #1C4C3A;
+font-family: Poppins;
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+top: 640px;
+left:  350px;
+position: absolute;
+background-color: #FAFAF8;
+border: none;
+outline: none;
+border-radius: 10px;
+
+}
+#reg-or {
+  color:  #858585;
+font-family: Poppins;
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+top: 630px;
+left:  60px;
+position: absolute;
+
+
+}
+#reg-photo{
+  background-image: url('../assets/Group 14.svg');
+  width: 970px;
+  height: 520px;
+  flex-shrink: 0;
+  position: absolute;
+  left: -970px;
+  top: 190px;
+
+}
