@@ -156,7 +156,7 @@ function Home() {
         ease: 'easeOut',
         delay: 0.3     // Optional: Add slight delay for staggered animations
         }}
-      onClick={post}
+      onClick={() => navigator('/register')}
       whileHover={{
         scale: 1.1,
         color: '#fff',
