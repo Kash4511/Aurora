@@ -15,6 +15,8 @@ function Login() {
       const response = await axios.post('http://127.0.0.1:8000/login/', data);
       console.log('Login Successful', response.data);
       alert('Login Successful');
+      localStorage.setItem('token', response.data.access);
+      navigator('/dash');
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Login Failed');
