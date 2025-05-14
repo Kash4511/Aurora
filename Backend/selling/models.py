@@ -1,5 +1,5 @@
 from django.db import models
-
+from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class Product(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -9,6 +9,7 @@ class Product(models.Model):
     country = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+    phone_number = PhoneNumberField()
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
 
     def __str__(self):

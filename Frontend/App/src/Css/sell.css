@@ -1,0 +1,268 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+.background { 
+  background: #F5F5F5;
+  width: 100vw; 
+  min-height: 130vh;
+  position: absolute; /* Change from fixed to absolute or remove */
+  margin: 0;
+  padding: 0;
+  z-index: -1;
+  top: 0;
+  left: 0; 
+}
+#form {
+    width: 700px;
+    height: 700px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 10px 10px 4px 0px rgba(0, 0, 0, 0.04);
+    position: absolute;
+    left: 400px;
+    top: 150px;
+
+}
+#search-bar {
+    width: 720px;
+height: 65px;
+
+border-radius: 47px;
+background: #262525;
+left: 390px;
+top: 50px;
+position: absolute;
+}
+#title {
+    color: #2B463C;
+font-family: Poppins;
+font-size: 35px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+left: 50px;
+position: absolute;
+}
+#sell-item {
+    width: 600px;
+height: 45px;
+flex-shrink: 0;
+border-radius: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+left: 50px;
+font-size: 18px;
+top: 120px;
+position: absolute;
+}
+#sell-name {
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 75px;
+position: absolute;
+}
+#sell-item1 {
+    width: 600px;
+height: 45px;
+flex-shrink: 0;
+border-radius: 18px;
+font-size: 18px;
+border: 1px solid #D0D0D0;
+background: #FFF;
+left: 50px;
+top: 220px;
+position: absolute;
+}
+#sell-price{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 175px;
+position: absolute;
+}
+#sell-item2 {
+  width: 600px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 50px;
+  top: 320px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+}
+#sell-des{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 275px;
+position: absolute;
+}
+#sell-item3 {
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 50px;
+  top: 430px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  
+}
+#sell-country{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 385px;
+position: absolute;
+}
+#sell-item4 {
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 350px;
+  top: 430px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  
+}
+#sell-state{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 350px;
+top: 385px;
+position: absolute;
+}
+#sell-item5 {
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 50px;
+  top: 530px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  
+}
+#sell-City{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 485px;
+position: absolute;
+}
+#image {
+    left: 350px;
+  top: 550px;
+  position: absolute;
+
+}
+#sell-image{
+    width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 350px;
+top: 485px;
+position: absolute;
+
+}
+#button-sell
+{
+    width: 213px;
+height: 63px;
+flex-shrink: 0;
+border-radius: 18px;
+border: 1px solid #262525;
+background: #2B463C;
+color: #FFFCFC;
+font-family: Poppins;
+font-size: 36px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 230px;
+top: 620px;
+position: absolute;
+}
