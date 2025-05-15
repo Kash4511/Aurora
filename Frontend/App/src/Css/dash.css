@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 #nav {
   position: sticky;
-  top: 10px;               /* Distance from the top */
-  width: 150px;
-  height: 700px;
+  top: 0px;               /* Distance from the top */
+  width: 120px;
+  height: 690px;
   flex-shrink: 0;
   border-radius: 30px;
   background: #1F1F1F;
@@ -22,7 +22,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:50px;
 
@@ -50,7 +50,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:200px;
 
@@ -79,7 +79,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:350px;
 
@@ -108,7 +108,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:580px;
 
@@ -133,12 +133,14 @@ line-height: normal;
 }
 #title {
     width: 1130px;
-height: 100px;
+height: 130px;
 flex-shrink: 0;
 background: #ffffff;
 margin-left:170px;
-position: absolute;
+position: fixed;
 z-index: -10;
+top:-10px;
+
 }
 #A{
     color: #2B463C;
@@ -147,6 +149,7 @@ font-size: 40px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
-margin-left:40px;
+margin-left:30px;
 position: absolute;
+top:20px;
 }

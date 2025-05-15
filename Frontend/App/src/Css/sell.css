@@ -339,8 +339,8 @@ position: absolute;
 #sell-nav {
   position: sticky;
   top: 5px;               /* Distance from the top */
-  width: 150px;
-  height: 700px;
+  width: 120px;
+  height: 690px;
   flex-shrink: 0;
   border-radius: 30px;
   background: #1F1F1F;
@@ -360,7 +360,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:50px;
 
@@ -388,7 +388,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:200px;
 
@@ -417,7 +417,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:350px;
 
@@ -446,7 +446,7 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 50px;
+    left: 35px;
     position: absolute;
     top:580px;
 
