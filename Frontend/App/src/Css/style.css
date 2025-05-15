@@ -1,0 +1,26 @@
+/* sell.css */
+
+/* Adjust the overall width of the phone input */
+.PhoneInput {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+/* Style the input field */
+.PhoneInputInput {
+  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #aaa;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style the dropdown (country selector) */
+.PhoneInputCountrySelect {
+  padding: 8px;
+  border-radius: 10px 0 0 10px;
+  border: 2px solid #aaa;
+  border-right: none;
+}

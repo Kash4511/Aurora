@@ -3,7 +3,7 @@
 .background { 
   background: #F5F5F5;
   width: 100vw; 
-  min-height: 130vh;
+  min-height: 140vh;
   position: absolute; /* Change from fixed to absolute or remove */
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@
 }
 #form {
     width: 700px;
-    height: 700px;
+    height: 800px;
     flex-shrink: 0;
     border-radius: 30px;
     background: #FFF;
@@ -213,7 +213,7 @@ position: absolute;
   font-family: Poppins, sans-serif;
   
 }
-#sell-City{
+#sell-city{
 width: 136px;
 height: 36px;
 flex-shrink: 0;
@@ -263,6 +263,72 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 230px;
-top: 620px;
+top: 720px;
+position: absolute;
+}
+#sell-phone {
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 50px;
+  top: 630px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  
+}
+#sell-phone-label{
+width: 170px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 50px;
+top: 585px;
+position: absolute;
+}
+#sell-social {
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 1px solid #D0D0D0;
+  background: #FFF;
+  left: 350px;
+  top: 630px;
+  position: absolute;
+  padding: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: Poppins, sans-serif;
+  
+}
+#sell-social-label{
+width: 136px;
+height: 36px;
+flex-shrink: 0;
+color: #2B463C;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+left: 350px;
+top: 585px;
 position: absolute;
 }

@@ -9,7 +9,9 @@ class Product(models.Model):
     country = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(region=None, null=True, blank=True)
+    social_ID = models.CharField(max_length=100, null=True, blank=True)
+
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
 
     def __str__(self):

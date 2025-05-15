@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {motion} from 'motion/react';
+import { motion } from 'framer-motion';
 import './Css/sell.css';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; 
+
 
 async function refreshAccessToken() {
-  // Implement token refresh logic here
-  console.log('Refreshing access token...');
-  return 'newAccessToken'; // Replace with actual token refresh logic
+  try {
+    const refreshToken = localStorage.getItem('refresh');
+    if (!refreshToken) throw new Error('No refresh token found');
+
+    const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+      refresh: refreshToken,
+    });
+    const newAccessToken = response.data.access;
+    localStorage.setItem('token', newAccessToken);
+    return newAccessToken;
+  } catch (error) {
+    console.error('Token refresh failed:', error);
+    window.location.href = '/login';
+  }
 }
 
 function Sell() {
@@ -17,14 +31,12 @@ function Sell() {
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [image, setImage] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [socialID, setSocialID] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     let token = localStorage.getItem('token');
-    if (!token) {
-        token = await refreshAccessToken(); // Refresh the token if it's missing or expired
-    }
 
     const formData = new FormData();
     formData.append('item_name', itemName);
@@ -34,190 +46,134 @@ function Sell() {
     formData.append('state', state);
     formData.append('city', city);
     formData.append('image', image);
-
-    console.log('FormData:', [...formData.entries()]); // Debugging
+    formData.append('phone_number', phoneNumber);
+    formData.append('social_ID', socialID); // Make sure backend expects this exact name
 
     try {
-        const response = await axios.post('http://127.0.0.1:8000/sell/', formData, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        console.log('Product uploaded:', response.data);
-        alert('Product uploaded successfully!');
+      await axios.post('http://127.0.0.1:8000/sell/', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('Product uploaded successfully!');
     } catch (error) {
-        console.error('Error uploading product:', error.response ? error.response.data : error.message);
-        if (error.response && error.response.status === 401) {
-            alert('Unauthorized! Please log in again.');
-            window.location.href = '/login'; // Redirect to login page
-        } else {
-            alert('Upload failed. Check console for details.');
+      if (error.response?.status === 401) {
+        const newToken = await refreshAccessToken();
+        if (!newToken) return;
+        try {
+          await axios.post('http://127.0.0.1:8000/sell/', formData, {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          alert('Product uploaded successfully!');
+        } catch (retryError) {
+          console.error('Retry failed:', retryError.response?.data || retryError.message);
+          alert('Upload failed after retrying.');
         }
+      } else {
+        console.error('Upload failed:', error.response?.data || error.message);
+        alert('Upload failed. Check console for details.');
+      }
     }
   };
 
   return (
-    <motion.div className='background'>
-      <motion.form 
-      id = 'form'
-      onSubmit={handleSubmit}
-      
-      >
-        <motion.h1 id='title'
-        
-        >Sell Product
+    <motion.div className="background">
+      <motion.form id="form" onSubmit={handleSubmit}>
+        <motion.h1 id="title">Sell Product</motion.h1>
 
-        </motion.h1>
-        <motion.input id='sell-item'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        <motion.input
+          id="sell-item"
+          type="text"
+          value={itemName}
           onChange={(e) => setItemName(e.target.value)}
-          type='text'
           required
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-name'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >Item Name
-              
-         </motion.h1>
-                 <motion.input id='sell-item1'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        />
+        <motion.h1 id="sell-name">Item Name</motion.h1>
+
+        <motion.input
+          id="sell-item1"
+          type="text"
+          value={itemPrice}
           onChange={(e) => setItemPrice(e.target.value)}
-          type='text'
           required
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-price'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >Price
-              
-         </motion.h1>
-                       <motion.input id='sell-item2'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        />
+        <motion.h1 id="sell-price">Price</motion.h1>
+
+        <motion.input
+          id="sell-item2"
+          type="text"
+          value={itemDescription}
           onChange={(e) => setItemDescription(e.target.value)}
-          type='text'
           required
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-des'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >Description
-              
-         </motion.h1>
-                              <motion.input id='sell-item3'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        />
+        <motion.h1 id="sell-des">Description</motion.h1>
+
+        <motion.input
+          id="sell-item3"
+          type="text"
+          value={country}
           onChange={(e) => setCountry(e.target.value)}
-          type='text'
           required
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-country'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >Country
-              
-         </motion.h1>
-                                       <motion.input id='sell-item4'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        />
+        <motion.h1 id="sell-country">Country</motion.h1>
+
+        <motion.input
+          id="sell-item4"
+          type="text"
+          value={state}
           onChange={(e) => setState(e.target.value)}
-          type='text'
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-state'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >State
-              
-         </motion.h1>
-         <motion.input id='sell-item5'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.1, duration:0.9 }}
+        />
+        <motion.h1 id="sell-state">State</motion.h1>
+
+        <motion.input
+          id="sell-item5"
+          type="text"
+          value={city}
           onChange={(e) => setCity(e.target.value)}
-          type='text'
           required
-          >
-                              
-          </motion.input>
-          <motion.h1 id='sell-City'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >City
-              
-         </motion.h1>
-         <motion.input
-         id='image'
-           type="file"
+        />
+        <motion.h1 id="sell-city">City</motion.h1>
+
+<PhoneInput
+  id="sell-phone"
+  placeholder="e.g. +966500000000"
+  international
+  defaultCountry= {null} // or any preferred default
+  countryCallingCodeEditable={true}
+  value={phoneNumber}
+  onChange={setPhoneNumber}
+  required
+/>
+<motion.h1 id="sell-phone-label">Phone Number</motion.h1>
+
+        <motion.input
+          id="sell-social"
+          type="text"
+          placeholder="e.g. Instagram ID, Telegram ID"
+          value={socialID}
+          onChange={(e) => setSocialID(e.target.value)}
+          required
+        />
+        <motion.h1 id="sell-social-label">Social ID</motion.h1>
+
+        <motion.input
+          id="image"
+          type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
           required
-         
-         >
+        />
+        <motion.h1 id="sell-image">Image</motion.h1>
 
-
-         </motion.input>
-                   <motion.h1 id='sell-image'
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}   
-          >Image
-              
-         </motion.h1>
-         <motion.button
-         id='button-sell'
-         type='submit'
-         >Sell
-
-         </motion.button>
-
+        <motion.button id="button-sell" type="submit">
+          Sell
+        </motion.button>
       </motion.form>
-      <motion.div id='search-bar'
-      
-      >
-
-      </motion.div>
-     {/* <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)} required />
-      <input type="number" placeholder="Price" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} required />
-      <textarea placeholder="Description" value={itemDescription} onChange={(e) => setItemDescription(e.target.value)} required />
-      <input type="text" placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value)} required />
-      <input type="text" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} required />
-      <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} required />
-       <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} required />
-       <button type="submit">Sell</button>
-     </form> */}
-     </motion.div>
+    </motion.div>
   );
 }
 
