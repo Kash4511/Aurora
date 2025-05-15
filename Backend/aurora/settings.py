@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-*!t6hcvup-4t+q@9j28lhyfr74d+#g3^e*ajj-tdi7f42df)c6
 DEBUG = True
 
 ALLOWED_HOSTS = []
+from datetime import timedelta
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),  # Set access token lifespan to 7 days
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # Optional: Set refresh token lifespan
+}
 
 # Application definition
 

@@ -332,3 +332,6 @@ left: 350px;
 top: 585px;
 position: absolute;
 }
+.PhoneInputCountryIcon {
+  display: none;
+}

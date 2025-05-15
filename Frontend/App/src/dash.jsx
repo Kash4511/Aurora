@@ -27,7 +27,7 @@ function Dash() {
 <ul>
     {data.map((item, index) => (
         <li key={index}>
-            <strong>{item.item_name}</strong> - ₹{item.item_price} <br />
+            <strong>{item.item_name}</strong> - {item.item_price} <br />
             {item.item_description} ({item.city}, {item.state}, {item.country}) <br />
             {item.image && (
 <img
