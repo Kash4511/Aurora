@@ -136,9 +136,9 @@ line-height: normal;
 height: 100px;
 flex-shrink: 0;
 background: #ffffff;
-margin-left:120px;
+margin-left:170px;
 position: absolute;
-
+z-index: -10;
 }
 #A{
     color: #2B463C;

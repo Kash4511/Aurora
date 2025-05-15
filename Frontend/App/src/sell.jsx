@@ -3,8 +3,8 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import './Css/sell.css';
 import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css'; 
-
+import 'react-phone-number-input/style.css';
+import { useNavigate } from 'react-router-dom';
 
 async function refreshAccessToken() {
   try {
@@ -24,6 +24,7 @@ async function refreshAccessToken() {
 }
 
 function Sell() {
+  const navigator = useNavigate();
   const [itemName, setItemName] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
@@ -47,7 +48,7 @@ function Sell() {
     formData.append('city', city);
     formData.append('image', image);
     formData.append('phone_number', phoneNumber);
-    formData.append('social_ID', socialID); // Make sure backend expects this exact name
+    formData.append('social_ID', socialID);
 
     try {
       await axios.post('http://127.0.0.1:8000/sell/', formData, {
@@ -82,9 +83,90 @@ function Sell() {
 
   return (
     <motion.div className="background">
-      <motion.form id="form" onSubmit={handleSubmit}>
-        <motion.h1 id="title">Sell Product</motion.h1>
+      {/* Navigation Bar */}
+      <motion.div
+        id="sell-nav"
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        <motion.div
+          id="sell-buy"
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <motion.button
+            id="sell-buy-button"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            onClick={() => navigator('/dash')}
+          >
+            Buy
+          </motion.button>
+        </motion.div>
+        <motion.div
+          id="sell-sell"
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <motion.button
+            id="sell-sell-button"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            onClick={() => navigator('/sell')}
+          >
+            Sell
+          </motion.button>
+        </motion.div>
+        <motion.div
+          id="sell-set"
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <motion.button
+            id="sell-set-button"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            Settings
+          </motion.button>
+        </motion.div>
+        <motion.div
+          id="sell-log"
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <motion.button
+            id="sell-log-button"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            onClick={() => navigator('/')}
+          >
+            Logout
+          </motion.button>
 
+        </motion.div>
+      </motion.div>
+
+      {/* Sell Form */}
+      <motion.h1
+  id="title1"
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
+>
+  Sell Product
+</motion.h1>
+      
+      <motion.form id="form" onSubmit={handleSubmit}>
         <motion.input
           id="sell-item"
           type="text"
@@ -138,17 +220,17 @@ function Sell() {
         />
         <motion.h1 id="sell-city">City</motion.h1>
 
-<PhoneInput
-  id="sell-phone"
-  placeholder="e.g. +966500000000"
-  international
-  defaultCountry= {null} // or any preferred default
-  countryCallingCodeEditable={true}
-  value={phoneNumber}
-  onChange={setPhoneNumber}
-  required
-/>
-<motion.h1 id="sell-phone-label">Phone Number</motion.h1>
+        <PhoneInput
+          id="sell-phone"
+          placeholder="e.g. +966500000000"
+          international
+          defaultCountry={null}
+          countryCallingCodeEditable={true}
+          value={phoneNumber}
+          onChange={setPhoneNumber}
+          required
+        />
+        <motion.h1 id="sell-phone-label">Phone Number</motion.h1>
 
         <motion.input
           id="sell-social"
