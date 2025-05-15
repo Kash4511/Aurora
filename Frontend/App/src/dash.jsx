@@ -24,21 +24,28 @@ function Dash() {
     }, []);
 
     return (
-<ul>
-    {data.map((item, index) => (
-        <li key={index}>
-            <strong>{item.item_name}</strong> - {item.item_price} <br />
-            {item.item_description} ({item.city}, {item.state}, {item.country}) <br />
-            {item.image && (
-<img
-  src={item.image}
-  alt={item.item_name}
-  style={{ width: '200px', height: 'auto', marginTop: '10px' }}
-/>
-            )}
-        </li>
-    ))}
-</ul>
+<div 
+ className='cards'
+ style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', left: '300px',right:'300px',top: '150px', position: 'absolute' }}>
+  {data.map((item, index) => (
+    <div key={index} style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '10px', backgroundColor: '#fff' }}>
+      {item.image && (
+        <img
+          src={item.image}
+          alt={item.item_name}
+          style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px' }}
+        />
+      )}
+      <div style={{ marginTop: '10px' }}>
+        <strong>{item.item_name}</strong> - {item.item_price} <br />
+        {item.item_description}<br />
+        ({item.city}, {item.state}, {item.country}) <br />
+        ({item.phone_number}, {item.social_ID}) <br />
+      </div>
+    </div>
+  ))}
+</div>
+
     );
 }
 
