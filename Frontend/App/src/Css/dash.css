@@ -1,4 +1,152 @@
-.cards{
-    left: 100px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+#nav {
+  position: sticky;
+  top: 10px;               /* Distance from the top */
+  width: 150px;
+  height: 700px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #1F1F1F;
+  box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+#item {
+    color: #000;
+font-family: Poppins;
+font-size: 13.9px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+}
+#buy {
+    background-image: url('../assets/Shopping Cart.svg');
+    width: 47px;
+    height: 47px;
+    flex-shrink: 0;
+    left: 50px;
     position: absolute;
+    top:50px;
+
+}
+#buy-button 
+{
+    top:50px;
+    left:3px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+    
+
+}
+#sell {
+    background-image: url('../assets/Return Purchase.svg');
+    width: 47px;
+    height: 47px;
+    flex-shrink: 0;
+    left: 50px;
+    position: absolute;
+    top:200px;
+
+}
+#sell-button 
+{
+    top:50px;
+    left:3px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+    
+
+}
+
+#set {
+    background-image: url('../assets/slider.svg');
+    width: 47px;
+    height: 47px;
+    flex-shrink: 0;
+    left: 50px;
+    position: absolute;
+    top:350px;
+
+}
+#set-button 
+{
+    top:60px;
+    left:-20px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+    
+
+}
+
+#log {
+    background-image: url('../assets/Logout.svg');
+    width: 47px;
+    height: 47px;
+    flex-shrink: 0;
+    left: 50px;
+    position: absolute;
+    top:580px;
+
+}
+#log-button 
+{
+    top:60px;
+    left:-15px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+    
+
+}
+#title {
+    width: 1130px;
+height: 100px;
+flex-shrink: 0;
+background: #ffffff;
+margin-left:120px;
+position: absolute;
+
+}
+#A{
+    color: #2B463C;
+font-family: Poppins;
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-left:40px;
+position: absolute;
 }

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import {motion} from 'motion/react';
+import './Css/dash.css';
+import { useNavigate } from 'react-router-dom';
 function Dash() {
+    const navigator = useNavigate();
     const [data, setData] = useState([]); // Define the state for storing fetched data
 
     const get = async () => {
@@ -24,27 +27,186 @@ function Dash() {
     }, []);
 
     return (
-<div 
- className='cards'
- style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', left: '300px',right:'300px',top: '150px', position: 'absolute' }}>
-  {data.map((item, index) => (
-    <div key={index} style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '10px', backgroundColor: '#fff' }}>
-      {item.image && (
-        <img
-          src={item.image}
-          alt={item.item_name}
-          style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px' }}
-        />
-      )}
-      <div style={{ marginTop: '10px' }}>
-        <strong>{item.item_name}</strong> - {item.item_price} <br />
-        {item.item_description}<br />
-        ({item.city}, {item.state}, {item.country}) <br />
-        ({item.phone_number}, {item.social_ID}) <br />
-      </div>
-    </div>
-  ))}
+        <div style={{ display: 'flex' }}>
+  {/* ✅ Left Sidebar / Nav */}
+  <motion.div
+    id="nav"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+
+  >
+    <motion.div
+    id='buy'
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}    
+    >
+        <motion.button
+        id='buy-button'
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }} 
+        onClick={() => navigator('/dash')} 
+
+        >Buy
+        
+
+        </motion.button>
+
+    </motion.div>
+        <motion.div
+    id='sell'
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}    
+    >        <motion.button
+        id='sell-button'
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}  
+        onClick={() => navigator('/sell')} 
+
+        >Sell
+        
+
+        </motion.button>
+
+    </motion.div>
+        <motion.div
+    id='set'
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}    
+    >
+             <motion.button
+        id='set-button'
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}  
+
+        >Settings
+        
+
+        </motion.button>
+
+    </motion.div>
+            <motion.div
+    id='log'
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}    
+    >
+             <motion.button
+        id='log-button'
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        onClick={() =>navigator('/')}  
+
+        >Logout
+        
+
+        </motion.button>
+
+    </motion.div>
+    <motion.div
+    id='title'
+           initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+    
+    >
+        <motion.h1
+        id='A'
+           initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+        
+        >Aurora
+
+        </motion.h1>
+
+    </motion.div>
+
+  </motion.div>
+
+  {/* ✅ Main Content */}
+  <div style={{ flex: 1 }}>
+    {/* Cards Section */}
+    <motion.div 
+      className='cards-wrapper'
+      style={{
+        maxWidth: '1200px',
+        margin: '150px auto 0 auto',
+        padding: '0 40px',
+        boxSizing: 'border-box',
+      }}
+    >
+      <motion.div 
+        className='cards'
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '0px',
+          marginRight: '100px',
+          marginLeft: '-70px',
+          
+         
+        }}
+      >
+        {data.map((item, index) => (
+          <motion.div 
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            style={{
+            //   border: '1px solid #ccc',
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#fff',
+            }}
+          >
+            {item.image && (
+              <img
+                src={item.image}
+                alt={item.item_name}
+                style={{
+                  width: '100%',
+                  height: '250px',
+                  objectFit: 'cover',
+                  borderRadius: '15px',
+                }}
+              />
+            )}
+            <motion.div
+            id ='item'
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              style={{ marginTop: '10px' }}
+            >
+              <strong>{item.item_name}</strong> - <strong>{item.item_price}</strong> <br />
+              {item.item_description}<br />
+              <thin>({item.city}, {item.state}, {item.country})</thin> <br />
+              ({item.phone_number}, {item.social_ID}) <br />
+            </motion.div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+
+
+  </div>
 </div>
+
+
+
+
+
+
+
 
     );
 }
