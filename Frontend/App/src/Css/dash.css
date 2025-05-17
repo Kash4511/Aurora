@@ -150,7 +150,16 @@ font-style: normal;
 font-weight: 500;
 line-height: normal;
 margin-left:200px;
-position: fixed;
-top: -30px;
+position: absolute;
+top: -40px;
 z-index: 10;
+}
+#search{
+    flex-shrink: 0;
+    
+background: #262525;
+height: 30px;
+
+    
+
 }
