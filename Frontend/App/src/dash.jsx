@@ -29,6 +29,27 @@ function Dash() {
     return (
         <div style={{ display: 'flex' }}>
   {/* ✅ Left Sidebar / Nav */}
+       <motion.h1
+        id='A'
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ opacity: 1, y: 50 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        
+        >Aurora
+
+        </motion.h1>
+
+      <motion.div
+    id='title'
+           initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+    
+    >     
+
+    </motion.div>
+
+
   <motion.div
     id="nav"
             initial={{ opacity: 0, x: -100 }}
@@ -36,6 +57,7 @@ function Dash() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
 
   >
+
     <motion.div
     id='buy'
             initial={{ opacity: 0, x: -100 }}
@@ -108,24 +130,6 @@ function Dash() {
         
 
         </motion.button>
-
-    </motion.div>
-    <motion.div
-    id='title'
-           initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-    
-    >
-        <motion.h1
-        id='A'
-           initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-        
-        >Aurora
-
-        </motion.h1>
 
     </motion.div>
 
