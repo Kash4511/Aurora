@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {motion} from 'motion/react';
+import {backOut, motion} from 'motion/react';
 import './Css/dash.css';
 import { useNavigate } from 'react-router-dom';
 function Dash() {
@@ -177,7 +177,19 @@ function Dash() {
                   height: '250px',
                   objectFit: 'cover',
                   borderRadius: '15px',
+                  marginTop: '10px',
+                  cursor: 'pointer',
+                  padding: '10px',
+                  
+                  transition: 'background-color 0.3s ease',
                 }}
+                 onClick={() => navigator(`/product/${item.id}`)}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                  backgroundColor: '#f0f0f0',
+                }}
+
               />
             )}
             <motion.div
@@ -185,7 +197,20 @@ function Dash() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              style={{ marginTop: '10px' }}
+             
+              onClick={() => navigator(`/product/${item.id}`)}
+  whileHover={{
+    scale: 1.05,
+    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+    backgroundColor: '#f0f0f0',
+  }}
+  style={{
+    marginTop: '10px',
+    cursor: 'pointer',
+    padding: '10px',
+    borderRadius: '10px',
+    transition: 'background-color 0.3s ease',
+  }}
             >
               <strong>{item.item_name}</strong> - <strong>{item.item_price}</strong> <br />
               {item.item_description}<br />

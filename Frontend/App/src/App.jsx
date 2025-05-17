@@ -5,6 +5,7 @@ import Register from './Register';
 import Home from './home'; 
 import Dash from './dash';
 import Sell from './sell';
+import ProductDetail from './product';
 
 
 const App = () => {
@@ -17,6 +18,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path='/dash' element={<Dash/>} />
           <Route path='/sell' element={<Sell/>} />
+          <Route path='/product/:id' element={<ProductDetail />} />
+
+
         
         </Routes>
       </Router>
