@@ -336,39 +336,104 @@ position: absolute;
 .PhoneInputCountryIcon {
   display: none;
 }
-#sell-nav {
-  position: sticky;
-  top: 5px;               /* Distance from the top */
-  width: 120px;
-  height: 690px;
-  flex-shrink: 0;
-  border-radius: 30px;
-  background: #1F1F1F;
-  box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  left: 10px;
-}
-#sell-item {
-    color: #000;
+
+    
+
+
+#sell-A{
+    color:#78A55A;
 font-family: Poppins;
-font-size: 13.9px;
+font-size: 35px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+left:30px;
+position: absolute;
+top: 10px;
+}
+#sell-switch {
+    background-image: url('../assets/User.png');
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    left: 25px;
+    position: absolute;
+    top:520px;
+
+}
+#sell-switch-button 
+{
+    top:15px;
+    left:50px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 150px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
 font-style: normal;
 /* font-weight: 500; */
 line-height: normal;
+    
+
 }
+#sell-APPS{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+left: 30px;
+top:120px;
+position: absolute;
+}
+#sell-APPS1{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+    left: 30px;
+    position: absolute;
+    top:460px;
+}
+#sell-nav {
+  position: sticky;
+  top: 5px; 
+  left: 5px;              /* Distance from the top */
+  width: 250px;
+  height: 685px;
+   flex-shrink: 0;
+  border-radius: 25px;
+  background: #1F1F1F;
+  box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
 #sell-buy {
     background-image: url('../assets/Shopping Cart.svg');
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left:30px;
     position: absolute;
-    top:50px;
+    top:180px;
 
 }
 #sell-buy-button 
 {
-    top:50px;
-    left:3px;
+    top:10px;
+    left:60px;
     position:absolute;
     border: none;
     outline: none;
@@ -388,15 +453,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:200px;
+    top:270px;
 
 }
 #sell-sell-button 
 {
-    top:50px;
-    left:3px;
+    top:10px;
+    left:43px;
     position:absolute;
     border: none;
     outline: none;
@@ -404,6 +469,7 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
+    width: 150px;
 font-size: 18px;
 font-style: normal;
 /* font-weight: 500; */
@@ -417,15 +483,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:350px;
+    top:360px;
 
 }
 #sell-set-button 
 {
-    top:60px;
-    left:-20px;
+    top:9px;
+    left:60px;
     position:absolute;
     border: none;
     outline: none;
@@ -446,15 +512,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:580px;
+    top:600px;
 
 }
 #sell-log-button 
 {
-    top:60px;
-    left:-15px;
+    top:10px;
+    left:65px;
     position:absolute;
     border: none;
     outline: none;

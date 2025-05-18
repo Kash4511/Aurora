@@ -83,78 +83,55 @@ function Sell() {
 
   return (
     <motion.div className="background">
-      {/* Navigation Bar */}
-      <motion.div
-        id="sell-nav"
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-      >
-        <motion.div
-          id="sell-buy"
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <motion.button
-            id="sell-buy-button"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            onClick={() => navigator('/dash')}
-          >
-            Buy
-          </motion.button>
-        </motion.div>
-        <motion.div
-          id="sell-sell"
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <motion.button
-            id="sell-sell-button"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            onClick={() => navigator('/sell')}
-          >
-            Sell
-          </motion.button>
-        </motion.div>
-        <motion.div
-          id="sell-set"
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <motion.button
-            id="sell-set-button"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            Settings
-          </motion.button>
-        </motion.div>
-        <motion.div
-          id="sell-log"
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <motion.button
-            id="sell-log-button"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            onClick={() => navigator('/')}
-          >
-            Logout
-          </motion.button>
+            <motion.div id="sell-nav"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+            >   
+                <motion.h1 id='sell-A'>Aurora</motion.h1>
+                <motion.h1 id='sell-APPS'>APPS</motion.h1>
+                <motion.div id='sell-buy'>
+                    <motion.button id='sell-buy-button' onClick={() => navigator('/dash')}>MarketPlace</motion.button>
+                </motion.div>
+                <motion.div id='sell-sell'>
+                    <motion.button id='sell-sell-button' onClick={() => navigator('/sell')}>Sell Product</motion.button>
+                </motion.div>
+                <motion.div id='sell-set'>
+                    <motion.button id='sell-set-button'>Settings</motion.button>
+                </motion.div>
+                <motion.h1 id='sell-APPS1'>ACCOUNTS</motion.h1>
+                <motion.div id='sell-log'>
+                  
+                <motion.button
+                  id='sell-log-button'
+                  onClick={() => {
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    delete axios.defaults.headers.common['Authorization'];
 
-        </motion.div>
-      </motion.div>
+                    navigator('/');
+                  }}
+                >
+                  Logout
+                </motion.button>
+              </motion.div>
+                              <motion.div id='sell-switch'>
+                  
+                <motion.button
+                  id='sell-switch-button'
+                  onClick={() => {
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    delete axios.defaults.headers.common['Authorization'];
+
+                    navigator('/login');
+                  }}
+                >
+                  Switch User
+                </motion.button>
+              </motion.div>
+
+            </motion.div>
 
       {/* Sell Form */}
       <motion.h1

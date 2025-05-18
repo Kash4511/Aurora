@@ -1,13 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 #nav {
-  position: sticky;
-  top: 0px;               /* Distance from the top */
-  width: 120px;
-  height: 690px;
-  flex-shrink: 0;
-  border-radius: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
   background: #1F1F1F;
   box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 1000; 
 }
 #item {
     color: #000;
@@ -22,15 +24,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left:30px;
     position: absolute;
-    top:50px;
+    top:180px;
 
 }
 #buy-button 
 {
-    top:50px;
-    left:3px;
+    top:10px;
+    left:60px;
     position:absolute;
     border: none;
     outline: none;
@@ -50,15 +52,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:200px;
+    top:270px;
 
 }
 #sell-button 
 {
-    top:50px;
-    left:3px;
+    top:10px;
+    left:43px;
     position:absolute;
     border: none;
     outline: none;
@@ -66,6 +68,7 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
+    width: 150px;
 font-size: 18px;
 font-style: normal;
 /* font-weight: 500; */
@@ -79,15 +82,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:350px;
+    top:360px;
 
 }
 #set-button 
 {
-    top:60px;
-    left:-20px;
+    top:9px;
+    left:60px;
     position:absolute;
     border: none;
     outline: none;
@@ -108,15 +111,15 @@ line-height: normal;
     width: 47px;
     height: 47px;
     flex-shrink: 0;
-    left: 35px;
+    left: 30px;
     position: absolute;
-    top:580px;
+    top:600px;
 
 }
 #log-button 
 {
-    top:60px;
-    left:-15px;
+    top:10px;
+    left:65px;
     position:absolute;
     border: none;
     outline: none;
@@ -137,22 +140,22 @@ height: 150px;
 flex-shrink: 0;
 background: #ffffff;
 margin-left:170px;
-position: fixed;
+position: sticky;
 
 top:-10px;
 
 }
 #A{
-    color: #2B463C;
+    color:#78A55A;
 font-family: Poppins;
-font-size: 40px;
+font-size: 35px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
-margin-left:200px;
+left:30px;
 position: absolute;
-top: -40px;
-z-index: 10;
+top: 10px;
+
 }
 #search{
     flex-shrink: 0;
@@ -162,4 +165,71 @@ height: 30px;
 
     
 
+}
+#icon{
+    background-image: url("../assets/Search.png");
+    width: 40px;
+    height: 35px;
+}
+#APPS{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+left: 30px;
+top:120px;
+position: absolute;
+}
+#APPS1{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+    left: 30px;
+    position: absolute;
+    top:460px;
+}
+
+#switch {
+    background-image: url('../assets/User.png');
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    left: 25px;
+    position: absolute;
+    top:520px;
+
+}
+#switch-button 
+{
+    top:15px;
+    left:50px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 150px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+    
+
+}
+body, html {
+  margin: 0;
+  padding: 0;
 }

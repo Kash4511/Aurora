@@ -14,7 +14,9 @@ function Login() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/login/', data);
       console.log('Login Successful', response.data);
-      localStorage.setItem('token', response.data.access);
+    localStorage.setItem('access_token', response.data.access);
+    localStorage.setItem('refresh_token', response.data.refresh);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
       navigator('/dash');
     } catch (error) {
       console.error('Error logging in:', error);
