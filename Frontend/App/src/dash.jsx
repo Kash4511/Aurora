@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backOut, motion } from 'motion/react';
 import './Css/dash.css';
 import { useNavigate } from 'react-router-dom';
+import Navigation from './components/Navigation';
 
 function Dash() {
     const navigator = useNavigate();
@@ -36,115 +37,58 @@ function Dash() {
 
     return (
         <div style={{ display: 'flex' }}>
-            {/* ✅ Left Sidebar / Nav */}
+            <Navigation />
 
-
-            <motion.div id="nav"
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-            >   
-                <motion.h1 id='A'>Aurora</motion.h1>
-                <motion.h1 id='APPS'>APPS</motion.h1>
-                <motion.div id='buy'>
-                    <motion.button id='buy-button' onClick={() => navigator('/dash')}>MarketPlace</motion.button>
-                </motion.div>
-                <motion.div id='sell'>
-                    <motion.button id='sell-button' onClick={() => navigator('/sell')}>Sell Product</motion.button>
-                </motion.div>
-                <motion.div id='set'>
-                    <motion.button id='set-button'>Settings</motion.button>
-                </motion.div>
-                <motion.h1 id='APPS1'>ACCOUNTS</motion.h1>
-                <motion.div id='log'>
-                  
-                <motion.button
-                  id='log-button'
-                  onClick={() => {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    delete axios.defaults.headers.common['Authorization'];
-
-                    navigator('/');
-                  }}
-                >
-                  Logout
-                </motion.button>
-              </motion.div>
-                              <motion.div id='switch'>
-                  
-                <motion.button
-                  id='switch-button'
-                  onClick={() => {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    delete axios.defaults.headers.common['Authorization'];
-
-                    navigator('/login');
-                  }}
-                >
-                  Switch User
-                </motion.button>
-              </motion.div>
-
-            </motion.div>
-           
-            
-
-            {/* ✅ Main Content */}
+            {/* Main Content */}
             <div style={{ flex: 1 }}>
                 {/* 🔍 Search Input */}
-<motion.div style={{ textAlign: 'center', marginTop: '30px' }}>
-  <motion.div
-    id="search-bar"
-    style={{
-      top: '-5px',
-      left: '600px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'start',
-      backgroundColor: '#262525',
-      borderRadius: '30px',
-      padding: '8px 20px',
-      width: '600px',
-      marginLeft: '-90px',
-      boxSizing: 'border-box',
-      position: 'relative',
-    }}
-  >
-    {/* Search Icon */}
-    <div id='icon'
-    style={{
-      color: '#86B66F',
-      marginRight: '10px',
-      borderRight: '1px solid #444',
-      paddingRight: '10px',
-      fontSize: '18px',
-    }}>
-      
-    </div>
+                <motion.div style={{ textAlign: 'center', marginTop: '30px' }}>
+                    <motion.div
+                        id="search-bar"
+                        style={{
+                            top: '-5px',
+                            left: '600px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'start',
+                            backgroundColor: '#262525',
+                            borderRadius: '30px',
+                            padding: '8px 20px',
+                            width: '600px',
+                            marginLeft: '-90px',
+                            boxSizing: 'border-box',
+                            position: 'relative',
+                        }}
+                    >
+                        {/* Search Icon */}
+                        <div id='icon'
+                            style={{
+                                color: '#86B66F',
+                                marginRight: '10px',
+                                borderRight: '1px solid #444',
+                                paddingRight: '10px',
+                                fontSize: '18px',
+                            }}>
+                        </div>
 
-    {/* Input */}
-    <input
-      type="text"
-      placeholder="Search"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      style={{
-        flex: 1,
-        background: 'transparent',
-        border: 'none',
-        color: 'white',
-        fontSize: '16px',
-        outline: 'none',
-        padding: '5px 10px',
-      }}
-    />
-  </motion.div>
-</motion.div>
-
-
-
+                        {/* Input */}
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            style={{
+                                flex: 1,
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'white',
+                                fontSize: '16px',
+                                outline: 'none',
+                                padding: '5px 10px',
+                            }}
+                        />
+                    </motion.div>
+                </motion.div>
 
                 {/* 🧾 Cards Section */}
                 <motion.div className='cards-wrapper'
@@ -160,9 +104,6 @@ function Dash() {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(4, 1fr)',
-                            
-                            
-                          
                         }}
                     >
                         {filteredData.map((item, index) => (

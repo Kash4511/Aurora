@@ -6,7 +6,8 @@ import Home from './home';
 import Dash from './dash';
 import Sell from './sell';
 import ProductDetail from './product';
-import ProtectedRoute from './ProtectedRoute'; // ⬅️ Import this
+import ProtectedRoute from './ProtectedRoute'; 
+import ProductList from './Product_list'; 
 
 const App = () => {
   return (
@@ -35,10 +36,26 @@ const App = () => {
             }
           />
           <Route
+            path="/sell/:productId"
+            element={
+              <ProtectedRoute>
+                <Sell />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/product/:id"
             element={
               <ProtectedRoute>
                 <ProductDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Product_list"
+            element={
+              <ProtectedRoute>
+                <ProductList />
               </ProtectedRoute>
             }
           />

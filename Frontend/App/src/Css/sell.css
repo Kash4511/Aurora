@@ -39,7 +39,7 @@ position: absolute;
   font-size: 40px;
   font-weight: 500;
   position: absolute;
-  top: 25px;
+  top: 55px;
   left: 440px;
   z-index: 1;
 }
@@ -67,7 +67,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 50px;
-top: 75px;
+top: 85px;
 position: absolute;
 }
 #sell-item1 {
@@ -93,7 +93,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 50px;
-top: 175px;
+top: 185px;
 position: absolute;
 }
 #sell-item2 {
@@ -104,7 +104,7 @@ position: absolute;
   border: 1px solid #D0D0D0;
   background: #FFF;
   left: 50px;
-  top: 320px;
+  top: 310px;
   position: absolute;
   padding: 10px;
   font-size: 18px;
@@ -159,7 +159,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 50px;
-top: 385px;
+top: 395px;
 position: absolute;
 }
 #sell-item4 {
@@ -192,7 +192,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 350px;
-top: 385px;
+top: 395px;
 position: absolute;
 }
 #sell-item5 {
@@ -225,7 +225,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 50px;
-top: 485px;
+top: 495px;
 position: absolute;
 }
 #image {
@@ -245,7 +245,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 350px;
-top: 485px;
+top: 495px;
 position: absolute;
 
 }
@@ -297,7 +297,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 50px;
-top: 585px;
+top: 595px;
 position: absolute;
 }
 #sell-social {
@@ -330,7 +330,7 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 left: 350px;
-top: 585px;
+top: 595px;
 position: absolute;
 }
 .PhoneInputCountryIcon {
@@ -409,21 +409,27 @@ line-height: normal;
     top:460px;
 }
 #sell-nav {
-  position: sticky;
-  top: 5px; 
-  left: 5px;              /* Distance from the top */
-  width: 250px;
-  height: 685px;
-   flex-shrink: 0;
-  border-radius: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 217px;
+  height: 100vh;
   background: #1F1F1F;
   box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 1000; 
 }
-
+#sell-item {
+    color: #000;
+font-family: Poppins;
+font-size: 13.9px;
+font-style: normal;
+/* font-weight: 500; */
+line-height: normal;
+}
 #sell-buy {
     background-image: url('../assets/Shopping Cart.svg');
-    width: 47px;
-    height: 47px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     left:30px;
     position: absolute;
@@ -433,7 +439,7 @@ line-height: normal;
 #sell-buy-button 
 {
     top:10px;
-    left:60px;
+    left:47px;
     position:absolute;
     border: none;
     outline: none;
@@ -441,7 +447,7 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
-font-size: 18px;
+font-size: 17px;
 font-style: normal;
 /* font-weight: 500; */
 line-height: normal;
@@ -450,8 +456,8 @@ line-height: normal;
 }
 #sell-sell {
     background-image: url('../assets/Return Purchase.svg');
-    width: 47px;
-    height: 47px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     left: 30px;
     position: absolute;
@@ -461,7 +467,7 @@ line-height: normal;
 #sell-sell-button 
 {
     top:10px;
-    left:43px;
+    left:40px;
     position:absolute;
     border: none;
     outline: none;
@@ -469,8 +475,8 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
-    width: 150px;
-font-size: 18px;
+    width: 130px;
+font-size: 17px;
 font-style: normal;
 /* font-weight: 500; */
 line-height: normal;
@@ -479,9 +485,9 @@ line-height: normal;
 }
 
 #sell-set {
-    background-image: url('../assets/slider.svg');
-    width: 47px;
-    height: 47px;
+    background-image: url('../assets/Slider.svg');
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     left: 30px;
     position: absolute;
@@ -491,7 +497,7 @@ line-height: normal;
 #sell-set-button 
 {
     top:9px;
-    left:60px;
+    left:47px;
     position:absolute;
     border: none;
     outline: none;
@@ -499,7 +505,7 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
-font-size: 18px;
+font-size: 17px;
 font-style: normal;
 /* font-weight: 500; */
 line-height: normal;
@@ -509,10 +515,10 @@ line-height: normal;
 
 #sell-log {
     background-image: url('../assets/Logout.svg');
-    width: 47px;
-    height: 47px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
-    left: 30px;
+    left: 37px;
     position: absolute;
     top:600px;
 
@@ -520,7 +526,7 @@ line-height: normal;
 #sell-log-button 
 {
     top:10px;
-    left:65px;
+    left:50px;
     position:absolute;
     border: none;
     outline: none;
@@ -528,10 +534,70 @@ line-height: normal;
     color:#fff;
     background-color: #1F1F1F;
     font-family: Poppins;
-font-size: 18px;
+font-size: 17px;
 font-style: normal;
 /* font-weight: 500; */
 line-height: normal;
+}
+#sell-APPS{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+left: 30px;
+top:120px;
+position: absolute;
+}
+#sell-APPS1{
+    width: 76.361px;
+height: 27.353px;
+flex-shrink: 0;
+color: rgba(203, 201, 201, 0.64);
+font-family: Jost;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+    left: 30px;
+    position: absolute;
+    top:460px;
+}
+
+#sell-switch {
+    background-image: url('../assets/Change User.svg');
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    left: 35px;
+    position: absolute;
+    top:520px;
+
+}
+#sell-switch-button 
+{
+    top:8px;
+    left:40px;
+    position:absolute;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 130px;
+    color:#fff;
+    background-color: #1F1F1F;
+    font-family: Poppins;
+    font-size: 17px;
+    font-style: normal;
+    /* font-weight: 500; */
+    line-height: normal;
     
 
+}
+body, html {
+  margin: 0;
+  padding: 0;
 }

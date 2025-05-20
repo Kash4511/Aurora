@@ -12,5 +12,4 @@ class SellFormView(generics.CreateAPIView):
     parser_classes = (MultiPartParser, FormParser)
 
     def perform_create(self, serializer):
-        # Automatically associate the user with the product
         serializer.save(user=self.request.user)

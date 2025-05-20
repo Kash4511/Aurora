@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import './Css/sell.css';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import Navigation from './components/Navigation';
 
 async function refreshAccessToken() {
   try {
-    const refreshToken = localStorage.getItem('refresh');
+    const refreshToken = localStorage.getItem('refresh_token');
     if (!refreshToken) throw new Error('No refresh token found');
 
     const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
       refresh: refreshToken,
     });
     const newAccessToken = response.data.access;
-    localStorage.setItem('token', newAccessToken);
+    localStorage.setItem('access_token', newAccessToken);
     return newAccessToken;
   } catch (error) {
     console.error('Token refresh failed:', error);
@@ -25,6 +26,7 @@ async function refreshAccessToken() {
 
 function Sell() {
   const navigator = useNavigate();
+  const { productId } = useParams();
   const [itemName, setItemName] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
@@ -34,10 +36,58 @@ function Sell() {
   const [image, setImage] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [socialID, setSocialID] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (productId) {
+      fetchProductDetails();
+    }
+  }, [productId]);
+
+  const fetchProductDetails = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        alert('Please login to continue');
+        navigator('/login');
+        return;
+      }
+
+      const response = await axios.get(`http://127.0.0.1:8000/products/${productId}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (!response.data) {
+        throw new Error('No product data received');
+      }
+
+      const product = response.data;
+      setItemName(product.item_name || '');
+      setItemPrice(product.item_price || '');
+      setItemDescription(product.item_description || '');
+      setCountry(product.country || '');
+      setState(product.state || '');
+      setCity(product.city || '');
+      setPhoneNumber(product.phone_number || '');
+      setSocialID(product.social_ID || '');
+      setIsEditing(true);
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+      if (error.response?.status === 401) {
+        alert('Your session has expired. Please login again.');
+        navigator('/login');
+      } else if (error.response?.status === 404) {
+        alert('Product not found');
+        navigator('/product_list');
+      } else {
+        alert('Error loading product details. Please try again.');
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('access_token');
 
     const formData = new FormData();
     formData.append('item_name', itemName);
@@ -46,103 +96,85 @@ function Sell() {
     formData.append('country', country);
     formData.append('state', state);
     formData.append('city', city);
-    formData.append('image', image);
     formData.append('phone_number', phoneNumber);
     formData.append('social_ID', socialID);
 
+    // Only append image if it's a new file or a new product
+    if (image) {
+      formData.append('image', image);
+    } else if (!isEditing) {
+      alert('Please select an image for your product');
+      return;
+    }
+
     try {
-      await axios.post('http://127.0.0.1:8000/sell/', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('Product uploaded successfully!');
+      if (isEditing) {
+        // For editing, use PATCH instead of PUT to only update provided fields
+        await axios.patch(`http://127.0.0.1:8000/products/${productId}/`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        alert('Product updated successfully!');
+      } else {
+        await axios.post('http://127.0.0.1:8000/sell/', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        alert('Product uploaded successfully!');
+      }
+      navigator('/product_list');
     } catch (error) {
       if (error.response?.status === 401) {
         const newToken = await refreshAccessToken();
         if (!newToken) return;
         try {
-          await axios.post('http://127.0.0.1:8000/sell/', formData, {
-            headers: {
-              Authorization: `Bearer ${newToken}`,
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          alert('Product uploaded successfully!');
+          if (isEditing) {
+            await axios.patch(`http://127.0.0.1:8000/products/${productId}/`, formData, {
+              headers: {
+                Authorization: `Bearer ${newToken}`,
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+            alert('Product updated successfully!');
+          } else {
+            await axios.post('http://127.0.0.1:8000/sell/', formData, {
+              headers: {
+                Authorization: `Bearer ${newToken}`,
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+            alert('Product uploaded successfully!');
+          }
+          navigator('/product_list');
         } catch (retryError) {
           console.error('Retry failed:', retryError.response?.data || retryError.message);
-          alert('Upload failed after retrying.');
+          alert('Operation failed after retrying.');
         }
       } else {
-        console.error('Upload failed:', error.response?.data || error.message);
-        alert('Upload failed. Check console for details.');
+        console.error('Operation failed:', error.response?.data || error.message);
+        alert('Operation failed. Check console for details.');
       }
     }
   };
 
   return (
     <motion.div className="background">
-            <motion.div id="sell-nav"
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-            >   
-                <motion.h1 id='sell-A'>Aurora</motion.h1>
-                <motion.h1 id='sell-APPS'>APPS</motion.h1>
-                <motion.div id='sell-buy'>
-                    <motion.button id='sell-buy-button' onClick={() => navigator('/dash')}>MarketPlace</motion.button>
-                </motion.div>
-                <motion.div id='sell-sell'>
-                    <motion.button id='sell-sell-button' onClick={() => navigator('/sell')}>Sell Product</motion.button>
-                </motion.div>
-                <motion.div id='sell-set'>
-                    <motion.button id='sell-set-button'>Settings</motion.button>
-                </motion.div>
-                <motion.h1 id='sell-APPS1'>ACCOUNTS</motion.h1>
-                <motion.div id='sell-log'>
-                  
-                <motion.button
-                  id='sell-log-button'
-                  onClick={() => {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    delete axios.defaults.headers.common['Authorization'];
-
-                    navigator('/');
-                  }}
-                >
-                  Logout
-                </motion.button>
-              </motion.div>
-                              <motion.div id='sell-switch'>
-                  
-                <motion.button
-                  id='sell-switch-button'
-                  onClick={() => {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    delete axios.defaults.headers.common['Authorization'];
-
-                    navigator('/login');
-                  }}
-                >
-                  Switch User
-                </motion.button>
-              </motion.div>
-
-            </motion.div>
+      <Navigation />
 
       {/* Sell Form */}
       <motion.h1
-  id="title1"
-  initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: 'easeOut' }}
->
-  Sell Product
-</motion.h1>
-      
+        id="title1"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        {isEditing ? 'Edit Product' : 'Sell Product'}
+      </motion.h1>
+
       <motion.form id="form" onSubmit={handleSubmit}>
         <motion.input
           id="sell-item"
@@ -224,12 +256,12 @@ function Sell() {
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
-          required
+          required={!isEditing}
         />
-        <motion.h1 id="sell-image">Image</motion.h1>
+        <motion.h1 id="sell-image">Image {isEditing && '(Optional)'}</motion.h1>
 
         <motion.button id="button-sell" type="submit">
-          Sell
+          {isEditing ? 'Update' : 'Sell'}
         </motion.button>
       </motion.form>
     </motion.div>

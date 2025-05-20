@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'selling',  
     'dash',
     'Product_id',
+    'Product_list',
 ]
 
 MIDDLEWARE = [
