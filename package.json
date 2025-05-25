@@ -1,0 +1,9 @@
+{
+  "name": "aurora",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd Frontend/App && npm install && npm run build",
+    "start": "cd Frontend/App && npm run preview"
+  }
+} 
