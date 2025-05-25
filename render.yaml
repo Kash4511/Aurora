@@ -7,4 +7,6 @@ services:
     startCommand: gunicorn aurora.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: aurora.settings 
+        value: aurora.settings
+      - key: PYTHONPATH
+        value: /opt/render/project/src/Backend 
