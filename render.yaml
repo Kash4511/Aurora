@@ -9,7 +9,7 @@ services:
     startCommand: |
       cd /opt/render/project/src/Backend
       export PYTHONPATH=/opt/render/project/src/Backend
-      gunicorn wsgi:application --bind 0.0.0.0:$PORT
+      gunicorn -c gunicorn_config.py
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: aurora.settings
