@@ -1,1 +1,1 @@
-web: cd /opt/render/project/src/Backend && gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT 
+web: gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT
