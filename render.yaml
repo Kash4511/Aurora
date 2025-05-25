@@ -7,9 +7,8 @@ services:
       pip install -r requirements.txt
       python manage.py migrate
     startCommand: |
-      cd /opt/render/project/src/Backend
       export PYTHONPATH=$PYTHONPATH:/opt/render/project/src/Backend
-      gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT
+      gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT --chdir /opt/render/project/src/Backend
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: aurora.settings
