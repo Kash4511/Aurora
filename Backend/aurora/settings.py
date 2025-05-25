@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*!t6hcvup-4t+q@9j28lhyfr74d+#g3^e*ajj-tdi7f42df)c6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Update this with your actual domain in production
 from datetime import timedelta
 
 SIMPLE_JWT = {
@@ -63,7 +64,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'aurora.urls'
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Your frontend's origin
+    "http://localhost:5173",
+    "https://aurora-frontend.onrender.com",  # Add your frontend URL
 ]
 TEMPLATES = [
     {
@@ -86,7 +88,6 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -152,3 +153,25 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add CORS additional settings
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
