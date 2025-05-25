@@ -90,7 +90,10 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'chinook.sqlite',
+        'OPTIONS': {
+            'url': 'sqlitecloud://cxqqvrsbnz.g2.sqlite.cloud:8860/chinook.sqlite?apikey=noeDaOsihWbeleqeuO9zmcFYdMRv6RVxPFjiZI2mWwo',
+        }
     }
 }
 REST_FRAMEWORK = {
