@@ -89,12 +89,12 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Works with Turso's libSQL!
-        'NAME': BASE_DIR / 'db.sqlite3',  # Local fallback
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
         'OPTIONS': {
-            'timeout': 20,  # Adjust as needed
-            # Turso connection (override in production)
-            'uri': os.getenv('TURSO_DB_URL', ''),  # Optional for local dev
+            'timeout': 20,
+            'uri': os.getenv('TURSO_DATABASE_URL', ''),
+            'auth_token': os.getenv('TURSO_AUTH_TOKEN', ''),
         }
     }
 }
