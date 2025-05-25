@@ -4,9 +4,11 @@ services:
     env: python
     rootDir: Backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn aurora.wsgi:application
+    startCommand: cd /opt/render/project/src/Backend && gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: aurora.settings
       - key: PYTHONPATH
-        value: /opt/render/project/src/Backend 
+        value: /opt/render/project/src/Backend
+      - key: PORT
+        value: 8000 
