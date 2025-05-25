@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'chinook.sqlite',
+        'ENGINE': 'django.db.backends.sqlite3',  # Works with Turso's libSQL!
+        'NAME': BASE_DIR / 'db.sqlite3',  # Local fallback
         'OPTIONS': {
-            'timeout': 30,
-            'uri': True,
-            'file': 'sqlitecloud://cxqqvrsbnz.g2.sqlite.cloud:8860/chinook.sqlite?apikey=noeDaOsihWbeleqeuO9zmcFYdMRv6RVxPFjiZI2mWwo'
+            'timeout': 20,  # Adjust as needed
+            # Turso connection (override in production)
+            'uri': os.getenv('TURSO_DB_URL', ''),  # Optional for local dev
         }
     }
 }

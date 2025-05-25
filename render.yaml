@@ -9,12 +9,11 @@ services:
     startCommand: |
       cd Backend && gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
-      - key: PYTHONPATH
-        value: /opt/render/project/src/Backend
+      - key: TURSO_DB_URL
+        value: "libsql://your-db-name-username.turso.io"
+      - key: TURSO_AUTH_TOKEN
+        value: "your-token-here"  # Get via `turso db tokens create your-db-name`
       - key: DJANGO_SETTINGS_MODULE
-        value: aurora.settings
-      - key: PORT
-        value: 8000
-
+        value: "aurora.settings"
 
 
