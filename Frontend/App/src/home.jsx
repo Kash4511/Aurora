@@ -172,14 +172,14 @@ function Home() {
     </motion.button>
     <motion.button
       id="Learn"
-      initial={{ opacity: 0, y: 50 }}  // Starts invisible and 50px down
-        animate={{ opacity: 1, y: 0 }}   // Ends visible and at normal position
-        transition={{ 
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
         duration: 0.9, 
         ease: 'easeOut',
-        delay: 0.3     // Optional: Add slight delay for staggered animations
-        }}
-      onClick={post}
+        delay: 0.3
+      }}
+      onClick={() => navigator('/learnmore')}
       whileHover={{
         scale: 1.1,
         color: '#1F1F1F',
@@ -225,7 +225,7 @@ function Home() {
       transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      Snap a photo, Set your price and you’re live
+      Snap a photo, Set your price and you're live
     </motion.h1>
     <motion.button
     id='stop4'
@@ -243,10 +243,8 @@ function Home() {
       scale: 0.9,
       transition: { duration: 0.1 }
     }}
-
-    
+    onClick={() => navigator('/login')}
     >Start Selling
-
     </motion.button>
   </motion.div>
   <motion.div
@@ -299,10 +297,8 @@ function Home() {
       scale: 0.9,
       transition: { duration: 0.1 }
     }}
-
-    
+    onClick={() => navigator('/login')}
     >Browse Listing
-
     </motion.button>
   </motion.div>
 </motion.div>
@@ -357,10 +353,8 @@ function Home() {
       scale: 0.9,
       transition: { duration: 0.1 }
     }}
-
-    
+    onClick={() => navigator('/login')}
     >Get Updates
-
     </motion.button>
   </motion.div>
 </motion.div>
@@ -408,6 +402,7 @@ function Home() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
       viewport={{ once: true, amount: 0.3 }}
+      onClick={() => navigator('/home')}
     
     >About  
 
@@ -439,7 +434,7 @@ function Home() {
       transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
       viewport={{ once: true, amount: 0.3 }}
     
-    >Made by Kaashif Ameen
+    >Made by Mohammed Kaashif Ameen
 
     </motion.h1>
 

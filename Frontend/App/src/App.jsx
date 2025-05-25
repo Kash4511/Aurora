@@ -8,6 +8,7 @@ import Sell from './sell';
 import ProductDetail from './product';
 import ProtectedRoute from './ProtectedRoute'; 
 import ProductList from './Product_list'; 
+import LearnMore from './learnmore';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/learnmore" element={<LearnMore />} />
 
           {/* ✅ Wrap protected routes */}
           <Route
