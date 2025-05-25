@@ -156,7 +156,7 @@ function Sell() {
         }
       } else {
         console.error('Operation failed:', error.response?.data || error.message);
-        alert('Operation failed. Check console for details.');
+        alert('Failed due to wrong input please check the details again (Price should not have commas');
       }
     }
   };

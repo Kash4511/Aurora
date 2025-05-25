@@ -12,7 +12,7 @@ function Dash() {
 
     const get = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('access_token');
             const response = await axios.get('http://127.0.0.1:8000/dash/', {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -158,12 +158,12 @@ function Dash() {
                                         transition: 'background-color 0.3s ease',
                                     }}
                                 >
-                                    <strong>{item.item_name}</strong> - <strong>{item.item_price}</strong><br />
+                                    <strong>{item.item_name}</strong> - <strong>₹{item.item_price}</strong><br />
                                     {item.item_description}<br />
                                     <span style={{ fontStyle: 'italic' }}>
                                         ({item.city}, {item.state}, {item.country})
                                     </span><br />
-                                    ({item.phone_number}, {item.social_ID})<br />
+                                   
                                 </motion.div>
                             </motion.div>
                         ))}

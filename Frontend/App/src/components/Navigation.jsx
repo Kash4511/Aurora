@@ -23,9 +23,7 @@ function Navigation() {
       <motion.div id='List'>
         <motion.button id='List-button' onClick={() => navigate('/product_list')}>My Products</motion.button>
       </motion.div>
-      <motion.div id='set'>
-        <motion.button id='set-button'>Settings</motion.button>
-      </motion.div>
+
       <motion.h1 id='APPS1'>ACCOUNTS</motion.h1>
       <motion.div id='log'>
         <motion.button

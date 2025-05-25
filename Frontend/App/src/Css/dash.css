@@ -25,7 +25,7 @@ line-height: normal;
     flex-shrink: 0;
     left:30px;
     position: absolute;
-    top:150px;
+    top:170px;
 
 }
 #buy-button 
@@ -54,7 +54,7 @@ line-height: normal;
     left:30px;
     
     position: absolute;
-    top:310px;
+    top:350px;
 
 }
 #List-button 
@@ -83,7 +83,7 @@ line-height: normal;
     flex-shrink: 0;
     left: 30px;
     position: absolute;
-    top:230px;
+    top:260px;
 
 }
 #sell-button 
@@ -106,34 +106,7 @@ line-height: normal;
 
 }
 
-#set {
-    background-image: url('../assets/Slider.svg');
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    left: 32px;
-    position: absolute;
-    top:390px;
 
-}
-#set-button 
-{
-    top:9px;
-    left:50px;
-    position:absolute;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    color:#fff;
-    background-color: #1F1F1F;
-    font-family: Poppins;
-font-size: 17px;
-font-style: normal;
-/* font-weight: 500; */
-line-height: normal;
-    
-
-}
 
 #log {
     background-image: url('../assets/Logout.svg');
@@ -183,7 +156,7 @@ font-weight: 500;
 line-height: normal;
 left:30px;
 position: absolute;
-top: 10px;
+top: 30px;
 
 }
 #search{
@@ -211,7 +184,7 @@ font-style: normal;
 font-weight: 700;
 line-height: normal;
 left: 30px;
-top:100px;
+top:110px;
 position: absolute;
 }
 #APPS1{
