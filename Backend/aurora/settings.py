@@ -92,7 +92,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'chinook.sqlite',
         'OPTIONS': {
-            'url': 'sqlitecloud://cxqqvrsbnz.g2.sqlite.cloud:8860/chinook.sqlite?apikey=noeDaOsihWbeleqeuO9zmcFYdMRv6RVxPFjiZI2mWwo',
+            'timeout': 30,
+            'uri': True,
+            'file': 'sqlitecloud://cxqqvrsbnz.g2.sqlite.cloud:8860/chinook.sqlite?apikey=noeDaOsihWbeleqeuO9zmcFYdMRv6RVxPFjiZI2mWwo'
         }
     }
 }
