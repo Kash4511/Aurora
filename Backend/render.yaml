@@ -6,7 +6,7 @@ services:
     startCommand: "gunicorn aurora.wsgi:application"
     envVars:
       - key: DATABASE_URL
-        value: postgresql://postgres:kaash@db.mtvhwwjxisesiydcruab.supabase.co:5432/postgres
+        value: postgresql://postgres:kano12345@db.mtvhwwjxisesiydcruab.supabase.co:5432/postgres
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DEBUG
