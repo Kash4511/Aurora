@@ -6,13 +6,14 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import { API_ENDPOINTS } from './config';
 
 async function refreshAccessToken() {
   try {
     const refreshToken = localStorage.getItem('refresh_token');
     if (!refreshToken) throw new Error('No refresh token found');
 
-    const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+    const response = await axios.post(API_ENDPOINTS.SELL, {
       refresh: refreshToken,
     });
     const newAccessToken = response.data.access;
