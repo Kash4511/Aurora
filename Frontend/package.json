@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "postcss": "^8.5.3",
-    "resolve-url-loader": "^5.0.0"
-  }
-}
