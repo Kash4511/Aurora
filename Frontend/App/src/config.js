@@ -3,7 +3,9 @@ const API_BASE_URL = 'https://aurora-vtm6.onrender.com';
 export const API_ENDPOINTS = {
     LOGIN: `${API_BASE_URL}/login/`,
     REGISTER: `${API_BASE_URL}/register/`,
-    // Add other endpoints as needed
+    DASH: `${API_BASE_URL}/dash/`,
+    PRODUCTS: `${API_BASE_URL}/products/`,
+    SELL: `${API_BASE_URL}/sell/`,
 };
 
 export const axiosConfig = {
@@ -11,5 +13,5 @@ export const axiosConfig = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
     },
-    withCredentials: true
+    withCredentials: false  // Changed to false since we're using token-based auth
 }; 

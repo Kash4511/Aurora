@@ -167,7 +167,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Add CORS additional settings
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -194,3 +194,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://aurora-vtm6.onrender.com",
     "http://localhost:5173",
 ]
+
+# Add CORS additional settings
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True

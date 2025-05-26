@@ -8,19 +8,31 @@ function Login() {
   const navigator = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const post = async () => {
+    setError('');
     const data = { username, password };
     try {
-      const response = await axios.post(API_ENDPOINTS.LOGIN, data, axiosConfig);
-      console.log('Login Successful', response.data);
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-      navigator('/dash');
+      const response = await axios.post(API_ENDPOINTS.LOGIN, data, {
+        ...axiosConfig,
+        headers: {
+          ...axiosConfig.headers,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      });
+      
+      if (response.data.access) {
+        localStorage.setItem('access_token', response.data.access);
+        localStorage.setItem('refresh_token', response.data.refresh);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+        navigator('/dash');
+      } else {
+        setError('Invalid response from server');
+      }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('Login Failed');
+      setError(error.response?.data?.detail || 'Login failed. Please try again.');
     }
   };
 
@@ -50,6 +62,16 @@ function Login() {
 
 
        </motion.h1>
+       {error && (
+         <motion.div
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           className="error-message"
+           style={{ color: 'red', marginBottom: '10px' }}
+         >
+           {error}
+         </motion.div>
+       )}
        <motion.div>
        <motion.input id='username'
                initial={{ opacity: 0, y: 50 }}
