@@ -27,6 +27,4 @@ urlpatterns = [
     path('dash/', include('dash.urls')),
     path('products/<int:id>/', include('Product_id.urls')),
     path('product_list', include('Product_list.urls')),
-    path('api/', include('rest_framework_simplejwt.urls')),
-
 ]+ static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,10 +12,7 @@ export const API_ENDPOINTS = {
     SELL: 'https://aurora-vtm6.onrender.com/sell/',
     
     // Dashboard endpoints
-    DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/',
-    
-    // JWT endpoints
-    REFRESH_TOKEN: 'https://aurora-vtm6.onrender.com/api/token/refresh/'
+    DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/'
 };
 
 // Axios configuration
