@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
+import { API_ENDPOINTS } from './config';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -23,13 +24,13 @@ function ProductDetail() {
         }
 
         // Fetch main product
-        const productResponse = await axios.get(`http://127.0.0.1:8000/products/${id}/`, {
+        const productResponse = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL(id), {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProduct(productResponse.data);
 
         // Fetch suggested products (for now, we'll fetch all products and filter)
-        const suggestedResponse = await axios.get('http://127.0.0.1:8000/dash/', {
+        const suggestedResponse = await axios.get(API_ENDPOINTS.DASH, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // Filter out the current product and get 4 random suggestions

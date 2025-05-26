@@ -4,6 +4,7 @@ import { backOut, motion } from 'motion/react';
 import './Css/dash.css';
 import { useNavigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import { API_ENDPOINTS } from './config';
 
 function Dash() {
     const navigator = useNavigate();
@@ -13,7 +14,7 @@ function Dash() {
     const get = async () => {
         try {
             const token = localStorage.getItem('access_token');
-            const response = await axios.get('http://127.0.0.1:8000/dash/', {
+            const response = await axios.get(API_ENDPOINTS.DASH, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

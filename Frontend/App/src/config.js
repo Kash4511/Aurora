@@ -12,7 +12,8 @@ export const API_ENDPOINTS = {
     SELL: 'https://aurora-vtm6.onrender.com/sell/',
     
     // Dashboard endpoints
-    DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/'
+    DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/',
+    HOME: 'https://aurora-vtm6.onrender.com'
 };
 
 // Axios configuration
