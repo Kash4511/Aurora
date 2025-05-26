@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
-import { API_ENDPOINTS } from './config';
+import { API_ENDPOINTS, ROUTES } from './config';
 
 function ProductList() {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function ProductList() {
   };
 
   const handleEditClick = (product) => {
-    navigate(`/sell/${product.id}`);
+    navigate(ROUTES.EDIT_PRODUCT(product.id));
   };
 
   return (

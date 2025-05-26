@@ -27,7 +27,7 @@ async function refreshAccessToken() {
 
 function Sell() {
   const navigator = useNavigate();
-  const { id } = useParams();
+  const { productId } = useParams();
   const [itemName, setItemName] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
@@ -40,10 +40,10 @@ function Sell() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (id) {
+    if (productId) {
       fetchProductDetails();
     }
-  }, [id]);
+  }, [productId]);
 
   const fetchProductDetails = async () => {
     try {
@@ -54,15 +54,19 @@ function Sell() {
         return;
       }
 
-      const response = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL(id), {
+      console.log('Fetching product details for ID:', productId);
+      const response = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL(productId), {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
+      console.log('Product details response:', response.data);
       
       if (!response.data) {
         throw new Error('No product data received');
       }
 
       const product = response.data;
+      console.log('Setting product data:', product);
       setItemName(product.item_name || '');
       setItemPrice(product.item_price || '');
       setItemDescription(product.item_description || '');
@@ -74,6 +78,7 @@ function Sell() {
       setIsEditing(true);
     } catch (error) {
       console.error('Error fetching product details:', error);
+      console.error('Error response:', error.response);
       if (error.response?.status === 401) {
         alert('Your session has expired. Please login again.');
         navigator('/login');
@@ -111,7 +116,7 @@ function Sell() {
     try {
       if (isEditing) {
         // For editing, use PATCH instead of PUT to only update provided fields
-        await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(id), formData, {
+        await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(productId), formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -134,7 +139,7 @@ function Sell() {
         if (!newToken) return;
         try {
           if (isEditing) {
-            await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(id), formData, {
+            await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(productId), formData, {
               headers: {
                 Authorization: `Bearer ${newToken}`,
                 'Content-Type': 'multipart/form-data',

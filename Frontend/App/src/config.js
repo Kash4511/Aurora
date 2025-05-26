@@ -16,6 +16,16 @@ export const API_ENDPOINTS = {
     HOME: 'https://aurora-vtm6.onrender.com'
 };
 
+// Route paths for navigation
+export const ROUTES = {
+    EDIT_PRODUCT: (id) => `/sell/${id}`,
+    PRODUCT_LIST: '/product_list',
+    DASHBOARD: '/dash',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    HOME: '/'
+};
+
 // Axios configuration
 export const axiosConfig = {
     headers: {
