@@ -1,19 +1,22 @@
 services:
   - type: web
-    name: aurora-backend
+    name: aurora
     env: python
-    rootDir: Backend
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py migrate
-    startCommand: |
-      cd Backend && gunicorn aurora.wsgi:application --bind 0.0.0.0:$PORT
+    buildCommand: pip install -r requirements.txt
+    startCommand: "gunicorn aurora.wsgi:application"
     envVars:
-      - key: TURSO_DB_URL
-        value: "libsql://aurora.turso.io"
-      - key: TURSO_AUTH_TOKEN
-        value: "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJEY0pxLVRtV0VmQ2JJRzV6ODRHS3BRIn0.-MmrM0uJjEWqGzncYpZMUv2_Z0SJleEedysVmIpB3YT8lIxcMlFbBfnT2gz8V0WtXP6I4UlvfNLAJF8J57lcCg"  # Get via `turso db tokens create your-db-name`
-      - key: DJANGO_SETTINGS_MODULE
-        value: "aurora.settings"
+      - key: DATABASE_URL
+        value: postgresql://postgres.mtvhwwjxisesiydcruab:kano12345@aws-0-us-east-2.pooler.supabase.com:5432/postgres
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+
+databases:
+  - name: aurora-db
+    databaseName: aurora
+    user: aurora
+    plan: free
+
 
 
