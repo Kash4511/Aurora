@@ -14,7 +14,8 @@ function Login() {
     setError('');
     const data = { username, password };
     try {
-      const response = await axios.post(API_ENDPOINTS.LOGIN, data)
+      const response = await axios.post(API_ENDPOINTS.LOGIN, data);
+      console.log(response);
       
       if (response.data.access) {
         localStorage.setItem('access_token', response.data.access);

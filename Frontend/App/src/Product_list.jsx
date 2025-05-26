@@ -14,7 +14,7 @@ function ProductList() {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('access_token');
-      const response = await axios.get(API_ENDPOINTS.PRODUCTS, {
+      const response = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(response.data);
@@ -30,7 +30,7 @@ function ProductList() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('access_token');
-      await axios.delete(`http://127.0.0.1:8000/products/${id}/`, {
+      await axios.delete(API_ENDPOINTS.PRODUCT_DETAIL(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.filter((product) => product.id !== id));

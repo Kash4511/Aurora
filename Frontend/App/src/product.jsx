@@ -24,7 +24,7 @@ function ProductDetail() {
         }
 
         // Fetch main product
-        const productResponse = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL, {
+        const productResponse = await axios.get(API_ENDPOINTS.PRODUCT, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProduct(productResponse.data);

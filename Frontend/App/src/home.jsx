@@ -3,12 +3,13 @@ import axios from 'axios';
 import './Css/Home.css';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
+import { API_ENDPOINTS } from './config';
 function Home() {
     const navigator = useNavigate();
 
     const post = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000');
+            const response = await axios.post(API_ENDPOINTS.HOME);
             console.log('Response:', response.data);
           } catch (error) {
             console.error('Error logging in:', error);
