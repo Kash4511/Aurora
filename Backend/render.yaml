@@ -5,9 +5,17 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn aurora.wsgi:application
     envVars:
-      - key: DATABASE_URL
-        value: postgresql://aurora:aurora123@db.mtvhwwjxisesiydcruab.supabase.co:5432/aurora
+      - key: SUPABASE_DB_NAME
+        value: postgres
+      - key: SUPABASE_DB_USER
+        value: postgres
+      - key: SUPABASE_DB_PASSWORD
+        sync: false
+      - key: SUPABASE_DB_HOST
+        value: db.mtvhwwjxisesiydcruab.supabase.co
+      - key: SUPABASE_DB_PORT
+        value: "5432"
       - key: DJANGO_SECRET_KEY
-        value: django-insecure-*!t6hcvup-4t+q@9j28lhyfr74d+#g3^e*ajj-tdi7f42df)c6
+        generateValue: true
       - key: DEBUG
-        value: 'False'  # Usually production is False
+        value: false
