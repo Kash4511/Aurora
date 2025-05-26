@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-
+import { API_ENDPOINTS, axiosConfig } from './config';
 
 function Login() {
   const navigator = useNavigate();
@@ -12,11 +12,11 @@ function Login() {
   const post = async () => {
     const data = { username, password };
     try {
-      const response = await axios.post('http://127.0.0.1:8000/login/', data);
+      const response = await axios.post(API_ENDPOINTS.LOGIN, data, axiosConfig);
       console.log('Login Successful', response.data);
-    localStorage.setItem('access_token', response.data.access);
-    localStorage.setItem('refresh_token', response.data.refresh);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
       navigator('/dash');
     } catch (error) {
       console.error('Error logging in:', error);

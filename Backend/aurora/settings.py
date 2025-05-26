@@ -40,7 +40,7 @@ else:
             'PORT': os.getenv('DB_PORT', '5432'),
         }
     }
-ALLOWED_HOSTS = ['*']  # Update this with your actual domain in production
+ALLOWED_HOSTS = ['aurora-vtm6.onrender.com', 'localhost', '127.0.0.1']
 from datetime import timedelta
 
 SIMPLE_JWT = {
@@ -80,7 +80,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'aurora.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://aurora-frontend.onrender.com",  # Add your frontend URL
+    "https://aurora-ivory-rho.vercel.app",
 ]
 TEMPLATES = [
     {
@@ -186,4 +186,11 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+]
+
+# Add your Render backend URL
+CSRF_TRUSTED_ORIGINS = [
+    "https://aurora-ivory-rho.vercel.app",
+    "https://aurora-vtm6.onrender.com",
+    "http://localhost:5173",
 ]
