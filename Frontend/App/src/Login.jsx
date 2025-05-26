@@ -17,10 +17,10 @@ function Login() {
       const response = await axios.post(API_ENDPOINTS.LOGIN, data);
       console.log('Login response:', response.data);
       
-      // Store the token from the response
-      if (response.data.token) {
-        localStorage.setItem('access_token', response.data.token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+      if (response.data.access) {
+        localStorage.setItem('access_token', response.data.access);
+        localStorage.setItem('refresh_token', response.data.refresh);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
         navigator('/dash');
       } else {
         setError('Invalid response from server');
