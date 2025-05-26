@@ -9,33 +9,48 @@ import { API_ENDPOINTS } from './config';
 function Dash() {
     const navigator = useNavigate();
     const [data, setData] = useState([]);
-    const [searchQuery, setSearchQuery] = useState(''); // 🔍 Search query state
+    const [searchQuery, setSearchQuery] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const get = async () => {
         try {
             const token = localStorage.getItem('access_token');
+            console.log('Token from localStorage:', token);
+            
             if (!token) {
                 console.error('No token found');
                 navigator('/login');
                 return;
             }
 
-            console.log('Fetching dashboard data...');
+            console.log('Fetching dashboard data from:', API_ENDPOINTS.DASH);
             const response = await axios.get(API_ENDPOINTS.DASH, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
             });
+            
+            console.log('Dashboard response:', response);
             console.log('Dashboard data received:', response.data);
-            setData(response.data);
+            
+            if (Array.isArray(response.data)) {
+                setData(response.data);
+            } else {
+                console.error('Received non-array data:', response.data);
+                setError('Invalid data format received from server');
+            }
         } catch (error) {
             console.error('Error fetching dashboard data:', error);
+            console.error('Error response:', error.response);
             if (error.response?.status === 401) {
                 console.log('Unauthorized, redirecting to login...');
                 navigator('/login');
             }
             setError('Failed to load dashboard data. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -43,7 +58,23 @@ function Dash() {
         get();
     }, []);
 
-    // 🔍 Filter the data based on the search query
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <h2>Loading dashboard data...</h2>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <h2 style={{ color: 'red' }}>{error}</h2>
+            </div>
+        );
+    }
+
+    // Filter the data based on the search query
     const filteredData = data.filter((item) =>
         item.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.item_description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -53,10 +84,7 @@ function Dash() {
     return (
         <div style={{ display: 'flex' }}>
             <Navigation />
-
-            {/* Main Content */}
             <div style={{ flex: 1 }}>
-                {/* 🔍 Search Input */}
                 <motion.div style={{ textAlign: 'center', marginTop: '30px' }}>
                     <motion.div
                         id="search-bar"
@@ -75,7 +103,6 @@ function Dash() {
                             position: 'relative',
                         }}
                     >
-                        {/* Search Icon */}
                         <div id='icon'
                             style={{
                                 color: '#86B66F',
@@ -85,8 +112,6 @@ function Dash() {
                                 fontSize: '18px',
                             }}>
                         </div>
-
-                        {/* Input */}
                         <input
                             type="text"
                             placeholder="Search"
@@ -105,7 +130,6 @@ function Dash() {
                     </motion.div>
                 </motion.div>
 
-                {/* 🧾 Cards Section */}
                 <motion.div className='cards-wrapper'
                     style={{
                         maxWidth: '1200px',
@@ -177,8 +201,7 @@ function Dash() {
                                     {item.item_description}<br />
                                     <span style={{ fontStyle: 'italic' }}>
                                         ({item.city}, {item.state}, {item.country})
-                                    </span><br />
-                                   
+                                    </span>
                                 </motion.div>
                             </motion.div>
                         ))}
