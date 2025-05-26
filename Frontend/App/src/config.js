@@ -1,10 +1,21 @@
 // API endpoints configuration
 export const API_ENDPOINTS = {
-    LOGIN: 'http://localhost:8000/api/token/',
-    REGISTER: 'http://localhost:8000/api/register/',
-    REFRESH_TOKEN: 'http://localhost:8000/api/token/refresh/',
-    PRODUCTS: 'http://localhost:8000/api/products/',
-    USER_PROFILE: 'http://localhost:8000/api/user/profile/'
+    // Auth endpoints
+    LOGIN: 'https://aurora-vtm6.onrender.com/login/',
+    REGISTER: 'https://aurora-vtm6.onrender.com/register/',
+    
+    // Product endpoints
+    PRODUCTS: 'https://aurora-vtm6.onrender.com/product_list/',
+    PRODUCT_DETAIL: (id) => `https://aurora-vtm6.onrender.com/products/${id}/`,
+    
+    // Selling endpoints
+    SELL: 'https://aurora-vtm6.onrender.com/sell/',
+    
+    // Dashboard endpoints
+    DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/',
+    
+    // JWT endpoints
+    REFRESH_TOKEN: 'https://aurora-vtm6.onrender.com/api/token/refresh/'
 };
 
 // Axios configuration

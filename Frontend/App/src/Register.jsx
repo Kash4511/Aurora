@@ -3,6 +3,7 @@ import axios from 'axios'
 import './Css/Register.css';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
+import { API_ENDPOINTS } from './config';
 
 function Register() {
     const navigator = useNavigate();
@@ -14,11 +15,12 @@ function Register() {
         const data = { username, password, email, phone_number };
         console.log('Data being sent:', data);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/register/', data);
-            console.log('Login Successful', response.data);
+            const response = await axios.post(API_ENDPOINTS.REGISTER, data);
+            console.log('Registration Successful', response.data);
             alert('Account Created Successfully');
+            navigator('/login');
         } catch (error) {
-          console.error('Error logging in:', error.response ? error.response.data : error.message);
+          console.error('Error registering:', error.response ? error.response.data : error.message);
           alert('Account creation failed: ' + (error.response ? JSON.stringify(error.response.data) : error.message));
       }
     }
