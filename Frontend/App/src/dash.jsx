@@ -14,7 +14,7 @@ function Dash() {
     const get = async () => {
         try {
             const token = localStorage.getItem('access_token');
-            const response = await axios.get(API_ENDPOINTS.DASH, {
+            const response = await axios.get(API_ENDPOINTS.DASHBOARD, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
