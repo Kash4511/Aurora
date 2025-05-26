@@ -10,18 +10,32 @@ function Dash() {
     const navigator = useNavigate();
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // 🔍 Search query state
+    const [error, setError] = useState('');
 
     const get = async () => {
         try {
             const token = localStorage.getItem('access_token');
+            if (!token) {
+                console.error('No token found');
+                navigator('/login');
+                return;
+            }
+
+            console.log('Fetching dashboard data...');
             const response = await axios.get(API_ENDPOINTS.DASH, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log('Dashboard data received:', response.data);
             setData(response.data);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching dashboard data:', error);
+            if (error.response?.status === 401) {
+                console.log('Unauthorized, redirecting to login...');
+                navigator('/login');
+            }
+            setError('Failed to load dashboard data. Please try again.');
         }
     };
 
