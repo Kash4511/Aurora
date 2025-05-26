@@ -22,12 +22,18 @@ ALLOWED_HOSTS = ['aurora-vtm6.onrender.com', 'localhost', '127.0.0.1']
 
 # Database configuration
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'kano12345',
+        'HOST': 'db.mtvhwwjxisesiydcruab.supabase.co',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+            'connect_timeout': 10,
+        }
+    }
 }
 
 # Static files for production
