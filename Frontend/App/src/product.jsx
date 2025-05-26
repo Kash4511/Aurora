@@ -30,7 +30,7 @@ function ProductDetail() {
         setProduct(productResponse.data);
 
         // Fetch suggested products (for now, we'll fetch all products and filter)
-        const suggestedResponse = await axios.get(API_ENDPOINTS.DASH, {
+        const suggestedResponse = await axios.get(API_ENDPOINTS.DASHBOARD, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // Filter out the current product and get 4 random suggestions

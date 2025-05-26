@@ -27,7 +27,7 @@ async function refreshAccessToken() {
 
 function Sell() {
   const navigator = useNavigate();
-  const { productId } = useParams();
+  const { id } = useParams();
   const [itemName, setItemName] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
@@ -40,10 +40,10 @@ function Sell() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (productId) {
+    if (id) {
       fetchProductDetails();
     }
-  }, [productId]);
+  }, [id]);
 
   const fetchProductDetails = async () => {
     try {
@@ -54,7 +54,7 @@ function Sell() {
         return;
       }
 
-      const response = await axios.get(`http://127.0.0.1:8000/products/${productId}/`, {
+      const response = await axios.get(API_ENDPOINTS.PRODUCT_DETAIL(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       
@@ -111,7 +111,7 @@ function Sell() {
     try {
       if (isEditing) {
         // For editing, use PATCH instead of PUT to only update provided fields
-        await axios.patch(`http://127.0.0.1:8000/products/${productId}/`, formData, {
+        await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(id), formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -119,7 +119,7 @@ function Sell() {
         });
         alert('Product updated successfully!');
       } else {
-        await axios.post('http://127.0.0.1:8000/sell/', formData, {
+        await axios.post(API_ENDPOINTS.SELL, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -134,7 +134,7 @@ function Sell() {
         if (!newToken) return;
         try {
           if (isEditing) {
-            await axios.patch(`http://127.0.0.1:8000/products/${productId}/`, formData, {
+            await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(id), formData, {
               headers: {
                 Authorization: `Bearer ${newToken}`,
                 'Content-Type': 'multipart/form-data',
@@ -142,7 +142,7 @@ function Sell() {
             });
             alert('Product updated successfully!');
           } else {
-            await axios.post('http://127.0.0.1:8000/sell/', formData, {
+            await axios.post(API_ENDPOINTS.SELL, formData, {
               headers: {
                 Authorization: `Bearer ${newToken}`,
                 'Content-Type': 'multipart/form-data',
