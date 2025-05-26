@@ -128,9 +128,11 @@ USE_TZ = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://aurora-ivory-rho.vercel.app",
+    "https://aurora-vtm6.onrender.com",
 ]
 
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -139,6 +141,7 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
+
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
