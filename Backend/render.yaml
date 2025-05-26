@@ -5,11 +5,9 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn aurora.wsgi:application
     envVars:
-      - key: TURSO_DATABASE_URL
-        sync: false
-      - key: TURSO_AUTH_TOKEN
-        sync: false
+      - key: DATABASE_URL
+        value: postgresql://aurora:aurora123@db.mtvhwwjxisesiydcruab.supabase.co:5432/aurora
       - key: DJANGO_SECRET_KEY
-        generateValue: true
+        value: django-insecure-*!t6hcvup-4t+q@9j28lhyfr74d+#g3^e*ajj-tdi7f42df)c6
       - key: DEBUG
-        value: false 
+        value: 'False'  # Usually production is False
