@@ -79,7 +79,7 @@ function ProductList() {
               >
                 <div className="product-image-container">
                   <motion.img
-                    src={product.image}
+                    src={product.image ? `https://aurora-vtm6.onrender.com${product.image}` : ''}
                     alt={product.item_name}
                     className="product-image"
                   />

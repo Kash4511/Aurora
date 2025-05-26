@@ -75,6 +75,9 @@ function Sell() {
       setCity(product.city || '');
       setPhoneNumber(product.phone_number || '');
       setSocialID(product.social_ID || '');
+      if (product.image) {
+        setImage(`https://aurora-vtm6.onrender.com${product.image}`);
+      }
       setIsEditing(true);
     } catch (error) {
       console.error('Error fetching product details:', error);
