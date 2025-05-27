@@ -35,6 +35,7 @@ function Sell() {
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [socialID, setSocialID] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -76,7 +77,7 @@ function Sell() {
       setPhoneNumber(product.phone_number || '');
       setSocialID(product.social_ID || '');
       if (product.image) {
-        setImage(`https://aurora-vtm6.onrender.com${product.image}`);
+        setImagePreview(product.image);
       }
       setIsEditing(true);
     } catch (error) {
@@ -94,6 +95,14 @@ function Sell() {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let token = localStorage.getItem('access_token');
@@ -108,8 +117,8 @@ function Sell() {
     formData.append('phone_number', phoneNumber);
     formData.append('social_ID', socialID);
 
-    // Only append image if it's a new file or a new product
-    if (image) {
+    // Only append image if it's a new file
+    if (image instanceof File) {
       formData.append('image', image);
     } else if (!isEditing) {
       alert('Please select an image for your product');
@@ -264,10 +273,16 @@ function Sell() {
           id="image"
           type="file"
           accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
+          onChange={handleImageChange}
           required={!isEditing}
         />
         <motion.h1 id="sell-image">Image {isEditing && '(Optional)'}</motion.h1>
+
+        {imagePreview && (
+          <motion.div className="image-preview">
+            <img src={imagePreview} alt="Preview" style={{ maxWidth: '200px', marginTop: '10px' }} />
+          </motion.div>
+        )}
 
         <motion.button id="button-sell" type="submit">
           {isEditing ? 'Update' : 'Sell'}
