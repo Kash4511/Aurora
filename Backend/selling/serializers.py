@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Product
-from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Productserializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
@@ -20,10 +22,10 @@ class Productserializer(serializers.ModelSerializer):
         }
 
     def get_image(self, obj):
-        if obj.image:
-            # If it's already a full URL, return it
-            if str(obj.image).startswith('http'):
-                return str(obj.image)
-            # Otherwise, construct the Cloudinary URL
-            return f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{obj.image}"
-        return None
+        try:
+            image_url = obj.get_image_url()
+            logger.info(f"Generated image URL: {image_url}")
+            return image_url
+        except Exception as e:
+            logger.error(f"Error getting image URL: {str(e)}")
+            return None

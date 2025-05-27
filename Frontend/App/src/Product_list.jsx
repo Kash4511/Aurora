@@ -85,6 +85,10 @@ function ProductList() {
                     onError={(e) => {
                       console.error('Image failed to load:', product.image);
                       e.target.style.display = 'none';
+                      e.target.parentElement.style.display = 'none';
+                    }}
+                    onLoad={(e) => {
+                      console.log('Image loaded successfully:', product.image);
                     }}
                   />
                 </div>
