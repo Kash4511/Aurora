@@ -76,7 +76,7 @@ function Sell() {
       setPhoneNumber(product.phone_number || '');
       setSocialID(product.social_ID || '');
       if (product.image) {
-        setImage(product.image);
+        setImage(`https://aurora-vtm6.onrender.com${product.image}`);
       }
       setIsEditing(true);
     } catch (error) {
@@ -167,26 +167,6 @@ function Sell() {
         console.error('Operation failed:', error.response?.data || error.message);
         alert('Failed due to wrong input please check the details again (Price should not have commas');
       }
-    }
-  };
-
-  const refreshToken = async () => {
-    try {
-      const refresh = localStorage.getItem('refresh');
-      if (!refresh) {
-        throw new Error('No refresh token available');
-      }
-      const response = await axios.post(API_ENDPOINTS.REFRESH_TOKEN, { refresh });
-      const newAccessToken = response.data.access;
-      localStorage.setItem('access', newAccessToken);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-      return newAccessToken;
-    } catch (error) {
-      console.error('Token refresh failed:', error);
-      localStorage.removeItem('access');
-      localStorage.removeItem('refresh');
-      navigator('/login');
-      throw error;
     }
   };
 
