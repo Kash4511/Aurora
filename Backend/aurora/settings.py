@@ -39,6 +39,16 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Cloudinary configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
+}
+
+# Use Cloudinary for media storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -50,6 +60,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'selling',
+    'cloudinary_storage',
+    'cloudinary',
     'dash',
     'Product_id',
     'Product_list',
