@@ -120,25 +120,31 @@ function Dash() {
                                 }}
                             >
                                 {item.image && (
-                                    <motion.img
-                                        src={item.image}
-                                        alt={item.item_name}
-                                        style={{
-                                            width: '100%',
-                                            height: '250px',
-                                            objectFit: 'cover',
-                                            borderRadius: '15px',
-                                            marginTop: '10px',
-                                            cursor: 'pointer',
-                                            padding: '10px',
-                                        }}
-                                        onClick={() => navigator(`/product/${item.id}`)}
-                                        whileHover={{
-                                            scale: 1.05,
-                                            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-                                            backgroundColor: '#f0f0f0',
-                                        }}
-                                    />
+                                    <motion.div className="product-image">
+                                        <motion.img
+                                            src={item.image}
+                                            alt={item.item_name}
+                                            style={{
+                                                width: '100%',
+                                                height: '250px',
+                                                objectFit: 'cover',
+                                                borderRadius: '15px',
+                                                marginTop: '10px',
+                                                cursor: 'pointer',
+                                                padding: '10px',
+                                            }}
+                                            onClick={() => navigator(`/product/${item.id}`)}
+                                            whileHover={{
+                                                scale: 1.05,
+                                                boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: '#f0f0f0',
+                                            }}
+                                            onError={(e) => {
+                                                console.error('Image failed to load:', item.image);
+                                                e.target.style.display = 'none';
+                                            }}
+                                        />
+                                    </motion.div>
                                 )}
                                 <motion.div
                                     id='item'

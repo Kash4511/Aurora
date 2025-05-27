@@ -79,9 +79,13 @@ function ProductList() {
               >
                 <div className="product-image-container">
                   <motion.img
-                    src={product.image || ''}
+                    src={product.image}
                     alt={product.item_name}
                     className="product-image"
+                    onError={(e) => {
+                      console.error('Image failed to load:', product.image);
+                      e.target.style.display = 'none';
+                    }}
                   />
                 </div>
                 <div className="product-details">
