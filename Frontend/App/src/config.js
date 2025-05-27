@@ -3,6 +3,7 @@ export const API_ENDPOINTS = {
     // Auth endpoints
     LOGIN: 'https://aurora-vtm6.onrender.com/login/',
     REGISTER: 'https://aurora-vtm6.onrender.com/register/',
+    REFRESH_TOKEN: 'https://aurora-vtm6.onrender.com/token/refresh/',
     
     // Product endpoints
     PRODUCTS: 'https://aurora-vtm6.onrender.com/product_list/',

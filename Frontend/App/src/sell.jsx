@@ -170,6 +170,26 @@ function Sell() {
     }
   };
 
+  const refreshToken = async () => {
+    try {
+      const refresh = localStorage.getItem('refresh');
+      if (!refresh) {
+        throw new Error('No refresh token available');
+      }
+      const response = await axios.post(API_ENDPOINTS.REFRESH_TOKEN, { refresh });
+      const newAccessToken = response.data.access;
+      localStorage.setItem('access', newAccessToken);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+      return newAccessToken;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      navigator('/login');
+      throw error;
+    }
+  };
+
   return (
     <motion.div className="background">
       <Navigation />

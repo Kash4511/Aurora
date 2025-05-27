@@ -10,23 +10,31 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const post = async () => {
-    setError('');
-    const data = { username, password };
+  const post = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(API_ENDPOINTS.LOGIN, data)
-      
+      const response = await axios.post(API_ENDPOINTS.LOGIN, {
+        username,
+        password
+      });
+
       if (response.data.access) {
-        localStorage.setItem('access_token', response.data.access);
-        localStorage.setItem('refresh_token', response.data.refresh);
+        localStorage.setItem('access', response.data.access);
+        localStorage.setItem('refresh', response.data.refresh);
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
         navigator('/dash');
       } else {
         setError('Invalid response from server');
       }
     } catch (error) {
-      console.error('Error logging in:', error);
-      setError(error.response?.data?.detail || 'Login failed. Please try again.');
+      console.error('Login error:', error);
+      if (error.response) {
+        setError(error.response.data.detail || 'Login failed. Please check your credentials.');
+      } else if (error.request) {
+        setError('No response from server. Please try again later.');
+      } else {
+        setError('An error occurred. Please try again.');
+      }
     }
   };
 
