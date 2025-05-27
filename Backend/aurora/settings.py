@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 from datetime import timedelta
+import cloudinary
+import cloudinary_storage
 
 # Load environment variables
 load_dotenv()
@@ -48,6 +50,7 @@ CLOUDINARY_STORAGE = {
 
 # Use Cloudinary for media storage
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 # Application definition
 INSTALLED_APPS = [

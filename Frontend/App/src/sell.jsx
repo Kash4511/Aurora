@@ -76,7 +76,7 @@ function Sell() {
       setPhoneNumber(product.phone_number || '');
       setSocialID(product.social_ID || '');
       if (product.image) {
-        setImage(`https://aurora-vtm6.onrender.com${product.image}`);
+        setImage(product.image);
       }
       setIsEditing(true);
     } catch (error) {
