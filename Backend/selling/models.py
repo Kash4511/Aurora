@@ -49,20 +49,27 @@ class Product(models.Model):
         if not self.image:
             return None
             
-        # If it's already a Cloudinary URL, return it as is
+        # If the image is already a full URL, return it
+        if str(self.image).startswith('http'):
+            return str(self.image)
+            
+        # If it's already a Cloudinary URL, return it
         if 'cloudinary.com' in str(self.image):
             return str(self.image)
             
-        # If it's a local file path, construct the Cloudinary URL
         try:
-            cloud_name = settings.CLOUDINARY_STORAGE['CLOUD_NAME']
-        except (KeyError, AttributeError):
-            cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME')
-            
-        if not cloud_name:
-            logger.error("Cloudinary cloud name not found in settings or environment")
+            # Get cloud name from settings or environment
+            cloud_name = getattr(settings, 'CLOUDINARY_STORAGE', {}).get('CLOUD_NAME') or os.getenv('CLOUDINARY_CLOUD_NAME')
+            if not cloud_name:
+                raise ValueError("Cloudinary cloud name not found in settings or environment")
+                
+            # Remove any existing product_images/ prefix to prevent duplication
+            image_path = str(self.image)
+            if image_path.startswith('product_images/'):
+                image_path = image_path[len('product_images/'):]
+                
+            # Construct the URL
+            return f'https://res.cloudinary.com/{cloud_name}/image/upload/product_images/{image_path}'
+        except Exception as e:
+            print(f"Error generating image URL: {str(e)}")
             return None
-            
-        # Get just the filename without any path
-        filename = os.path.basename(str(self.image))
-        return f"https://res.cloudinary.com/{cloud_name}/image/upload/product_images/{filename}"

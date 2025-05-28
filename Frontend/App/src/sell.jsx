@@ -76,8 +76,9 @@ function Sell() {
       setCity(product.city || '');
       setPhoneNumber(product.phone_number || '');
       setSocialID(product.social_ID || '');
-      if (product.image) {
-        setImagePreview(product.image);
+      // Set image preview if either image or image_url exists
+      if (product.image || product.image_url) {
+        setImagePreview(product.image_url || product.image);
       }
       setIsEditing(true);
     } catch (error) {
@@ -99,7 +100,10 @@ function Sell() {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-      setImagePreview(URL.createObjectURL(file));
+      // Create a preview URL for the selected file
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+      console.log('Image selected:', file.name);
     }
   };
 
@@ -119,6 +123,7 @@ function Sell() {
 
     // Only append image if it's a new file
     if (image instanceof File) {
+      console.log('Appending new image to form data:', image.name);
       formData.append('image', image);
     } else if (!isEditing) {
       alert('Please select an image for your product');
@@ -127,6 +132,7 @@ function Sell() {
 
     try {
       if (isEditing) {
+        console.log('Updating product:', productId);
         // For editing, use PATCH instead of PUT to only update provided fields
         await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(productId), formData, {
           headers: {
@@ -136,6 +142,7 @@ function Sell() {
         });
         alert('Product updated successfully!');
       } else {
+        console.log('Creating new product');
         await axios.post(API_ENDPOINTS.SELL, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -146,6 +153,7 @@ function Sell() {
       }
       navigator('/product_list');
     } catch (error) {
+      console.error('Form submission error:', error.response?.data || error.message);
       if (error.response?.status === 401) {
         const newToken = await refreshAccessToken();
         if (!newToken) return;
@@ -277,12 +285,6 @@ function Sell() {
           required={!isEditing}
         />
         <motion.h1 id="sell-image">Image {isEditing && '(Optional)'}</motion.h1>
-
-        {imagePreview && (
-          <motion.div className="image-preview">
-            <img src={imagePreview} alt="Preview" style={{ maxWidth: '200px', marginTop: '10px' }} />
-          </motion.div>
-        )}
 
         <motion.button id="button-sell" type="submit">
           {isEditing ? 'Update' : 'Sell'}
