@@ -31,8 +31,8 @@ db.sqlite3-journal
 media/
 
 # Django migrations
-**/migrations/__pycache__/
-**/migrations/*.pyc
+**/migrations/
+!**/migrations/__init__.py
 
 # Virtual Environment
 venv/

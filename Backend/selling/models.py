@@ -2,6 +2,11 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 from django.conf import settings
+import cloudinary.uploader
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Create your models here.
 class Product(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -22,6 +27,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.item_name
+
+    def save(self, *args, **kwargs):
+        if self.image and not self.pk:  # Only on creation
+            try:
+                # Upload to Cloudinary
+                result = cloudinary.uploader.upload(
+                    self.image,
+                    folder=f"aurora/products/{timezone.now().strftime('%Y/%m/%d')}",
+                    resource_type="image"
+                )
+                logger.info(f"Image uploaded to Cloudinary: {result['secure_url']}")
+                
+                # Update the image field with the Cloudinary URL
+                self.image = result['secure_url']
+            except Exception as e:
+                logger.error(f"Error uploading image to Cloudinary: {str(e)}")
+                raise
+        super().save(*args, **kwargs)
 
     def get_image_url(self):
         if self.image:
