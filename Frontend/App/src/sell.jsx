@@ -41,17 +41,26 @@ function Sell() {
   const [socialID, setSocialID] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  const formatPrice = (value) => {
-    // Remove any non-digit characters
-    const number = value.replace(/\D/g, '');
-    // Add commas for thousands
-    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
+  const indianStates = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand',
+    'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+    'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+    // Union Territories
+    'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu',
+    'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'
+  ];
 
   const handlePriceChange = (e) => {
-    const value = e.target.value;
-    // Store the raw value without commas
-    setItemPrice(value.replace(/\D/g, ''));
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setItemPrice(value);
+  };
+
+  const formatPrice = (value) => {
+    if (!value) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const socialPlatforms = ['Instagram', 'Telegram',  'Facebook', 'Twitter'];
@@ -91,7 +100,20 @@ function Sell() {
       setState(product.state || '');
       setCity(product.city || '');
       setPhoneNumber(product.phone_number || '');
-      setSocialID(product.social_ID || '');
+      
+      // Parse social ID if it exists
+      if (product.social_ID) {
+        const match = product.social_ID.match(/(.*?) ID - (.*)/);
+        if (match) {
+          setSocialPlatform(match[1]);
+          setSocialID(match[2]);
+        } else {
+          setSocialID(product.social_ID);
+        }
+      } else {
+        setSocialID('');
+      }
+      
       // Set image preview if either image or image_url exists
       if (product.image || product.image_url) {
         setImagePreview(product.image_url || product.image);
@@ -132,7 +154,15 @@ function Sell() {
   };
 
   const getFormattedSocialID = () => {
+    // If the socialID already contains the platform, return it as is
+    if (socialID.includes(' ID - ')) {
+      return socialID;
+    }
     return `${socialPlatform} ID - ${socialID}`;
+  };
+
+  const handleStateChange = (e) => {
+    setState(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -149,27 +179,28 @@ function Sell() {
     formData.append('phone_number', phoneNumber);
     formData.append('social_ID', getFormattedSocialID());
 
-    // Handle image upload
-    if (image instanceof File) {
-      console.log('Appending new image to form data:', image.name);
-      formData.append('image', image);
-    } else if (imagePreview && !isEditing) {
-      // For new products, require an image
-      alert('Please select an image for your product');
-      return;
+    // Handle image upload only for new products
+    if (!isEditing) {
+      if (image instanceof File) {
+        console.log('Appending new image to form data:', image.name);
+        formData.append('image', image);
+      } else {
+        alert('Please select an image for your product');
+        return;
+      }
     }
-    // For editing, if no new image is selected, the existing image will be kept
 
     try {
       if (isEditing) {
         console.log('Updating product:', productId);
         // For editing, use PATCH instead of PUT to only update provided fields
-        await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(productId), formData, {
+        const response = await axios.patch(API_ENDPOINTS.PRODUCT_DETAIL(productId), formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
           },
         });
+        console.log('Update response:', response.data);
         alert('Product updated successfully!');
       } else {
         console.log('Creating new product');
@@ -268,12 +299,26 @@ function Sell() {
         />
         <motion.h1 id="sell-country">Country</motion.h1>
 
-        <motion.input
+        <motion.select
           id="sell-item4"
-          type="text"
           value={state}
-          onChange={(e) => setState(e.target.value)}
-        />
+          onChange={handleStateChange}
+          required
+          style={{
+            width: '37%',
+            padding: '10px',
+            borderRadius: '20px',
+            border: '1px solid #ccc',
+            backgroundColor: 'white'
+          }}
+        >
+          <option value="">Select State</option>
+          {indianStates.map((stateName) => (
+            <option key={stateName} value={stateName}>
+              {stateName}
+            </option>
+          ))}
+        </motion.select>
         <motion.h1 id="sell-state">State</motion.h1>
 
         <motion.input
@@ -332,14 +377,18 @@ function Sell() {
         </motion.div>
         <motion.h1 id="sell-social-label">Social Media ID</motion.h1>
 
-        <motion.input
-          id="image"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          required={!isEditing}
-        />
-        <motion.h1 id="sell-image">Image {isEditing && '(Optional)'}</motion.h1>
+        {!isEditing && (
+          <>
+            <motion.input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+            />
+            <motion.h1 id="sell-image">Image</motion.h1>
+          </>
+        )}
 
         <motion.button id="button-sell" type="submit">
           {isEditing ? 'Update' : 'Sell'}
