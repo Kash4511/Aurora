@@ -43,10 +43,20 @@ function Dash() {
         get();
     }, []);
 
+    const handleProductClick = (productId) => {
+        navigator(`/product/${productId}`);
+    };
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
     const filteredData = data.filter((item) =>
         item.item_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.item_description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.city?.toLowerCase().includes(searchQuery.toLowerCase())
+        item.city?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.state?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.country?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (loading) {
@@ -98,9 +108,9 @@ function Dash() {
                         </div>
                         <input
                             type="text"
-                            placeholder="Search"
+                            placeholder="Search products..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={handleSearch}
                             style={{
                                 flex: 1,
                                 background: 'transparent',
@@ -149,87 +159,60 @@ function Dash() {
                                         borderRadius: '10px',
                                         padding: '10px',
                                         backgroundColor: '#fff',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: '100%',
-                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                                     }}
                                 >
                                     {item.image && (
-                                        <motion.div className="product-image">
-                                            <motion.img
-                                                src={item.image}
-                                                alt={item.item_name}
-                                                style={{
-                                                    width: '100%',
-                                                    height: '250px',
-                                                    objectFit: 'cover',
-                                                    borderRadius: '15px',
-                                                    marginTop: '10px',
-                                                    cursor: 'pointer',
-                                                    padding: '8px',
-                                                }}
-                                                onClick={() => navigator(`/product/${item.id}`)}
-                                                whileHover={{
-                                                    scale: 1.05,
-                                                    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-                                                    backgroundColor: '#f0f0f0',
-                                                }}
-                                                onError={(e) => {
-                                                    console.error('Image failed to load:', item.image);
-                                                    e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
-                                                }}
-                                            />
-                                        </motion.div>
+                                        <motion.img
+                                            src={item.image}
+                                            alt={item.item_name}
+                                            style={{
+                                                width: '100%',
+                                                height: '250px',
+                                                objectFit: 'contain',
+                                                borderRadius: '10px',
+                                                marginTop: '10px',
+                                                cursor: 'pointer',
+                                                padding: '10px',
+                                                backgroundColor: '#f5f5f5',
+                                            }}
+                                            onClick={() => handleProductClick(item.id)}
+                                            whileHover={{
+                                                scale: 1.05,
+                                                boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: '#f0f0f0',
+                                            }}
+                                            onError={(e) => {
+                                                console.error('Image failed to load:', item.image);
+                                                e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                                            }}
+                                        />
                                     )}
                                     <motion.div
                                         id='item'
                                         initial={{ opacity: 0, y: 50 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.8, ease: 'easeOut' }}
-                                        onClick={() => navigator(`/product/${item.id}`)}
+                                        onClick={() => handleProductClick(item.id)}
                                         whileHover={{
-                                            scale: 1.02,
+                                            scale: 1.05,
+                                            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                                            backgroundColor: '#f0f0f0',
                                         }}
                                         style={{
                                             marginTop: '10px',
                                             cursor: 'pointer',
                                             padding: '10px',
-                                            borderRadius: '8px',
-                                            flex: 1,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '8px',
+                                            borderRadius: '10px',
+                                            transition: 'background-color 0.3s ease',
                                         }}
                                     >
-                                        <div style={{ 
-                                            fontSize: '1.2em', 
-                                            fontWeight: 'bold',
-                                            color: '#333',
-                                        }}>
-                                            {item.item_name}
-                                        </div>
-                                        <div style={{ 
-                                            fontSize: '1.1em', 
-                                            color: '#86B66F',
-                                            fontWeight: 'bold',
-                                        }}>
-                                            ₹{item.item_price}
-                                        </div>
-                                        <div style={{ 
-                                            fontSize: '0.9em',
-                                            color: '#666',
-                                            marginBottom: '8px',
-                                        }}>
-                                            {item.item_description}
-                                        </div>
-                                        <div style={{ 
-                                            fontSize: '0.8em',
-                                            color: '#888',
-                                            fontStyle: 'italic',
-                                        }}>
-                                            {item.city}, {item.state}, {item.country}
-                                        </div>
+                                        <strong>{item.item_name}</strong> - <strong>₹{item.item_price}</strong><br />
+                                        {item.item_description}<br />
+                                        <span style={{ fontStyle: 'italic' }}>
+                                            ({item.city}, {item.state}, {item.country})
+                                        </span><br />
+                                        {item.phone_number && <span>Phone: {item.phone_number}</span>}<br />
+                                        
                                     </motion.div>
                                 </motion.div>
                             ))

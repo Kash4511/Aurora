@@ -31,14 +31,17 @@ function Sell() {
   const [itemName, setItemName] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('India');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('+91');
+  const [socialPlatform, setSocialPlatform] = useState('Instagram');
   const [socialID, setSocialID] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+
+  const socialPlatforms = ['Instagram', 'Telegram',  'Facebook', 'Twitter'];
 
   useEffect(() => {
     if (productId) {
@@ -107,6 +110,18 @@ function Sell() {
     }
   };
 
+  const handleSocialIDChange = (e) => {
+    setSocialID(e.target.value);
+  };
+
+  const handleSocialPlatformChange = (e) => {
+    setSocialPlatform(e.target.value);
+  };
+
+  const getFormattedSocialID = () => {
+    return `${socialPlatform} ID - ${socialID}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let token = localStorage.getItem('access_token');
@@ -119,7 +134,7 @@ function Sell() {
     formData.append('state', state);
     formData.append('city', city);
     formData.append('phone_number', phoneNumber);
-    formData.append('social_ID', socialID);
+    formData.append('social_ID', getFormattedSocialID());
 
     // Only append image if it's a new file
     if (image instanceof File) {
@@ -233,7 +248,7 @@ function Sell() {
           id="sell-item3"
           type="text"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          disabled
           required
         />
         <motion.h1 id="sell-country">Country</motion.h1>
@@ -258,7 +273,6 @@ function Sell() {
         <PhoneInput
           id="sell-phone"
           placeholder="e.g. +966500000000"
-          international
           defaultCountry={null}
           countryCallingCodeEditable={true}
           value={phoneNumber}
@@ -267,15 +281,41 @@ function Sell() {
         />
         <motion.h1 id="sell-phone-label">Phone Number</motion.h1>
 
-        <motion.input
-          id="sell-social"
-          type="text"
-          placeholder="e.g. Instagram ID, Telegram ID"
-          value={socialID}
-          onChange={(e) => setSocialID(e.target.value)}
-          required
-        />
-        <motion.h1 id="sell-social-label">Social ID</motion.h1>
+        <motion.div style={{ display: 'flex', gap: '10px', alignItems: 'center', width: '100%' }}>
+          <motion.select
+            id="social-platform"
+            value={socialPlatform}
+            onChange={handleSocialPlatformChange}
+            style={{
+              padding: '5px',
+              borderRadius: '5px',
+              border: '1px solid #ccc',
+              width: '105px',
+              height: '30px',
+              top: '595px',
+              left: '510px',
+              position: 'absolute',
+              zIndex: '2',
+            }}
+          >
+            {socialPlatforms.map((platform) => (
+              <option key={platform} value={platform}>
+                {platform}
+              </option>
+            ))}
+          </motion.select>
+
+          <motion.input
+            id="sell-social"
+            type="text"
+            placeholder={`Enter your ${socialPlatform} ID`}
+            value={socialID}
+            onChange={handleSocialIDChange}
+            required
+
+          />
+        </motion.div>
+        <motion.h1 id="sell-social-label">Social Media ID</motion.h1>
 
         <motion.input
           id="image"

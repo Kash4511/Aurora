@@ -103,10 +103,27 @@ function ProductDetail() {
         >
           <div className="product-main">
             <div className="product-image-container">
-              <img 
+              <motion.img 
                 src={product.image} 
                 alt={product.item_name} 
-                className="product-image"
+                style={{
+                    width: '100%',
+                    height: '400px',
+                    objectFit: 'contain',
+                    borderRadius: '10px',
+                    cursor: 'pointer',
+                    padding: '10px',
+                    backgroundColor: '#f5f5f5',
+                }}
+                whileHover={{
+                    scale: 1.05,
+                    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                    backgroundColor: '#f0f0f0',
+                }}
+                onError={(e) => {
+                    console.error('Image failed to load:', product.image);
+                    e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                }}
               />
             </div>
             <div className="product-info">
@@ -139,7 +156,28 @@ function ProductDetail() {
                   whileHover={{ scale: 1.05 }}
                   onClick={() => navigate(`/product/${suggested.id}`)}
                 >
-                  <img src={suggested.image} alt={suggested.item_name} />
+                  <motion.img 
+                    src={suggested.image} 
+                    alt={suggested.item_name}
+                    style={{
+                        width: '100%',
+                        height: '200px',
+                        objectFit: 'contain',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        padding: '10px',
+                        backgroundColor: '#f5f5f5',
+                    }}
+                    whileHover={{
+                        scale: 1.05,
+                        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                        backgroundColor: '#f0f0f0',
+                    }}
+                    onError={(e) => {
+                        console.error('Image failed to load:', suggested.image);
+                        e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                    }}
+                  />
                   <div className="suggested-info">
                     <h4>{suggested.item_name}</h4>
                     <p className="suggested-price">{suggested.item_price}</p>

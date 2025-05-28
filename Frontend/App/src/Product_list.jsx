@@ -80,26 +80,46 @@ function ProductList() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
                 >
-                  <div className="product-image-container">
+                  <div className="product-image-container" style={{
+                    width: '100%',
+                    height: '250px',
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '15px'
+                  }}>
                     <motion.img
                       src={product.image}
                       alt={product.item_name}
-                      className="product-image"
+                      style={{
+                          width: '90%',
+                          height: '90%',
+                          objectFit: 'contain',
+                          borderRadius: '10px',
+                          cursor: 'pointer'
+                      }}
+                      whileHover={{
+                          scale: 1.05,
+                          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+                      }}
                       onError={(e) => {
-                        console.error('Image failed to load:', {
-                          url: product.image,
-                          productId: product.id,
-                          productName: product.item_name
-                        });
-                        e.target.style.display = 'none';
-                        e.target.parentElement.style.display = 'none';
+                          console.error('Image failed to load:', {
+                            url: product.image,
+                            productId: product.id,
+                            productName: product.item_name
+                          });
+                          e.target.style.display = 'none';
+                          e.target.parentElement.style.display = 'none';
                       }}
                       onLoad={(e) => {
-                        console.log('Image loaded successfully:', {
-                          url: product.image,
-                          productId: product.id,
-                          productName: product.item_name
-                        });
+                          console.log('Image loaded successfully:', {
+                            url: product.image,
+                            productId: product.id,
+                            productName: product.item_name
+                          });
                       }}
                     />
                   </div>

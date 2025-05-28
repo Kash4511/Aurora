@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 .background { 
   background: #F5F5F5;
@@ -11,7 +12,7 @@
   left: 0; 
 }
 #form {
-    width: 700px;
+    width: 715px;
     height: 800px;
     flex-shrink: 0;
     border-radius: 30px;
@@ -162,7 +163,7 @@ top: 395px;
 position: absolute;
 }
 #sell-item4 {
-  width: 250px;
+  width: 270px;
   height: 50px;
   flex-shrink: 0;
   border-radius: 18px;
@@ -300,7 +301,7 @@ top: 595px;
 position: absolute;
 }
 #sell-social {
-  width: 250px;
+  width: 270px;
   height: 50px;
   flex-shrink: 0;
   border-radius: 18px;
@@ -319,7 +320,7 @@ position: absolute;
   
 }
 #sell-social-label{
-width: 136px;
+width: 156px;
 height: 36px;
 flex-shrink: 0;
 color: #2B463C;
@@ -599,22 +600,4 @@ line-height: normal;
 body, html {
   margin: 0;
   padding: 0;
-}
-
-.image-preview {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-preview img {
-  max-width: 200px;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
