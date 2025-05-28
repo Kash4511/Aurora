@@ -17,6 +17,7 @@ function ProductList() {
       const response = await axios.get(API_ENDPOINTS.PRODUCTS, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log('API Response:', response.data);
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -69,61 +70,72 @@ function ProductList() {
           </motion.p>
         ) : (
           <motion.div className="product-grid">
-            {products.map((product) => (
-              <motion.div
-                key={product.id}
-                className="product-card"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              >
-                <div className="product-image-container">
-                  <motion.img
-                    src={product.image}
-                    alt={product.item_name}
-                    className="product-image"
-                    onError={(e) => {
-                      console.error('Image failed to load:', product.image);
-                      e.target.style.display = 'none';
-                      e.target.parentElement.style.display = 'none';
-                    }}
-                    onLoad={(e) => {
-                      console.log('Image loaded successfully:', product.image);
-                    }}
-                  />
-                </div>
-                <div className="product-details">
-                  <div className="product-header">
-                    <h2 className="product-name">{product.item_name}</h2>
-                    <p className="product-description">{product.item_description}</p>
+            {products.map((product) => {
+              console.log('Product image URL:', product.image);
+              return (
+                <motion.div
+                  key={product.id}
+                  className="product-card"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                >
+                  <div className="product-image-container">
+                    <motion.img
+                      src={product.image}
+                      alt={product.item_name}
+                      className="product-image"
+                      onError={(e) => {
+                        console.error('Image failed to load:', {
+                          url: product.image,
+                          productId: product.id,
+                          productName: product.item_name
+                        });
+                        e.target.style.display = 'none';
+                        e.target.parentElement.style.display = 'none';
+                      }}
+                      onLoad={(e) => {
+                        console.log('Image loaded successfully:', {
+                          url: product.image,
+                          productId: product.id,
+                          productName: product.item_name
+                        });
+                      }}
+                    />
                   </div>
-                  <div className="product-info">
-                    <p className="product-price">Price: {product.item_price}</p>
-                    <p className="product-location">Location: {product.city}, {product.state}, {product.country}</p>
-                    <p className="product-contact">
-                      Contact: {product.phone_number}<br />
-                      Social ID: {product.social_ID}
-                    </p>
+                  <div className="product-details">
+                    <div className="product-header">
+                      <h2 className="product-name">{product.item_name}</h2>
+                      <p className="product-description">{product.item_description}</p>
+                    </div>
+                    <div className="product-info">
+                      <p className="product-price">Price: {product.item_price}</p>
+                      <p className="product-location">Location: {product.city}, {product.state}, {product.country}</p>
+                      <p className="product-contact">
+                        Contact: {product.phone_number}<br />
+                        Social ID: {product.social_ID}
+                      </p>
+                    </div>
+                    <div className="product-buttons">
+                      <motion.button
+                        className="edit-button"
+                        onClick={() => handleEditClick(product)}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        Edit
+                      </motion.button>
+                      <motion.button
+                        className="delete-button"
+                        onClick={() => handleDelete(product.id)}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        Delete
+                      </motion.button>
+                    </div>
                   </div>
-                  <div className="product-buttons">
-                    <motion.button
-                      className="edit-button"
-                      onClick={() => handleEditClick(product)}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      Edit
-                    </motion.button>
-                    <motion.button
-                      className="delete-button"
-                      onClick={() => handleDelete(product.id)}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      Delete
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </div>

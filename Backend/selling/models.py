@@ -31,13 +31,14 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if self.image and not self.pk:  # Only on creation
             try:
+                logger.info(f"Attempting to upload image to Cloudinary: {self.image}")
                 # Upload to Cloudinary
                 result = cloudinary.uploader.upload(
                     self.image,
                     folder=f"aurora/products/{timezone.now().strftime('%Y/%m/%d')}",
                     resource_type="image"
                 )
-                logger.info(f"Image uploaded to Cloudinary: {result['secure_url']}")
+                logger.info(f"Image uploaded to Cloudinary successfully: {result['secure_url']}")
                 
                 # Update the image field with the Cloudinary URL
                 self.image = result['secure_url']
@@ -48,7 +49,12 @@ class Product(models.Model):
 
     def get_image_url(self):
         if self.image:
+            logger.info(f"Getting image URL for product {self.id}: {self.image}")
             if str(self.image).startswith('http'):
+                logger.info(f"Image is already a full URL: {self.image}")
                 return str(self.image)
-            return f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{self.image}"
+            cloudinary_url = f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{self.image}"
+            logger.info(f"Generated Cloudinary URL: {cloudinary_url}")
+            return cloudinary_url
+        logger.warning(f"No image found for product {self.id}")
         return None
