@@ -20,7 +20,7 @@ class Product(models.Model):
     phone_number = PhoneNumberField(region=None, null=True, blank=True)
     social_ID = models.CharField(max_length=100, null=True, blank=True)
     image = models.ImageField(
-        upload_to=f'aurora/products/{timezone.now().strftime("%Y/%m/%d")}/',
+        upload_to='product_images/',
         null=True,
         blank=True,
         help_text="Upload an image for your product"
@@ -32,14 +32,17 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if self.image and not self.pk:  # Only on creation
             try:
-                # Upload to Cloudinary
+                # Upload to Cloudinary with proper folder structure
                 result = cloudinary.uploader.upload(
                     self.image,
-                    folder="aurora/products",
-                    resource_type="image"
+                    folder="product_images",
+                    resource_type="image",
+                    use_filename=True,
+                    unique_filename=True
                 )
                 # Store the secure URL
                 self.image = result['secure_url']
+                logger.info(f"Image uploaded successfully to Cloudinary: {self.image}")
             except Exception as e:
                 logger.error(f"Error uploading image to Cloudinary: {str(e)}")
                 raise
@@ -49,13 +52,9 @@ class Product(models.Model):
         if not self.image:
             return None
             
-        # If the image is already a full URL, return it
-        if str(self.image).startswith('http'):
-            return str(self.image)
-            
         # If it's already a Cloudinary URL, return it
-        if 'cloudinary.com' in str(self.image):
-            return str(self.image)
+        if isinstance(self.image, str) and 'cloudinary.com' in self.image:
+            return self.image
             
         try:
             # Get cloud name from settings or environment
@@ -63,13 +62,12 @@ class Product(models.Model):
             if not cloud_name:
                 raise ValueError("Cloudinary cloud name not found in settings or environment")
                 
-            # Remove any existing product_images/ prefix to prevent duplication
-            image_path = str(self.image)
-            if image_path.startswith('product_images/'):
-                image_path = image_path[len('product_images/'):]
+            # For local files, construct the URL
+            if hasattr(self.image, 'url'):
+                return self.image.url
                 
-            # Construct the URL
-            return f'https://res.cloudinary.com/{cloud_name}/image/upload/product_images/{image_path}'
+            # Fallback for string paths
+            return f'https://res.cloudinary.com/{cloud_name}/image/upload/{self.image}'
         except Exception as e:
-            print(f"Error generating image URL: {str(e)}")
+            logger.error(f"Error generating image URL: {str(e)}")
             return None
