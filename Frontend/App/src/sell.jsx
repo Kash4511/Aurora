@@ -41,6 +41,19 @@ function Sell() {
   const [socialID, setSocialID] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
+  const formatPrice = (value) => {
+    // Remove any non-digit characters
+    const number = value.replace(/\D/g, '');
+    // Add commas for thousands
+    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+    // Store the raw value without commas
+    setItemPrice(value.replace(/\D/g, ''));
+  };
+
   const socialPlatforms = ['Instagram', 'Telegram',  'Facebook', 'Twitter'];
 
   useEffect(() => {
@@ -231,8 +244,8 @@ function Sell() {
         <motion.input
           id="sell-item1"
           type="text"
-          value={itemPrice}
-          onChange={(e) => setItemPrice(e.target.value)}
+          value={formatPrice(itemPrice)}
+          onChange={handlePriceChange}
           required
         />
         <motion.h1 id="sell-price">Price</motion.h1>
