@@ -25,6 +25,14 @@ class Productserializer(serializers.ModelSerializer):
 
     def get_image_url(self, obj):
         try:
+            if not obj.image:
+                return None
+                
+            # If it's already a URL, return it
+            if isinstance(obj.image, str) and obj.image.startswith('http'):
+                return obj.image
+                
+            # Otherwise, get the URL from the model
             url = obj.get_image_url()
             if url:
                 logger.info(f"Generated image URL for product {obj.id}: {url}")

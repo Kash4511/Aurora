@@ -32,6 +32,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if self.image and not self.pk:  # Only on creation
             try:
+                logger.info(f"Attempting to upload image to Cloudinary: {self.image}")
                 # Upload to Cloudinary with proper folder structure
                 result = cloudinary.uploader.upload(
                     self.image,
@@ -40,9 +41,10 @@ class Product(models.Model):
                     use_filename=True,
                     unique_filename=True
                 )
-                # Store the secure URL
-                self.image = result['secure_url']
-                logger.info(f"Image uploaded successfully to Cloudinary: {self.image}")
+                logger.info(f"Cloudinary upload result: {result}")
+                # Store just the public_id
+                self.image = result['public_id']
+                logger.info(f"Stored public_id: {self.image}")
             except Exception as e:
                 logger.error(f"Error uploading image to Cloudinary: {str(e)}")
                 raise
@@ -50,24 +52,26 @@ class Product(models.Model):
 
     def get_image_url(self):
         if not self.image:
+            logger.debug("No image found")
             return None
-            
-        # If it's already a Cloudinary URL, return it
-        if isinstance(self.image, str) and 'cloudinary.com' in self.image:
-            return self.image
             
         try:
             # Get cloud name from settings or environment
             cloud_name = getattr(settings, 'CLOUDINARY_STORAGE', {}).get('CLOUD_NAME') or os.getenv('CLOUDINARY_CLOUD_NAME')
             if not cloud_name:
+                logger.error("Cloudinary cloud name not found in settings or environment")
                 raise ValueError("Cloudinary cloud name not found in settings or environment")
                 
-            # For local files, construct the URL
-            if hasattr(self.image, 'url'):
-                return self.image.url
+            # If it's already a full URL, return it
+            if isinstance(self.image, str) and self.image.startswith('http'):
+                logger.debug(f"Returning existing URL: {self.image}")
+                return self.image
                 
-            # Fallback for string paths
-            return f'https://res.cloudinary.com/{cloud_name}/image/upload/{self.image}'
+            # Construct the URL with the public_id
+            url = f'https://res.cloudinary.com/{cloud_name}/image/upload/{self.image}'
+            logger.debug(f"Constructed Cloudinary URL: {url}")
+            return url
+                
         except Exception as e:
             logger.error(f"Error generating image URL: {str(e)}")
             return None
