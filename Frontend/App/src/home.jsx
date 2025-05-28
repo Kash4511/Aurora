@@ -326,7 +326,7 @@ function Home() {
       viewport={{ once: true, amount: 0.3 }}
     >
       Stay 
-      Updated
+      Connected
     </motion.h1>
 
     <motion.h1
@@ -336,7 +336,7 @@ function Home() {
       transition={{ duration: 0.9, ease: 'easeOut', delay: 0.6 }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      Get alerts when someone saves, likes, or views your listing.
+      Direct chat with sellers via social media and phone
     </motion.h1>
     <motion.button
     id='bell4'
@@ -355,7 +355,7 @@ function Home() {
       transition: { duration: 0.1 }
     }}
     onClick={() => navigator('/login')}
-    >Get Updates
+    >Connect Now
     </motion.button>
   </motion.div>
 </motion.div>
