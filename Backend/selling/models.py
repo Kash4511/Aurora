@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 import cloudinary.uploader
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -45,12 +46,23 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     def get_image_url(self):
-        if self.image:
-            if str(self.image).startswith('http'):
-                return str(self.image)
-            # If it's a Cloudinary URL, return it as is
-            if 'cloudinary.com' in str(self.image):
-                return str(self.image)
-            # Otherwise, construct the Cloudinary URL
-            return f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{self.image}"
-        return None
+        if not self.image:
+            return None
+            
+        # If it's already a Cloudinary URL, return it as is
+        if 'cloudinary.com' in str(self.image):
+            return str(self.image)
+            
+        # If it's a local file path, construct the Cloudinary URL
+        try:
+            cloud_name = settings.CLOUDINARY_STORAGE['CLOUD_NAME']
+        except (KeyError, AttributeError):
+            cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME')
+            
+        if not cloud_name:
+            logger.error("Cloudinary cloud name not found in settings or environment")
+            return None
+            
+        # Get just the filename without any path
+        filename = os.path.basename(str(self.image))
+        return f"https://res.cloudinary.com/{cloud_name}/image/upload/product_images/{filename}"
