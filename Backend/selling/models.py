@@ -31,16 +31,13 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if self.image and not self.pk:  # Only on creation
             try:
-                logger.info(f"Attempting to upload image to Cloudinary: {self.image}")
                 # Upload to Cloudinary
                 result = cloudinary.uploader.upload(
                     self.image,
-                    folder=f"aurora/products/{timezone.now().strftime('%Y/%m/%d')}",
+                    folder="aurora/products",
                     resource_type="image"
                 )
-                logger.info(f"Image uploaded to Cloudinary successfully: {result['secure_url']}")
-                
-                # Update the image field with the Cloudinary URL
+                # Store the secure URL
                 self.image = result['secure_url']
             except Exception as e:
                 logger.error(f"Error uploading image to Cloudinary: {str(e)}")
@@ -49,12 +46,11 @@ class Product(models.Model):
 
     def get_image_url(self):
         if self.image:
-            logger.info(f"Getting image URL for product {self.id}: {self.image}")
             if str(self.image).startswith('http'):
-                logger.info(f"Image is already a full URL: {self.image}")
                 return str(self.image)
-            cloudinary_url = f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{self.image}"
-            logger.info(f"Generated Cloudinary URL: {cloudinary_url}")
-            return cloudinary_url
-        logger.warning(f"No image found for product {self.id}")
+            # If it's a Cloudinary URL, return it as is
+            if 'cloudinary.com' in str(self.image):
+                return str(self.image)
+            # Otherwise, construct the Cloudinary URL
+            return f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/image/upload/{self.image}"
         return None

@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 class SellFormView(generics.CreateAPIView):
     serializer_class = Productserializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
     def perform_create(self, serializer):
         try:
@@ -22,6 +23,7 @@ class SellFormView(generics.CreateAPIView):
 class ProductListView(generics.ListAPIView):
     serializer_class = Productserializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_queryset(self):
         try:
