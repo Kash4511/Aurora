@@ -136,14 +136,16 @@ function Sell() {
     formData.append('phone_number', phoneNumber);
     formData.append('social_ID', getFormattedSocialID());
 
-    // Only append image if it's a new file
+    // Handle image upload
     if (image instanceof File) {
       console.log('Appending new image to form data:', image.name);
       formData.append('image', image);
-    } else if (!isEditing) {
+    } else if (imagePreview && !isEditing) {
+      // For new products, require an image
       alert('Please select an image for your product');
       return;
     }
+    // For editing, if no new image is selected, the existing image will be kept
 
     try {
       if (isEditing) {
