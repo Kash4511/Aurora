@@ -117,31 +117,39 @@ function Dash() {
                                     borderRadius: '10px',
                                     padding: '10px',
                                     backgroundColor: '#fff',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '100%',
+                                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                                 }}
                             >
-                                {item.image && (
-                                    <motion.div className="product-image">
+                                {item.image_url && (
+                                    <motion.div 
+                                        className="product-image"
+                                        style={{
+                                            width: '100%',
+                                            height: '200px',
+                                            overflow: 'hidden',
+                                            borderRadius: '8px',
+                                            marginBottom: '10px',
+                                        }}
+                                    >
                                         <motion.img
-                                            src={item.image}
+                                            src={item.image_url}
                                             alt={item.item_name}
                                             style={{
                                                 width: '100%',
-                                                height: '250px',
+                                                height: '100%',
                                                 objectFit: 'cover',
-                                                borderRadius: '15px',
-                                                marginTop: '10px',
-                                                cursor: 'pointer',
-                                                padding: '10px',
+                                                borderRadius: '8px',
                                             }}
                                             onClick={() => navigator(`/product/${item.id}`)}
                                             whileHover={{
                                                 scale: 1.05,
-                                                boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-                                                backgroundColor: '#f0f0f0',
                                             }}
                                             onError={(e) => {
-                                                console.error('Image failed to load:', item.image);
-                                                e.target.style.display = 'none';
+                                                console.error('Image failed to load:', item.image_url);
+                                                e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
                                             }}
                                         />
                                     </motion.div>
@@ -153,24 +161,45 @@ function Dash() {
                                     transition={{ duration: 0.8, ease: 'easeOut' }}
                                     onClick={() => navigator(`/product/${item.id}`)}
                                     whileHover={{
-                                        scale: 1.05,
-                                        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-                                        backgroundColor: '#f0f0f0',
+                                        scale: 1.02,
                                     }}
                                     style={{
-                                        marginTop: '10px',
-                                        cursor: 'pointer',
                                         padding: '10px',
-                                        borderRadius: '10px',
-                                        transition: 'background-color 0.3s ease',
+                                        borderRadius: '8px',
+                                        flex: 1,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '8px',
                                     }}
                                 >
-                                    <strong>{item.item_name}</strong> - <strong>₹{item.item_price}</strong><br />
-                                    {item.item_description}<br />
-                                    <span style={{ fontStyle: 'italic' }}>
-                                        ({item.city}, {item.state}, {item.country})
-                                    </span><br />
-                                   
+                                    <div style={{ 
+                                        fontSize: '1.2em', 
+                                        fontWeight: 'bold',
+                                        color: '#333',
+                                    }}>
+                                        {item.item_name}
+                                    </div>
+                                    <div style={{ 
+                                        fontSize: '1.1em', 
+                                        color: '#86B66F',
+                                        fontWeight: 'bold',
+                                    }}>
+                                        ₹{item.item_price}
+                                    </div>
+                                    <div style={{ 
+                                        fontSize: '0.9em',
+                                        color: '#666',
+                                        marginBottom: '8px',
+                                    }}>
+                                        {item.item_description}
+                                    </div>
+                                    <div style={{ 
+                                        fontSize: '0.8em',
+                                        color: '#888',
+                                        fontStyle: 'italic',
+                                    }}>
+                                        {item.city}, {item.state}, {item.country}
+                                    </div>
                                 </motion.div>
                             </motion.div>
                         ))}
