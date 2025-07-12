@@ -6,6 +6,7 @@ import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS } from './config';
+import TopBar from './components/topbar';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -93,6 +94,7 @@ function ProductDetail() {
 
   return (
     <div className="product-container">
+      <TopBar />
       <Navigation />
       <div className="product-content">
         <motion.div 

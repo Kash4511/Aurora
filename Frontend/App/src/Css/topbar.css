@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
+
+.topbar-logo {
+  background-image: url('../assets/logo.svg');
+  width: 32px;
+  height: 32px;
+  margin-right: 106px;
+  left: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  position: absolute;
+}
+
+.topbar-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  margin-left: 138px;
+  position: absolute;
+  left: -70px;
+  top: 9px;
+  display: inline-block;
+} 

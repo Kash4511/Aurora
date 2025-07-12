@@ -7,6 +7,7 @@ import 'react-phone-number-input/style.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS } from './config';
+import TopBar from './components/topbar';
 
 async function refreshAccessToken() {
   try {
@@ -250,6 +251,7 @@ function Sell() {
 
   return (
     <motion.div className="background">
+      <TopBar />
       <Navigation />
 
       {/* Sell Form */}

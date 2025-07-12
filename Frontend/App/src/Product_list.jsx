@@ -6,6 +6,7 @@ import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS, ROUTES } from './config';
+import TopBar from './components/topbar';
 
 function ProductList() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function ProductList() {
 
   return (
     <div className="product-container">
+      <TopBar />
       <Navigation />
       
       {/* Main Content */}

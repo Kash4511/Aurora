@@ -9,26 +9,17 @@
 }
 #nav {
   position: fixed;
-  top: 0;
+  top: 50px;
   left: 0;
-  width: 103px;
+  width: 50px;
   flex-shrink: 0;
-  height: 100vh;
+  height: calc(100vh - 50px);
   background: #1F1F1F;
   box-shadow: 3px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  z-index: 1000; 
+  z-index: 1000;
+  border-right: 4px solid #474747;
 }
-#nav-line {
-    width: 60px;         /* or 80%, or any width you want */
-    height: 2px;         /* thin horizontal line */
-    background:#585656; /* or your preferred color */
-    margin: 20px auto;   /* space above/below and center horizontally */
-    border-radius: 1px;
-    top:437px;
-    left: 16px;
-    position: absolute;    /* remove absolute/left if not needed */
-    transform: none;     /* remove rotation */
-}
+
 #item {
     color: #000;
 font-family: Poppins;
@@ -38,13 +29,13 @@ font-style: normal;
 line-height: normal;
 }
 #buy {
-    background-image: url('../assets/Shopping Cart.svg');
-    width: 40px;
-    height: 40px;
+    background-image: url('../assets/O.svg');
+    width: 28px;
+    height: 29.9px;
     flex-shrink: 0;
-    left:23px;
+    left:8px;
     position: absolute;
-    top:160px;
+    top:70px;
 
 }
 
@@ -52,14 +43,14 @@ line-height: normal;
 
 
 #List {
-    background-image: url('../assets/Choice.svg');
-    width: 40px;
-    height: 40px;
+    background-image: url('../assets/L.svg');
+    width: 29px;
+    height: 29px;
     flex-shrink: 0;
-    left:25px;
+    left:7px;
     
     position: absolute;
-    top:320px;
+    top:173px;
 
 }
 
@@ -67,26 +58,26 @@ line-height: normal;
 
 
 #sell {
-    background-image: url('../assets/Return Purchase.svg');
-    width: 40px;
-    height: 40px;
+    background-image: url('../assets/S.svg');
+    width: 27px;
+    height: 28px;
     flex-shrink: 0;
-    left: 23px;
+    left: 8px;
     position: absolute;
-    top:240px;
+    top:122px;
 
 }
 
 
 
 #log {
-    background-image: url('../assets/Logout.svg');
-    width: 40px;
-    height: 40px;
+    background-image: url('../assets/log.svg');
+    width: 30px;
+    height: 31px;
     flex-shrink: 0;
-    left: 27px;
+    left: 6px;
     position: absolute;
-    top:630px;
+    top:332px;
 
 }
 
@@ -131,12 +122,12 @@ top:-10px;
 }
 #fil-but{
     width: 195.752px;
-    height: 62.481px;
+    height: 52.481px;
     flex-shrink: 0;
     background-color: #F6F6F680;
     position: absolute;
     left: 170px;
-    top: 150px;
+    top: 140px;
     border-radius: 20px;
     border: none;
     box-shadow: 28px 28px 50px 0 rgba(13, 39, 80, 0.25), -23px -23px 45px 0 #DEDADA;
@@ -154,7 +145,7 @@ top:-10px;
     width: 48.463px;
 height: 40.099px;
 position: absolute;
-top: 11px;
+top: 7px;
 left:10px;
 flex-shrink: 0;
 }
@@ -165,18 +156,18 @@ height: 23.756px;
 transform: rotate(0deg);
 flex-shrink: 0;
 left: 130px;
-top: 9px;
+top: 8px;
 position: absolute;
 
 }
 #fil-but1{
     width: 195.752px;
-    height: 62.481px;
+    height: 52.481px;
     flex-shrink: 0;
     background-color: #F6F6F680;
     position: absolute;
     left: 420px;
-    top: 70px;
+    top: 45px;
     border-radius: 20px;
     border: none;
     box-shadow: 28px 28px 50px 0 rgba(13, 39, 80, 0.25), -23px -23px 45px 0 #DEDADA;
@@ -196,18 +187,18 @@ height: 23.756px;
 transform: rotate(90deg);
 flex-shrink: 0;
 left: 145px;
-top: 19px;
+top: 15px;
 position: absolute;
 
 }
 #fil-but2{
     width: 195.752px;
-    height: 62.481px;
+    height: 52.481px;
     flex-shrink: 0;
     background-color: #F6F6F680;
     position: absolute;
     left: 470px;
-    top: 70px;
+    top: 45px;
     border-radius: 20px;
     border: none;
     box-shadow: 28px 28px 50px 0 rgba(13, 39, 80, 0.25), -23px -23px 45px 0 #DEDADA;
@@ -227,18 +218,18 @@ height: 23.756px;
 transform: rotate(90deg);
 flex-shrink: 0;
 left: 150px;
-top: 19px;
+top: 15px;
 position: absolute;
 
 }
 #fil-but3{
     width: 195.752px;
-    height: 62.481px;
+    height: 52.481px;
     flex-shrink: 0;
     background-color: #F6F6F680;
     position: absolute;
     left: 512px;
-    top: 70px;
+    top: 45px;
     border-radius: 20px;
     border: none;
     box-shadow: 28px 28px 50px 0 rgba(13, 39, 80, 0.25), -23px -23px 45px 0 #DEDADA;
@@ -257,19 +248,19 @@ position: absolute;
 height: 23.756px;
 transform: rotate(90deg);
 flex-shrink: 0;
-left: 150px;
-top: 19px;
+left: 153px;
+top: 15px;
 position: absolute;
 
 }
 #fil-but4{
-    width: 195.752px;
-    height: 62.481px;
+    width: 190.752px;
+    height: 52.481px;
     flex-shrink: 0;
     background-color: #F6F6F680;
     position: absolute;
     left: 560px;
-    top: 70px;
+    top: 45px;
     border-radius: 20px;
     border: none;
     box-shadow: 28px 28px 50px 0 rgba(13, 39, 80, 0.25), -23px -23px 45px 0 #DEDADA;
@@ -288,51 +279,42 @@ position: absolute;
 height: 23.756px;
 transform: rotate(90deg);
 flex-shrink: 0;
-left: 150px;
-top: 19px;
+left: 140px;
+top: 15px;
 position: absolute;
 
 }
 #switch {
-    background-image: url('../assets/Change User.svg');
-    width: 44px;
-    height: 44px;
+    background-image: url('../assets/U.svg');
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
-    left: 25px;
+    left: 7px;
     position: absolute;
-    top:555px;
+    top:280px;
 
 }
 #setting {
-    background-image: url('../assets/Settings.svg');
-    width: 42px;
-    height: 42px;
+    background-image: url('../assets/set.svg');
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
-    left: 23px;
+    left: 7px;
     position: absolute;
-    top:480px;
+    top:385px;
 
 }
 #chat {
-    background-image: url('../assets/Chat.svg');
-    width: 42px;
-    height: 42px;
+    background-image: url('../assets/Csvg.svg');
+    width: 35px;
+    height: 30px;
     flex-shrink: 0;
-    left: 23px;
+    left: 2px;
     position: absolute;
-    top:390px;
+    top:227px;
 
 }
-#logo {
-    background-image: url('../assets/logo.svg');
-    width: 76px;
-    height: 79px;
-    flex-shrink: 0;
-    left: 8px;
-    position: absolute;
-    top:28px;
 
-}
 
 body, html {
   margin: 0;
