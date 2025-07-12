@@ -153,8 +153,7 @@ USE_TZ = True
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://aurora-ivory-rho.vercel.app",
-    "https://aurora-vtm6.onrender.com",
+    "https://aurora-bw694zmdq-kash4511s-projects.vercel.app",  # <-- Deployed Vercel frontend
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -182,8 +181,7 @@ CORS_ALLOW_HEADERS = [
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    "https://aurora-ivory-rho.vercel.app",
-    "https://aurora-vtm6.onrender.com",
+    "https://aurora-bw694zmdq-kash4511s-projects.vercel.app",  # <-- Deployed Vercel frontend
     "http://localhost:5173",
 ]
 
