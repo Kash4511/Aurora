@@ -251,7 +251,7 @@ function Sell() {
 
   return (
     <motion.div className="background">
-      <TopBar />
+      <TopBar title="Sell Product" />
       <Navigation />
 
       {/* Sell Form */}

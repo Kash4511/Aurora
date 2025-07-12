@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Css/topbar.css';
 
-const TopBar = () => {
+const TopBar = ({ title = "Products" }) => {
   return (
     <div
       style={{
@@ -21,7 +21,7 @@ const TopBar = () => {
       }}
     >
       <div className="topbar-logo" />
-      <span className="topbar-title">Products</span>
+      <span className="topbar-title">{title}</span>
     </div>
   );
 };

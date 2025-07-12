@@ -94,7 +94,7 @@ function ProductDetail() {
 
   return (
     <div className="product-container">
-      <TopBar />
+      <TopBar title="Product Details" />
       <Navigation />
       <div className="product-content">
         <motion.div 

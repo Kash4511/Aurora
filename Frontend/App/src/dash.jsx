@@ -168,7 +168,7 @@ function Dash() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', background: '#F7F7F7', minHeight: '100vh' }}>
-            <TopBar />
+            <TopBar title="Marketplace" />
             <div style={{ display: 'flex', flex: 1 }}>
                 <div style={{ marginTop: '50px' }}>
                     <Navigation />

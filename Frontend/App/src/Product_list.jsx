@@ -47,7 +47,7 @@ function ProductList() {
 
   return (
     <div className="product-container">
-      <TopBar />
+      <TopBar title="My Products" />
       <Navigation />
       
       {/* Main Content */}
