@@ -9,6 +9,8 @@ import ProductDetail from './product';
 import ProtectedRoute from './ProtectedRoute'; 
 import ProductList from './Product_list'; 
 import LearnMore from './learnmore';
+import SearchUsers from './SearchUsers';
+import ChatPage from './ChatPage';
 
 const App = () => {
   return (
@@ -61,6 +63,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/search-users" element={<ProtectedRoute><SearchUsers /></ProtectedRoute>} />
+          <Route path="/chat/:id" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
         </Routes>
       </Router>
     </div>

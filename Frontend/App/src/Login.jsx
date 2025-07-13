@@ -68,6 +68,8 @@ function Login() {
        )}
        <motion.div>
        <motion.input id='username'
+               name='username'
+               autoComplete='username'
                initial={{ opacity: 0, y: 50 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8, ease: 'easeInOut' }}
@@ -95,6 +97,8 @@ function Login() {
 
        
        <motion.input id='password'
+               name='password'
+               autoComplete='current-password'
                initial={{ opacity: 0, y: 50 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8, ease: 'easeInOut' }}

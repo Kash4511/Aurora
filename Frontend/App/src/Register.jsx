@@ -37,6 +37,8 @@ function Register() {
       
       >Register</motion.h1>
              <motion.input id='reg-username'
+                     name='username'
+                     autoComplete='username'
                      initial={{ opacity: 0, y: 50 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ duration: 0.8, ease: 'easeInOut' }}
@@ -60,6 +62,8 @@ function Register() {
       
               </motion.h1>
                            <motion.input id='reg-password'
+                     name='password'
+                     autoComplete='new-password'
                      initial={{ opacity: 0, y: 50 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ duration: 0.8, ease: 'easeInOut' }}
@@ -84,6 +88,8 @@ function Register() {
       
               </motion.h1>
                            <motion.input id='reg-Email'
+                     name='email'
+                     autoComplete='email'
                      initial={{ opacity: 0, y: 50 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ duration: 0.8, ease: 'easeInOut' }}

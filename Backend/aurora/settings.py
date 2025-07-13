@@ -70,17 +70,42 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
     'selling',
     'cloudinary_storage',
     'cloudinary',
+    'channels',
     'dash',
     'Product_id',
     'Product_list',
+    'chat',
 ]
 
+DEBUG = True  # for development
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # or whatever your static dir is
+]
+# settings.py
+
+
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get("REDIS_URL")],
+            "ssl": True,
+        },
+    },
+}
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -111,6 +136,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'aurora.wsgi.application'
+ASGI_APPLICATION = 'aurora.asgi.application'
+
 
 # REST Framework configuration
 REST_FRAMEWORK = {
@@ -189,3 +216,4 @@ CSRF_TRUSTED_ORIGINS = [
 
 # Primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
