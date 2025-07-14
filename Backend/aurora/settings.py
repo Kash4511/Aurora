@@ -178,9 +178,8 @@ USE_TZ = True
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://aurora-bw694zmdq-kash4511s-projects.vercel.app",  # Vercel frontend 1
-    "https://aurora-ivory-rho.vercel.app",  # Vercel frontend 2
+    "https://aurora-6xr9ui1nb-kash4511s-projects.vercel.app",
+    "https://aurora-ivory-rho.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
