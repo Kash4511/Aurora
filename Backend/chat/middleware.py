@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from urllib.parse import parse_qs
+from asgiref.sync import sync_to_async
 
 User = get_user_model()
 
@@ -47,5 +48,3 @@ class JWTAuthMiddlewareInstance:
             return await sync_to_async(User.objects.get)(id=user_id)
         except User.DoesNotExist:
             return None
-
-from asgiref.sync import sync_to_async
