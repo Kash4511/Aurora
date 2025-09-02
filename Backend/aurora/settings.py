@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'selling',
     'cloudinary_storage',
-    'corsheaders',
     'cloudinary',
     'channels',
     'dash',
