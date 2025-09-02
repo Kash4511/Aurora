@@ -8,10 +8,10 @@ const navItems = [
   { id: 'buy', label: 'Marketplace', route: '/dash' },
   { id: 'sell', label: 'Sell Product', route: '/sell' },
   { id: 'List', label: 'My Products', route: '/product_list' },
-  { id: 'chat', label: 'Chatroom', route: '/chatroom' },
+  { id: 'setting', label: 'Settings', route: '/settings' },
   { id: 'switch', label: 'Change User', action: 'switch' },
   { id: 'log', label: 'Logout', action: 'logout' },
-  { id: 'setting', label: 'Settings', route: '/settings' },
+  
 ];
 
 function Navigation() {

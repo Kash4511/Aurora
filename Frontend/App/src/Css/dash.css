@@ -296,7 +296,7 @@ position: absolute;
 }
 #setting {
     background-image: url('../assets/set.svg');
-    width: 35px;
+    width: 30px;
     height: 30px;
     flex-shrink: 0;
     left: 2px;
