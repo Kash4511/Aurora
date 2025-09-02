@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.throttling import AnonRateThrottle
 from .serializers import UserSerializer, LoginSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -20,7 +23,12 @@ class LoginView(generics.GenericAPIView):
     throttle_classes = [AnonRateThrottle]
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        except Exception as exc:
+            logger.exception("Login error")
+            # If serializer raised a ValidationError, DRF already handled; generic Exception catches unexpected errors
+            return Response({"detail": "Login failed"}, status=status.HTTP_400_BAD_REQUEST)
 
