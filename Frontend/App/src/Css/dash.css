@@ -296,16 +296,6 @@ position: absolute;
 }
 #setting {
     background-image: url('../assets/set.svg');
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    left: 7px;
-    position: absolute;
-    top:385px;
-
-}
-#chat {
-    background-image: url('../assets/Csvg.svg');
     width: 35px;
     height: 30px;
     flex-shrink: 0;
@@ -314,6 +304,7 @@ position: absolute;
     top:227px;
 
 }
+
 
 
 body, html {
