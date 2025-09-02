@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'selling',
     'cloudinary_storage',
+    'corsheaders',
     'cloudinary',
     'channels',
     'dash',
@@ -180,6 +181,8 @@ USE_TZ = True
 CORS_ALLOWED_ORIGINS = [
     "https://aurora-6xr9ui1nb-kash4511s-projects.vercel.app",
     "https://aurora-ivory-rho.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -210,6 +213,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://aurora-bw694zmdq-kash4511s-projects.vercel.app",  # Vercel frontend 1
     "https://aurora-ivory-rho.vercel.app",  # Vercel frontend 2
     "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 # Primary key field type
