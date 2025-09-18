@@ -24,26 +24,9 @@ class LoginView(generics.GenericAPIView):
     throttle_classes = [AnonRateThrottle]
 
     def post(self, request, *args, **kwargs):
-        try:
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            user = serializer.validated_data["user"]  # serializer should return user instance
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-            # ✅ create tokens
-            refresh = RefreshToken.for_user(user)
+        # ✅ serializer.validated_data already has refresh + access
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-            return Response(
-                {
-                    "refresh": str(refresh),
-                    "access": str(refresh.access_token),
-                    "username": user.username,
-                    "id": user.id,
-                },
-                status=status.HTTP_200_OK,
-            )
-        except Exception as exc:
-            logger.exception("Login error")
-            return Response(
-                {"detail": "Login failed"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
