@@ -138,19 +138,7 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 ASGI_APPLICATION = 'aurora.asgi.application'
 
 
-# aurora/settings.py
 
-# ... keep everything else the same ...
-
-# REST Framework configuration
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-}
 
 # JWT configuration
 SIMPLE_JWT = {
@@ -158,15 +146,54 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
 
-# CORS + CSRF
+
+
+CORS_ALLOW_CREDENTIALS = True
+# add your backend render domain and any frontend domains you need
+
+# add backend origin to cors allowed origins (or use CORS_ALLOW_ALL_ORIGINS=True for testing)
 CORS_ALLOWED_ORIGINS = [
     "https://aurora-6xr9ui1nb-kash4511s-projects.vercel.app",
     "https://aurora-ivory-rho.vercel.app",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    # optionally add your backend origin if the frontend fetches from it directly
+    "https://aurora-vtm6.onrender.com",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+
+# REST framework: keep default permission IsAuthenticated for safety,
+# but we'll make login view AllowAny in views.py
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+}
+
+# Channel layer: use REDIS_URL if present, otherwise use in-memory layer (dev)
+REDIS_URL = os.getenv("REDIS_URL", None)
+
+if REDIS_URL:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [REDIS_URL],
+            },
+        },
+    }
+else:
+    # fallback for local/dev so Daphne/Channels won't crash when REDIS is not set
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",
+        },
+    }
+
+
 
 CSRF_TRUSTED_ORIGINS = [
     "https://aurora-vtm6.onrender.com",   # ✅ Add your backend Render domain

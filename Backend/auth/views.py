@@ -1,21 +1,22 @@
-
-# Create your views here.
 from rest_framework import generics, status
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.throttling import AnonRateThrottle
 from .serializers import UserSerializer, LoginSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 import logging
 
 logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
@@ -26,9 +27,23 @@ class LoginView(generics.GenericAPIView):
         try:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            user = serializer.validated_data["user"]  # serializer should return user instance
+
+            # ✅ create tokens
+            refresh = RefreshToken.for_user(user)
+
+            return Response(
+                {
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                    "username": user.username,
+                    "id": user.id,
+                },
+                status=status.HTTP_200_OK,
+            )
         except Exception as exc:
             logger.exception("Login error")
-            # If serializer raised a ValidationError, DRF already handled; generic Exception catches unexpected errors
-            return Response({"detail": "Login failed"}, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response(
+                {"detail": "Login failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
