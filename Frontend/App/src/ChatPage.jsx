@@ -11,8 +11,12 @@ const ChatPage = () => {
     const token = localStorage.getItem("access_token");
     if (!token) return;
 
-    // Use wss:// for production
-    const wsUrl = `wss://aurora-vtm6.onrender.com/ws/chat/${id}/?token=${token}`;
+    // Choose correct WebSocket URL based on environment
+    const wsUrl =
+      window.location.hostname === "localhost"
+        ? `ws://localhost:8000/ws/chat/${id}/?token=${token}`
+        : `wss://aurora-vtm6.onrender.com/ws/chat/${id}/?token=${token}`;
+
     socketRef.current = new WebSocket(wsUrl);
 
     socketRef.current.onopen = () => {
@@ -56,14 +60,16 @@ const ChatPage = () => {
       </div>
       <input
         value={input}
-        onChange={e => setInput(e.target.value)}
-        onKeyDown={e => e.key === "Enter" && sendMessage()}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         placeholder="Type a message..."
         style={{ marginTop: 10, width: 300, padding: 8 }}
       />
-      <button onClick={sendMessage} style={{ marginLeft: 10 }}>Send</button>
+      <button onClick={sendMessage} style={{ marginLeft: 10 }}>
+        Send
+      </button>
     </div>
   );
 };
 
-export default ChatPage; 
+export default ChatPage;

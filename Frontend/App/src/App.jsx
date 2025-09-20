@@ -11,6 +11,7 @@ import ProductList from './Product_list';
 import LearnMore from './learnmore';
 import SearchUsers from './SearchUsers';
 import ChatPage from './ChatPage';
+import Chat from './chat';
 
 const App = () => {
   return (
@@ -28,6 +29,25 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Dash />
+              </ProtectedRoute>
+            }
+
+          />
+                    <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            }
+
+          />
+
+                    <Route
+            path="/ChatPage"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
               </ProtectedRoute>
             }
           />

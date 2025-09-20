@@ -97,14 +97,10 @@ STATICFILES_DIRS = [
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get("REDIS_URL")],
-        },
-    },
-}
+
+
+
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -176,20 +172,24 @@ REST_FRAMEWORK = {
 # Channel layer: use REDIS_URL if present, otherwise use in-memory layer (dev)
 REDIS_URL = os.getenv("REDIS_URL", None)
 
-if REDIS_URL:
+import os
+
+if os.environ.get("DJANGO_ENV") == "production":
     CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels_redis.core.RedisChannelLayer",
             "CONFIG": {
-                "hosts": [REDIS_URL],
+                "hosts": [os.environ.get("REDIS_URL")],  # Upstash on Render
             },
         },
     }
 else:
-    # fallback for local/dev so Daphne/Channels won't crash when REDIS is not set
     CHANNEL_LAYERS = {
         "default": {
-            "BACKEND": "channels.layers.InMemoryChannelLayer",
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("127.0.0.1", 6379)],  # Local Redis in Docker
+            },
         },
     }
 
