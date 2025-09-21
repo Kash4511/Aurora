@@ -1,49 +1,59 @@
-from channels.generic.websocket import AsyncWebsocketConsumer
-from channels.db import database_sync_to_async
 import json
-import traceback
+from channels.generic.websocket import AsyncWebsocketConsumer
+from asgiref.sync import sync_to_async
+from .models import Chat
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         try:
-            self.user = self.scope["user"]
+            # Get other user id from URL
             other_user_id = int(self.scope["url_route"]["kwargs"]["user_id"])
-            
-            # Store other user's ID for later use
-            self.other_user_id = other_user_id
+            self.user = self.scope["user"]
 
-            # ✅ Deterministic room name: min_id_max_id
-            room_id = f"{min(self.user.id, other_user_id)}_{max(self.user.id, other_user_id)}"
-            self.room_group_name = f"chat_{room_id}"
+            # Create a consistent room name (sorted by user ids)
+            self.room_group_name = f"chat_{min(self.user.id, other_user_id)}_{max(self.user.id, other_user_id)}"
 
-            print(f"🔌 [CONNECT] user={self.user.username} room={self.room_group_name} channel={self.channel_name}")
+            # Join group
+            await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+            await self.accept()
 
-            # Add channel to the group
-            await self.channel_layer.group_add(
-                self.room_group_name,
-                self.channel_name
+            # Fetch previous chat messages
+            messages = await sync_to_async(list)(
+                Chat.objects.filter(
+                    sender_id__in=[self.user.id, other_user_id],
+                    receiver_id__in=[self.user.id, other_user_id]
+                ).order_by("date").values("id", "sender__username", "message", "date")
             )
 
-            await self.accept()
- 
-            await self.send_chat_history(self.user.id, other_user_id)
+            history = [
+                {
+                    "id": m["id"],
+                    "sender": m["sender__username"],
+                    "message": m["message"],
+                    "date": m["date"].isoformat()
+                }
+                for m in messages
+            ]
+
+            # Send chat history to the user
+            await self.send(text_data=json.dumps({"type": "history", "messages": history}))
+
+            print(f"🔌 [CONNECT] user={self.user.username} room={self.room_group_name}")
 
         except Exception as e:
-            print("❌ [ERROR in connect]:", str(e))
+            print("❌ [ERROR in connect]:", e)
+            import traceback
             traceback.print_exc()
             await self.close()
 
     async def disconnect(self, close_code):
-        try:
-            print(f"🔌 [DISCONNECT] room={getattr(self, 'room_group_name', '?')} code={close_code}")
-            if hasattr(self, 'room_group_name') and self.room_group_name:
-                await self.channel_layer.group_discard(
-                    self.room_group_name,
-                    self.channel_name
-                )
-        except Exception as e:
-            print("❌ [ERROR in disconnect]:", str(e))
-            traceback.print_exc()
+        # Leave group
+        if hasattr(self, "room_group_name"):
+            await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+        print(f"🔌 [DISCONNECT] room={getattr(self, 'room_group_name', 'unknown')} code={close_code}")
 
     async def receive(self, text_data):
         try:
@@ -52,74 +62,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if not message:
                 return
 
-            from django.contrib.auth.models import User
-            from .models import Chat
-
-            # Parse other user from URL
-            other_user_id = int(self.scope["url_route"]["kwargs"]["user_id"])
-            receiver = await database_sync_to_async(User.objects.get)(id=other_user_id)
-
-            # Save chat message
-            await database_sync_to_async(Chat.objects.create)(
+            # Save message to DB
+            receiver_id = int(self.scope["url_route"]["kwargs"]["user_id"])
+            chat_instance = await sync_to_async(Chat.objects.create)(
                 sender=self.user,
-                receiver=receiver,
+                receiver_id=receiver_id,
                 message=message
             )
 
-            # Broadcast message to the group
+            # Broadcast message to group
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
                     "type": "chat_message",
-                    "message": message,
+                    "id": chat_instance.id,
                     "sender": self.user.username,
-                    "receiver": receiver.username,
+                    "message": message,
+                    "date": chat_instance.date.isoformat(),
                 }
             )
-
         except Exception as e:
-            print("❌ [ERROR in receive]:", str(e))
+            print("❌ [ERROR in receive]:", e)
+            import traceback
             traceback.print_exc()
-            await self.send(text_data=json.dumps({"error": str(e)}))
 
     async def chat_message(self, event):
-        try:
-            await self.send(text_data=json.dumps({
-                "message": event["message"],
-                "sender": event["sender"],
-                "receiver": event["receiver"],
-            }))
-        except Exception as e:
-            print("❌ [ERROR in chat_message]:", str(e))
-            traceback.print_exc()
-
-    async def send_chat_history(self, user_id, other_user_id, limit=50):
-        from .models import Chat
-        from django.contrib.auth.models import User
-
-        try:
-            history = await database_sync_to_async(list)(
-                Chat.objects.filter(
-                    sender_id__in=[user_id, other_user_id],
-                    receiver_id__in=[user_id, other_user_id]
-                )
-                .order_by("date")[:limit]
-                .values("id", "sender__username", "receiver__username", "message", "date")
-            )
-
-            # Send history to the connecting user only if there are messages
-            if history:
-                await self.send(text_data=json.dumps({
-                    "type": "history",
-                    "messages": history
-                }))
-            else:
-                # Send empty history to avoid client confusion
-                await self.send(text_data=json.dumps({
-                    "type": "history",
-                    "messages": []
-                }))
-
-        except Exception as e:
-            print("❌ [ERROR in send_chat_history]:", str(e))
-            traceback.print_exc()
+        # Send message to WebSocket
+        await self.send(text_data=json.dumps(event))

@@ -34,9 +34,16 @@ class ChatListAPIView(generics.ListCreateAPIView):
         receiver_id = self.kwargs['user_id']
         serializer.save(sender=sender, receiver_id=receiver_id)
 
-class UserSearchView(ListAPIView):
+from rest_framework import generics, filters
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
+from .serializers import UserSerializer
+
+User = get_user_model()
+
+class UserSearchView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
-    filter_backends = [SearchFilter]
-    search_fields = ['username', 'email']
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["username", "email"]

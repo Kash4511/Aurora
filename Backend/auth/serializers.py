@@ -1,39 +1,54 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password')  # Added phone_number
+        fields = ("id", "username", "email", "password")
         extra_kwargs = {
-            'password': {'write_only': True},
-            'email': {'required': True},
-           
+            "password": {"write_only": True},
+            "email": {"required": True},
         }
 
-    def create(self, validated_data):  
+    def create(self, validated_data):
         user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-            email=validated_data.get('email'),
-            
+            username=validated_data["username"],
+            password=validated_data["password"],
+            email=validated_data.get("email"),
         )
         return user
+
+
+from rest_framework import serializers
+from django.contrib.auth import get_user_model, authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+User = get_user_model()
+
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True, write_only=True)
 
     def validate(self, data):
-        user = User.objects.filter(username=data['username']).first()
-        if not user or not user.check_password(data['password']):
-            raise serializers.ValidationError("Invalid credentials")
-        
+        username = data.get("username")
+        password = data.get("password")
+
+        user = authenticate(username=username, password=password)
+        if not user:
+            raise serializers.ValidationError("Invalid username or password")
+
         refresh = RefreshToken.for_user(user)
+
         return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token)
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+            },
         }
-    

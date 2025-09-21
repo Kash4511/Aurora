@@ -13,23 +13,31 @@ function Login() {
   const post = async () => {
     setError('');
     const data = { username, password };
+  
     try {
-      const response = await axios.post(API_ENDPOINTS.LOGIN, data)
-      
-      if (response.data.access) {
+      const response = await axios.post(API_ENDPOINTS.LOGIN, data, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+  
+      if (response.data.access && response.data.refresh) {
+        // Save tokens
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+  
+        // Set default Authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-        navigator('/dash');
+  
+        navigator('/dash'); // redirect
       } else {
         setError('Invalid response from server');
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error('Error logging in:', error.response?.data || error.message);
       setError(error.response?.data?.detail || 'Login failed. Please try again.');
     }
   };
-
+  
   return (
     <>
     <motion.div className='login-box'>
