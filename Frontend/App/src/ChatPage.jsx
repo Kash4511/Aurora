@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
+const MAX_RECONNECT_ATTEMPTS = 5;
+const RECONNECT_INTERVAL = 3000; // 3 seconds
+
 const ChatPage = () => {
   const { id } = useParams(); // other user's id
   const [messages, setMessages] = useState([]);
@@ -14,7 +17,7 @@ const ChatPage = () => {
   const alertTimeoutRef = useRef(null);
   const localStorageKey = `chat_messages_${id}`;
 
-  // Auto-scroll
+  // Auto-scroll to bottom
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -23,7 +26,7 @@ const ChatPage = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Load from localStorage first
+  // Load messages from localStorage
   useEffect(() => {
     const savedMessages = localStorage.getItem(localStorageKey);
     if (savedMessages) {
@@ -42,7 +45,7 @@ const ChatPage = () => {
     }
   }, [messages, localStorageKey]);
 
-  // Fetch chat history via REST
+  // Fetch chat history from REST API
   const fetchChatHistory = useCallback(async () => {
     try {
       const token = localStorage.getItem("access_token");
@@ -56,88 +59,100 @@ const ChatPage = () => {
       );
       if (!res.ok) throw new Error("Failed to fetch chat history");
       const data = await res.json();
+
       setMessages((prev) => {
         const merged = [...prev, ...data];
-        const unique = Array.from(
-          new Map(merged.map((m) => [m.id, m])).values()
-        );
+        const unique = Array.from(new Map(merged.map((m) => [m.id, m])).values());
         return unique.sort((a, b) => new Date(a.date) - new Date(b.date));
       });
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching chat history:", err);
     }
   }, [id]);
 
-  // WebSocket setup
+  // WebSocket setup with reconnect logic
   const setupWebSocket = useCallback(() => {
-    const token = localStorage.getItem("access_token");
-    if (!token) return;
+    let reconnectAttempts = 0;
+    let socket;
 
-    if (socketRef.current && socketRef.current.readyState !== WebSocket.CLOSED) {
-      socketRef.current.close();
-    }
+    const connect = () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
 
-    // Show connecting alert
-    setShowConnectionAlert(true);
-    if (alertTimeoutRef.current) clearTimeout(alertTimeoutRef.current);
-    alertTimeoutRef.current = setTimeout(() => setShowConnectionAlert(false), 3000);
-
-    const wsUrl =
-      window.location.hostname === "localhost"
-        ? `ws://localhost:8000/ws/chat/${id}/?token=${token}`
-        : `wss://aurora-vtm6.onrender.com/ws/chat/${id}/?token=${token}`;
-
-    const socket = new WebSocket(wsUrl);
-    socketRef.current = socket;
-
-    socket.onopen = () => {
-      console.log("WebSocket Connected");
-      setIsConnected(true);
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-        reconnectTimeoutRef.current = null;
+      // Close previous socket if any
+      if (socketRef.current && socketRef.current.readyState !== WebSocket.CLOSED) {
+        socketRef.current.close();
       }
-    };
 
-    socket.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
+      // Show temporary connecting alert
+      setShowConnectionAlert(true);
+      if (alertTimeoutRef.current) clearTimeout(alertTimeoutRef.current);
+      alertTimeoutRef.current = setTimeout(() => setShowConnectionAlert(false), 3000);
 
-        if (data.type === "history" && Array.isArray(data.messages)) {
-          if (data.messages.length > 0) {
+      const wsUrl =
+        window.location.hostname === "localhost"
+          ? `ws://localhost:8000/ws/chat/${id}/?token=${token}`
+          : `wss://aurora-vtm6.onrender.com/ws/chat/${id}/?token=${token}`;
+
+      socket = new WebSocket(wsUrl);
+      socketRef.current = socket;
+
+      socket.onopen = () => {
+        console.log("✅ WebSocket Connected");
+        setIsConnected(true);
+        reconnectAttempts = 0; // reset reconnect attempts
+
+        if (reconnectTimeoutRef.current) {
+          clearTimeout(reconnectTimeoutRef.current);
+          reconnectTimeoutRef.current = null;
+        }
+      };
+
+      socket.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+
+          if (data.type === "history" && Array.isArray(data.messages)) {
+            if (data.messages.length > 0) {
+              setMessages((prev) => {
+                const merged = [...prev, ...data.messages];
+                const unique = Array.from(new Map(merged.map((m) => [m.id, m])).values());
+                return unique.sort((a, b) => new Date(a.date) - new Date(b.date));
+              });
+            }
+          } else if (data.message && data.sender) {
             setMessages((prev) => {
-              const merged = [...prev, ...data.messages];
-              const unique = Array.from(
-                new Map(merged.map((m) => [m.id, m])).values()
-              );
-              return unique.sort((a, b) => new Date(a.date) - new Date(b.date));
+              const exists = prev.some((m) => m.id === data.id);
+              return exists ? prev : [...prev, data];
             });
           }
-        } else if (data.message && data.sender) {
-          setMessages((prev) => {
-            const exists = prev.some((m) => m.id === data.id);
-            return exists ? prev : [...prev, data];
-          });
+        } catch (err) {
+          console.error("Failed to parse message:", err);
         }
-      } catch (err) {
-        console.error("Failed to parse message:", err);
-      }
+      };
+
+      socket.onerror = (error) => {
+        console.error("WebSocket Error", error);
+        setIsConnected(false);
+      };
+
+      socket.onclose = (event) => {
+        console.warn("WebSocket Disconnected", event.code, event.reason);
+        setIsConnected(false);
+
+        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          reconnectAttempts += 1;
+          reconnectTimeoutRef.current = setTimeout(() => {
+            console.log(`🔁 Reconnecting attempt ${reconnectAttempts}...`);
+            connect();
+          }, RECONNECT_INTERVAL);
+        } else {
+          console.error("Max reconnect attempts reached. WebSocket closed.");
+        }
+      };
     };
 
-    socket.onerror = (error) => {
-      console.error("WebSocket Error", error);
-      setIsConnected(false);
-    };
-
-    socket.onclose = (event) => {
-      console.warn("WebSocket Disconnected", event.code, event.reason);
-      setIsConnected(false);
-
-      reconnectTimeoutRef.current = setTimeout(() => {
-        console.log("Reconnecting...");
-        setupWebSocket();
-      }, 3000);
-    };
+    connect();
   }, [id]);
 
   // Initialize

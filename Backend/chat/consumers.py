@@ -8,19 +8,18 @@ User = get_user_model()
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        try:
-            # Get other user id from URL
-            other_user_id = int(self.scope["url_route"]["kwargs"]["user_id"])
-            self.user = self.scope["user"]
+        self.user = self.scope["user"]
+        if not self.user.is_authenticated:
+            await self.close(code=4001)  # Close for unauthenticated
+            return
 
-            # Create a consistent room name (sorted by user ids)
+        try:
+            other_user_id = int(self.scope["url_route"]["kwargs"]["user_id"])
             self.room_group_name = f"chat_{min(self.user.id, other_user_id)}_{max(self.user.id, other_user_id)}"
 
-            # Join group
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
             await self.accept()
 
-            # Fetch previous chat messages
             messages = await sync_to_async(list)(
                 Chat.objects.filter(
                     sender_id__in=[self.user.id, other_user_id],
@@ -38,9 +37,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 for m in messages
             ]
 
-            # Send chat history to the user
             await self.send(text_data=json.dumps({"type": "history", "messages": history}))
-
             print(f"🔌 [CONNECT] user={self.user.username} room={self.room_group_name}")
 
         except Exception as e:
@@ -50,7 +47,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.close()
 
     async def disconnect(self, close_code):
-        # Leave group
         if hasattr(self, "room_group_name"):
             await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         print(f"🔌 [DISCONNECT] room={getattr(self, 'room_group_name', 'unknown')} code={close_code}")
@@ -62,7 +58,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if not message:
                 return
 
-            # Save message to DB
             receiver_id = int(self.scope["url_route"]["kwargs"]["user_id"])
             chat_instance = await sync_to_async(Chat.objects.create)(
                 sender=self.user,
@@ -70,7 +65,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 message=message
             )
 
-            # Broadcast message to group
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
@@ -87,5 +81,4 @@ class ChatConsumer(AsyncWebsocketConsumer):
             traceback.print_exc()
 
     async def chat_message(self, event):
-        # Send message to WebSocket
         await self.send(text_data=json.dumps(event))

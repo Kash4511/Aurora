@@ -4,11 +4,8 @@ import traceback
 from channels.routing import ProtocolTypeRouter, URLRouter
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aurora.settings")
-
-# ✅ Setup Django first
 django.setup()
 
-# ✅ Now import anything that touches models/apps
 try:
     from django.core.asgi import get_asgi_application
     from chat.middleware import JWTAuthMiddleware
@@ -21,7 +18,6 @@ except Exception as e:
     traceback.print_exc()
     raise
 
-# ProtocolTypeRouter
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
     "websocket": JWTAuthMiddleware(
