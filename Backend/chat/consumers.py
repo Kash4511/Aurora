@@ -35,10 +35,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         try:
             print(f"🔌 [DISCONNECT] room={getattr(self, 'room_group_name', '?')} code={close_code}")
-            await self.channel_layer.group_discard(
-                getattr(self, "room_group_name", ""),
-                self.channel_name
-            )
+            if hasattr(self, 'room_group_name') and self.room_group_name:
+                await self.channel_layer.group_discard(
+                    self.room_group_name,
+                    self.channel_name
+                )
         except Exception as e:
             print("❌ [ERROR in disconnect]:", str(e))
             traceback.print_exc()

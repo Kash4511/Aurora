@@ -11,7 +11,7 @@ import ProductList from './Product_list';
 import LearnMore from './learnmore';
 import SearchUsers from './SearchUsers';
 import ChatPage from './ChatPage';
-import Chat from './chat';
+
 
 const App = () => {
   return (
@@ -33,18 +33,10 @@ const App = () => {
             }
 
           />
-                    <Route
-            path="/chat"
-            element={
-              <ProtectedRoute>
-                <ChatPage />
-              </ProtectedRoute>
-            }
 
-          />
 
                     <Route
-            path="/ChatPage"
+            path="/ChatPage/:id"
             element={
               <ProtectedRoute>
                 <ChatPage />
@@ -84,7 +76,7 @@ const App = () => {
             }
           />
           <Route path="/search-users" element={<ProtectedRoute><SearchUsers /></ProtectedRoute>} />
-          <Route path="/chat/:id" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+          
         </Routes>
       </Router>
     </div>
