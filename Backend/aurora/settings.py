@@ -92,6 +92,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',  # or whatever your static dir is
 ]
 # settings.py
+ALLOWED_HOSTS = ['aurora-vtm6.onrender.com']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
