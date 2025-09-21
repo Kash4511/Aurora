@@ -8,6 +8,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             self.user = self.scope["user"]
             other_user_id = int(self.scope["url_route"]["kwargs"]["user_id"])
+            
+            # Store other user's ID for later use
+            self.other_user_id = other_user_id
 
             # ✅ Deterministic room name: min_id_max_id
             room_id = f"{min(self.user.id, other_user_id)}_{max(self.user.id, other_user_id)}"
@@ -22,9 +25,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
             await self.accept()
-            await self.send(text_data=json.dumps({"message": "✅ Connected!"}))
-
-            # Optional: send chat history
+ 
             await self.send_chat_history(self.user.id, other_user_id)
 
         except Exception as e:
@@ -92,7 +93,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             print("❌ [ERROR in chat_message]:", str(e))
             traceback.print_exc()
 
-    # Optional: send previous chat history
     async def send_chat_history(self, user_id, other_user_id, limit=50):
         from .models import Chat
         from django.contrib.auth.models import User
@@ -103,13 +103,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     sender_id__in=[user_id, other_user_id],
                     receiver_id__in=[user_id, other_user_id]
                 )
-                .order_by("-date")[:limit]
+                .order_by("date")[:limit]
                 .values("id", "sender__username", "receiver__username", "message", "date")
             )
 
-            # Send history to the connecting user
-            for msg in reversed(history):
-                await self.send(text_data=json.dumps(msg))
+            # Send history to the connecting user only if there are messages
+            if history:
+                await self.send(text_data=json.dumps({
+                    "type": "history",
+                    "messages": history
+                }))
+            else:
+                # Send empty history to avoid client confusion
+                await self.send(text_data=json.dumps({
+                    "type": "history",
+                    "messages": []
+                }))
 
         except Exception as e:
             print("❌ [ERROR in send_chat_history]:", str(e))
