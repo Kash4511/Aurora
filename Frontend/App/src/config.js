@@ -14,7 +14,14 @@ export const API_ENDPOINTS = {
     
     // Dashboard endpoints
     DASHBOARD: 'https://aurora-vtm6.onrender.com/dash/',
-    HOME: 'https://aurora-vtm6.onrender.com'
+    HOME: 'https://aurora-vtm6.onrender.com',
+    
+    // Chat endpoints
+    CHAT_HISTORY: (userId) => `https://aurora-vtm6.onrender.com/chat/users/${userId}/`,
+    
+    // WebSocket endpoints
+    WS_CHAT: (userId, token) => `wss://aurora-vtm6.onrender.com/ws/chat/${userId}/?token=${encodeURIComponent(token)}`,
+    WS_CHAT_LOCAL: (userId, token) => `ws://localhost:8000/ws/chat/${userId}/?token=${encodeURIComponent(token)}`
 };
 
 // Route paths for navigation
@@ -32,4 +39,4 @@ export const axiosConfig = {
     headers: {
         'Content-Type': 'application/json',
     }
-}; 
+};
