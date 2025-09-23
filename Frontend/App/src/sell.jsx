@@ -7,7 +7,7 @@ import 'react-phone-number-input/style.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS } from './config';
-import TopBar from './components/topbar';
+import TopBar from './components/TopBar';
 
 async function refreshAccessToken() {
   try {

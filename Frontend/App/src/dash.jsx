@@ -5,7 +5,7 @@ import './Css/dash.css';
 import { useNavigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS } from './config';
-import TopBar from './components/topbar';
+import TopBar from './components/TopBar';
 
 function Dash() {
     const navigator = useNavigate();

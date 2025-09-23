@@ -301,10 +301,19 @@ position: absolute;
     flex-shrink: 0;
     left: 7px;
     position: absolute;
-    top:227px;
+    top:385px;
 
 }
-
+#chat
+{
+        background-image: url('../assets/Csvg.svg');
+    width: 35px;
+    height: 30px;
+    flex-shrink: 0;
+    left: 2px;
+    position: absolute;
+    top:227px;
+}
 
 
 body, html {

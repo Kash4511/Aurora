@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
+#search {
+    position: relative; /* Ensure it aligns within its parent container */
+    margin: 0 auto; /* Center horizontally */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Adjust width as needed */
+    max-width: 600px; /* Optional: Limit the maximum width */
+    padding: 10px;
+    /* Add some padding for spacing */
+    background-color: black !important; /* Force the background color to black */
+    border-radius: 10px; /* Optional: Add rounded corners */
+}

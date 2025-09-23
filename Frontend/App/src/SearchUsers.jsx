@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navigation from './components/Navigation';
+import TopBar from './components/TopBar';
+import { motion } from "framer-motion";
 
 const SearchUsers = () => {
   const [query, setQuery] = useState("");
@@ -9,7 +12,6 @@ const SearchUsers = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Get token from localStorage
   const getToken = () => localStorage.getItem("access_token") || null;
 
   const searchUsers = async () => {
@@ -34,7 +36,6 @@ const SearchUsers = () => {
           },
         }
       );
-
       setResults(response.data);
     } catch (err) {
       console.error("Error searching users:", err.response?.data || err.message);
@@ -44,8 +45,8 @@ const SearchUsers = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") searchUsers();
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
   };
 
   const navigateToChat = (userId) => {
@@ -53,30 +54,64 @@ const SearchUsers = () => {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h2>Search Users</h2>
-      <div>
+    <motion.div style={{ padding: 40 }}>
+      <TopBar title="Search Users" />
+      <Navigation />
+      <motion.div
+        id="search"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        style={{
+          display: "flex",
+          backgroundColor: "black",
+          borderRadius: "15px",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "50px auto", // Center horizontally
+          width: "100%",
+          maxWidth: "1200px", // Optional: Limit the maximum width
+          padding: "10px",
+          marginBottom:"50px",
+           // Add some padding for spacing
+        }}
+      >
         <input
           type="text"
-          placeholder="Enter username..."
+          placeholder="Search users..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={handleKeyPress}
-          style={{ padding: 8, fontSize: 16, width: 300 }}
+          onChange={handleSearch}
+          style={{
+            flex: 1,
+            background: "transparent",
+            border: "none",
+            color: "white",
+            fontSize: "16px",
+            outline: "none",
+            padding: "5px 10px",
+          }}
         />
         <button
           onClick={searchUsers}
-          style={{ marginLeft: 10, padding: "8px 16px" }}
+          style={{
+            marginLeft: "10px",
+            padding: "8px 16px",
+            backgroundColor: "#86B66F",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
           disabled={loading}
         >
           {loading ? "Searching..." : "Search"}
         </button>
-      </div>
+      </motion.div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {results.length > 0 && (
-        <ul style={{ marginTop: 20 }}>
+        <ul style={{ marginTop: 20 , marginLeft: 150}}>
           {results.map((user) => (
             <li key={user.id} style={{ marginBottom: 10 }}>
               {user.username} ({user.email})
@@ -92,9 +127,9 @@ const SearchUsers = () => {
       )}
 
       {!loading && results.length === 0 && query && !error && (
-        <p>No users found for "{query}"</p>
+        <p style={{marginTop:"40px", marginLeft:"130px"}}>No users found for "{query}"</p>
       )}
-    </div>
+    </motion.div>
   );
 };
 
