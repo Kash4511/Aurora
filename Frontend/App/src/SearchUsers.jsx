@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navigation from './components/Navigation';
 import { motion } from "framer-motion";
-import TopBar from "./components/TopBar.jsx";
+import TopBar from "./components/T"; // Fixed import path
 
 
 const SearchUsers = () => {
