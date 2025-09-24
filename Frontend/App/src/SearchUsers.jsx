@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navigation from './components/Navigation';
 import { motion } from "framer-motion";
-import TopBar from './components/TopBar';
+import TopBar from "./components/TopBar.jsx";
+
 
 const SearchUsers = () => {
   const [query, setQuery] = useState("");
