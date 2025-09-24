@@ -6,7 +6,8 @@ import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS, ROUTES } from './config';
-import TopBar from './components/TopBar';
+import TopBar from "./components/TopBar.jsx";
+
 
 function ProductList() {
   const navigate = useNavigate();
