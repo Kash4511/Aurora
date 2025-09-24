@@ -267,7 +267,7 @@ function Dash() {
                         onClick={() => setShowStateDropdown((prev) => !prev)}
                     >
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
-                            <span style={{}}>Location</
+                            <span style={{}}>Location</span>
                             <motion.div id='arrow1' style={{ marginLeft: '8px' }}></motion.div>
                         </div>
                         {/* Dropdown overlay */}
