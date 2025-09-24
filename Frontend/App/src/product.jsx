@@ -6,7 +6,7 @@ import './Css/dash.css';
 import './Css/product.css';
 import Navigation from './components/Navigation';
 import { API_ENDPOINTS } from './config';
-import { TopBar } from './components/TopBar';
+import TopBar from './components/TopBar'; // Fixed import statement
 
 function ProductDetail() {
   const { id } = useParams();
