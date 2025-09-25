@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { API_ENDPOINTS } from "./config";
-
-
+import "./Css/ChatPage.css";
 
 const MAX_RECONNECT_ATTEMPTS = 5;
 const RECONNECT_INTERVAL = 3000; // 3 seconds
 
 const ChatPage = () => {
   const { id } = useParams(); // other user's id
+  const location = useLocation(); // Access location state
+  const [chatUserName, setChatUserName] = useState("User"); // Default username
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -51,7 +52,7 @@ const ChatPage = () => {
   // Fetch chat history from REST API
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const fetchChatHistory = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -62,18 +63,15 @@ const ChatPage = () => {
         return;
       }
 
-      const res = await fetch(
-        API_ENDPOINTS.CHAT_HISTORY(id),
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      
+      const res = await fetch(API_ENDPOINTS.CHAT_HISTORY(id), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       if (!res.ok) {
         const errorText = await res.text().catch(() => "Unknown error");
         throw new Error(`Failed to fetch chat history: ${res.status} ${errorText}`);
       }
-      
+
       const data = await res.json();
 
       setMessages((prev) => {
@@ -92,7 +90,7 @@ const ChatPage = () => {
   // WebSocket setup with reconnect logic
   const [wsError, setWsError] = useState(null);
   const [reconnectCount, setReconnectCount] = useState(0);
-  
+
   const setupWebSocket = useCallback(() => {
     let reconnectAttempts = 0;
     let socket;
@@ -191,17 +189,69 @@ const ChatPage = () => {
     connect();
   }, [id]);
 
+  // Debugging to ensure component is rendering
+  useEffect(() => {
+    console.log("ChatPage component mounted.");
+  }, []);
+
+  // Log the ID retrieved from useParams
+  useEffect(() => {
+    console.log("Retrieved ID from useParams:", id);
+  }, [id]);
+
+  // Fetch username
+  const fetchUsername = useCallback(async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        console.error("Authentication required to fetch username.");
+        return;
+      }
+
+      console.log("Making API call to fetch username for ID:", id);
+      const res = await fetch(API_ENDPOINTS.USER_DETAILS(id), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to fetch username: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log("API response for username:", data);
+      setChatUserName(data.username || "User");
+    } catch (err) {
+      console.error("Error fetching username:", err);
+    }
+  }, [id]);
+
   // Initialize
   useEffect(() => {
     fetchChatHistory();
     setupWebSocket();
+    fetchUsername();
 
     return () => {
       if (socketRef.current) socketRef.current.close();
       if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current);
       if (alertTimeoutRef.current) clearTimeout(alertTimeoutRef.current);
     };
-  }, [id, setupWebSocket, fetchChatHistory]);
+  }, [id, setupWebSocket, fetchChatHistory, fetchUsername]);
+
+  // Debugging log for username fetch
+  useEffect(() => {
+    console.log("Fetching username for ID:", id);
+    fetchUsername().then(() => {
+      console.log("Fetched username:", chatUserName);
+    });
+  }, [id]);
+
+  // Ensure the username is displayed in the header
+  useEffect(() => {
+    if (!chatUserName || chatUserName === "User") {
+      setChatUserName(location.state?.username || "User");
+    }
+  }, [location.state, chatUserName]);
 
   // Send message
   const sendMessage = () => {
@@ -212,93 +262,48 @@ const ChatPage = () => {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h2>Chat with User {id}</h2>
-      {showConnectionAlert && (
-        <div style={{
-          padding: "10px",
-          backgroundColor: "#fff3cd",
-          color: "#856404",
-          borderRadius: "4px",
-          marginBottom: "15px",
-          transition: "opacity 0.5s ease-in-out"
-        }}>
-          Connecting...
-        </div>
-      )}
-      <div style={{
-        border: "1px solid #ccc",
-        padding: 20,
-        minHeight: 300,
-        maxHeight: 500,
-        overflowY: "auto"
-      }}>
-        {isLoading && <div style={{ textAlign: 'center', padding: '10px' }}>Loading messages...</div>}
-        
-        {fetchError && (
-          <div style={{ 
-            padding: '10px', 
-            backgroundColor: '#f8d7da', 
-            color: '#721c24', 
-            borderRadius: '4px', 
-            marginBottom: '10px' 
-          }}>
-            {fetchError}
-          </div>
-        )}
-        
-        {wsError && !isConnected && (
-          <div style={{ 
-            padding: '10px', 
-            backgroundColor: '#f8d7da', 
-            color: '#721c24', 
-            borderRadius: '4px', 
-            marginBottom: '10px' 
-          }}>
-            {wsError}
-            {reconnectCount > 0 && <div>Reconnection attempts: {reconnectCount}/{MAX_RECONNECT_ATTEMPTS}</div>}
-          </div>
-        )}
-        
-        {messages.length === 0 && !isLoading && !fetchError ? (
-           <div style={{ textAlign: 'center', color: '#6c757d' }}>No messages yet. Start a conversation!</div>
-         ) : (
-           messages.map((msg, idx) => (
-            msg.sender && msg.message ? (
-              <div key={idx} style={{ 
-                marginBottom: 10, 
-                textAlign: msg.sender === localStorage.getItem("username") ? "right" : "left"
-              }}>
-                <strong>{msg.sender}:</strong> {msg.message}
-              </div>
-            ) : null
-           ))
-         )}
+    <div className="chat-container">
+      {/* Header */}
+      <div className="chat-header">
+        <div className="chat-username">{chatUserName}</div>
+        <div className="chat-status">{isConnected ? "Online" : "Offline"}</div>
+      </div>
+
+      {/* Messages */}
+      <div className="chat-messages">
+        {messages.map((msg, idx) => {
+          const isSent = msg.sender === localStorage.getItem("username"); // ✅ your messages
+          return (
+            <div
+              key={idx}
+              className={`chat-bubble ${isSent ? "sent" : "received"}`}
+            >
+              <span className="chat-text">{msg.message}</span>
+              <span className="chat-time">
+                {msg.date
+                  ? new Date(msg.date).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  : ""}
+              </span>
+            </div>
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
-      <div style={{ marginTop: 15, display: "flex" }}>
+
+      {/* Input */}
+      <div className="chat-input">
         <input
+          type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          placeholder="Type a message..."
-          style={{ flexGrow: 1, padding: 10 }}
-          disabled={!isConnected}
+          placeholder={`Message ${chatUserName}...`}
         />
-        <button
-          onClick={sendMessage}
-          style={{
-            marginLeft: 10,
-            padding: "10px 20px",
-            backgroundColor: isConnected ? "#4CAF50" : "#cccccc",
-            color: "white",
-            border: "none",
-            borderRadius: 4,
-            cursor: isConnected ? "pointer" : "not-allowed"
-          }}
-          disabled={!isConnected}
-        >
-          Send
+        <button onClick={sendMessage} disabled={!isConnected}>
+          ➤
         </button>
       </div>
     </div>
@@ -306,3 +311,6 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
+/* ChatPage.css */
+
