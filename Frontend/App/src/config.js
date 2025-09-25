@@ -17,11 +17,14 @@ export const API_ENDPOINTS = {
     HOME: 'https://aurora-vtm6.onrender.com',
     
     // Chat endpoints
-    CHAT_HISTORY: (userId) => `https://aurora-vtm6.onrender.com/chat/users/${userId}/`,
-    
-    // WebSocket endpoints
-    WS_CHAT: (userId, token) => `wss://aurora-vtm6.onrender.com/ws/chat/${userId}/?token=${encodeURIComponent(token)}`,
-    WS_CHAT_LOCAL: (userId, token) => `ws://localhost:8000/ws/chat/${userId}/?token=${encodeURIComponent(token)}`
+  CHAT_HISTORY: (id) => `${BASE_URL}/chat/chat/${id}/`,
+
+  // ✅ WebSockets (local vs production)
+  WS_CHAT_LOCAL: (id, token) =>
+    `ws://localhost:8000/ws/chat/${id}/?token=${token}`,
+
+  WS_CHAT: (id, token) =>
+    `wss://aurora-vtm6.onrender.com/ws/chat/${id}/?token=${token}`,
 };
 
 // Route paths for navigation

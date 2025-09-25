@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import TopBar from "./components/T"; // Fixed import path
 
 
+
 const SearchUsers = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -54,84 +55,175 @@ const SearchUsers = () => {
     navigate(`/chat/${userId}`);
   };
 
-  return (
-    <motion.div style={{ padding: 40 }}>
-      <TopBar title="Search Users" />
-      <Navigation />
-      <motion.div
-        id="search"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+return (
+  <motion.div style={{ padding: 40 }}>
+    <TopBar title="Search Users" />
+    <Navigation />
+
+    {/* Search bar */}
+    <motion.div
+      id="search"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      style={{
+        display: "flex",
+        backgroundColor: "black",
+        borderRadius: "15px",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "50px auto",
+        width: "100%",
+        maxWidth: "1200px",
+        padding: "10px",
+        marginBottom: "50px",
+      }}
+    >
+      <input
+        type="text"
+        placeholder="Search users..."
+        value={query}
+        onChange={handleSearch}
         style={{
-          display: "flex",
-          backgroundColor: "black",
-          borderRadius: "15px",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "50px auto", // Center horizontally
-          width: "100%",
-          maxWidth: "1200px", // Optional: Limit the maximum width
-          padding: "10px",
-          marginBottom:"50px",
-           // Add some padding for spacing
+          flex: 1,
+          background: "transparent",
+          border: "none",
+          color: "white",
+          fontSize: "16px",
+          outline: "none",
+          padding: "5px 10px",
+        }}
+      />
+      <button
+        onClick={searchUsers}
+        style={{
+          marginLeft: "10px",
+          padding: "8px 16px",
+          backgroundColor: "#86B66F",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        disabled={loading}
+      >
+        {loading ? "Searching..." : "Search"}
+      </button>
+    </motion.div>
+
+    {error && <p style={{ color: "red" }}>{error}</p>}
+
+    {/* Results */}
+    {results.length > 0 && (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gap: "20px",
+          marginTop: "20px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "1200px",
         }}
       >
-        <input
-          type="text"
-          placeholder="Search users..."
-          value={query}
-          onChange={handleSearch}
-          style={{
-            flex: 1,
-            background: "transparent",
-            border: "none",
-            color: "white",
-            fontSize: "16px",
-            outline: "none",
-            padding: "5px 10px",
-          }}
-        />
-        <button
-          onClick={searchUsers}
-          style={{
-            marginLeft: "10px",
-            padding: "8px 16px",
-            backgroundColor: "#86B66F",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          disabled={loading}
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
-      </motion.div>
+        {results.map((user) => (
+          <motion.div
+            key={user.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              backgroundColor: "#222",
+              borderRadius: "12px",
+              padding: "15px",
+              display: "flex",
+              alignItems: "center",
+              color: "white",
+            }}
+          >
+            {/* Avatar */}
+            <div
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                backgroundColor: "#555",
+                backgroundImage: user.avatar
+                  ? `url(${user.avatar})`
+                  : "none",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginRight: "15px",
+              }}
+            >
+              {!user.avatar && (
+                <span
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                    fontSize: "18px",
+                  }}
+                >
+                  {user.username?.[0]?.toUpperCase() || "U"}
+                </span>
+              )}
+            </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+            {/* Info */}
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: 0 }}>{user.username}</h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "#ccc" }}>
+                {user.email}
+              </p>
+            </div>
 
-      {results.length > 0 && (
-        <ul style={{ marginTop: 20 , marginLeft: 150}}>
-          {results.map((user) => (
-            <li key={user.id} style={{ marginBottom: 10 }}>
-              {user.username} ({user.email})
+            {/* Status + Chat Button */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: user.is_online ? "lightgreen" : "gray",
+                  marginBottom: "8px",
+                }}
+              >
+                {user.is_online ? "Online" : "Offline"}
+              </span>
               <button
                 onClick={() => navigateToChat(user.id)}
-                style={{ marginLeft: 10 }}
+                style={{
+                  backgroundColor: "#86B66F",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                  color: "white",
+                  fontSize: "14px",
+                }}
               >
                 Chat
               </button>
-            </li>
-          ))}
-        </ul>
-      )}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    )}
 
-      {!loading && results.length === 0 && query && !error && (
-        <p style={{marginTop:"40px", marginLeft:"130px"}}>No users found for "{query}"</p>
-      )}
-    </motion.div>
-  );
+    {!loading && results.length === 0 && query.trim() && !error && (
+      <p style={{ marginTop: "40px", marginLeft: "130px" }}>
+        No users found for "{query}"
+      </p>
+    )}
+  </motion.div>
+);
 };
 
 export default SearchUsers;
