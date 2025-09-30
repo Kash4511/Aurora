@@ -261,23 +261,26 @@ const ChatPage = () => {
     }
   };
 
-  return (
-    <div className="chat-container">
-      {/* Header */}
-      <div className="chat-header">
-        <div className="chat-username">{chatUserName}</div>
-        <div className="chat-status">{isConnected ? "Online" : "Offline"}</div>
-      </div>
+return (
+  <div className="chat-container">
+    {/* Header */}
+    <div className="chat-header">
+      <div className="chat-username">{chatUserName}</div>
+      <div className="chat-status">{isConnected ? "Online" : "Offline"}</div>
+    </div>
 
-      {/* Messages */}
-      <div className="chat-messages">
-        {messages.map((msg, idx) => {
-          const isSent = msg.sender === localStorage.getItem("username"); // ✅ your messages
-          return (
-            <div
-              key={idx}
-              className={`chat-bubble ${isSent ? "sent" : "received"}`}
-            >
+    {/* Messages */}
+    <div className="chat-messages">
+      {messages.map((msg, idx) => {
+        const isSent = msg.sender === localStorage.getItem("username"); // ✅ your messages
+        return (
+          <div key={idx} className={`chat-bubble-wrapper ${isSent ? "sent" : "received"}`}>
+            {/* Username above the message */}
+            
+            <div className="chat-sender">{msg.sendername}</div>
+
+            {/* Message bubble */}
+            <div className={`chat-bubble ${isSent ? "sent" : "received"}`}>
               <span className="chat-text">{msg.message}</span>
               <span className="chat-time">
                 {msg.date
@@ -288,28 +291,28 @@ const ChatPage = () => {
                   : ""}
               </span>
             </div>
-          );
-        })}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Input */}
-      <div className="chat-input">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          placeholder={`Message ${chatUserName}...`}
-        />
-        <button onClick={sendMessage} disabled={!isConnected}>
-          ➤
-        </button>
-      </div>
+          </div>
+        );
+      })}
+      <div ref={messagesEndRef} />
     </div>
-  );
-};
 
+    {/* Input */}
+    <div className="chat-input">
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+        placeholder={`Message ${chatUserName}...`}
+      />
+      <button onClick={sendMessage} disabled={!isConnected}>
+        ➤
+      </button>
+    </div>
+  </div>
+);
+};
 export default ChatPage;
 
 /* ChatPage.css */

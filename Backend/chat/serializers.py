@@ -6,6 +6,8 @@ class ChatSerializer(serializers.ModelSerializer):
         model = Chat
         fields = '__all__'
         read_only_fields = ('sender', 'receiver')
+        senderName = serializers.CharField(source="sender.username", read_only=True)
+        receiverName = serializers.CharField(source="receiver.username", read_only=True)
 
 from django.contrib.auth import get_user_model
 
