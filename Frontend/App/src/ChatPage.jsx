@@ -277,7 +277,7 @@ return (
           <div key={idx} className={`chat-bubble-wrapper ${isSent ? "sent" : "received"}`}>
             {/* Username above the message */}
             
-            <div className="chat-sender">{msg.sendername}</div>
+            <div className="chat-sender">{msg.sender}</div>
 
             {/* Message bubble */}
             <div className={`chat-bubble ${isSent ? "sent" : "received"}`}>
